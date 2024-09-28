@@ -15,9 +15,14 @@ import Button from "../../../ui/elements/Button";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/src/assets/logo.jpg";
+import { useUser } from "@/src/context/user.provider";
+import NavbarUserDropdown from "./NavbarUserDropdown";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { user } = useUser();
+
+  console.log(user);
 
   return (
     <NextUINavbar
@@ -64,9 +69,13 @@ export default function Navbar() {
 
       <NavbarContent justify="end">
         <NavbarItem className="hidden md:flex">
-          <Link href={"/login"}>
-            <Button btnText="Login" width="100px" height="45px" />
-          </Link>
+          {user ? (
+            <NavbarUserDropdown user={user} />
+          ) : (
+            <Link href={"/login"}>
+              <Button btnText="Login" width="100px" height="45px" />
+            </Link>
+          )}
         </NavbarItem>
 
         <div className="md:hidden">
