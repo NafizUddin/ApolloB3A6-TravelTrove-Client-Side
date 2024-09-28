@@ -19,6 +19,21 @@ export const loginUser = async (userData: FieldValues) => {
   }
 };
 
+export const registerUser = async (userData: FieldValues) => {
+  try {
+    const response: any = await nexiosInstance.post("/auth/register", userData);
+
+    if (response.data.success) {
+      cookies().set("accessToken", response.data?.data?.accessToken);
+      cookies().set("refreshToken", response.data?.data?.refreshToken);
+    }
+
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
 export const logout = () => {
   cookies().delete("accessToken");
   cookies().delete("refreshToken");
