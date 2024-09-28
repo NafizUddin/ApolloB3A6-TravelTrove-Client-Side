@@ -1,5 +1,23 @@
+"use server";
+import nexiosInstance from "@/src/lib/NexiosInstance";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
+import { FieldValues } from "react-hook-form";
+
+export const loginUser = async (userData: FieldValues) => {
+  try {
+    const response: any = await nexiosInstance.post("/auth/login", userData);
+
+    if (response.data.success) {
+      cookies().set("accessToken", response.data?.data?.accessToken);
+      cookies().set("refreshToken", response.data?.data?.refreshToken);
+    }
+
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
 
 export const getCurrentUser = async () => {
   const accessToken = cookies().get("accessToken")?.value;

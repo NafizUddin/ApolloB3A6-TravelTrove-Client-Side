@@ -1,17 +1,20 @@
 "use client";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
-import { useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import TRForm from "@/src/components/form/TRForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import loginValidationSchema from "@/src/schemas/login.schema";
 import TRInput from "@/src/components/form/TRInput";
 import Image from "next/image";
 import logo from "@/src/assets/logo.jpg";
+import { useUser } from "@/src/context/user.provider";
+import { useUserLogin } from "@/src/hooks/auth.hook";
+import { ImSpinner6 } from "react-icons/im";
 
 export type TLogin = {
   email: string;
@@ -21,23 +24,24 @@ export type TLogin = {
 const LoginPage = () => {
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
+  const router = useRouter();
+  const { setIsLoading: userLoading } = useUser();
+  const { mutate: handleUserLogin, isLoading, isSuccess } = useUserLogin();
 
-  const onSubmit = async (data: TLogin) => {
-    console.log(data);
-
-    //  try {
-    //    const res = await loginUser(data);
-
-    //    if (res.accessToken) {
-    //      alert(res.message);
-    //      localStorage.setItem("accessToken", res.accessToken);
-    //      router.push("/login");
-    //    }
-    //  } catch (err: any) {
-    //    console.error(err.message);
-    //    throw new Error(err.message);
-    //  }
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    handleUserLogin(data);
+    userLoading(true);
   };
+
+  useEffect(() => {
+    if (!isLoading && isSuccess) {
+      if (redirect) {
+        router.push(redirect);
+      } else {
+        router.push("/");
+      }
+    }
+  }, [isLoading, isSuccess]);
 
   const handleGoogleLogin = async () => {
     try {
@@ -127,8 +131,8 @@ const LoginPage = () => {
 
               <TRForm
                 defaultValues={{
-                  email: "nafiz@gmail.com",
-                  password: "123456",
+                  email: "admin@gmail.com",
+                  password: "admin123",
                 }}
                 onSubmit={onSubmit}
                 resolver={zodResolver(loginValidationSchema)}
@@ -156,9 +160,17 @@ const LoginPage = () => {
                   <span className="absolute -inset-24 origin-left rotate-12 scale-x-0 transform bg-sky-700 transition-transform duration-500 group-hover:scale-x-100 group-hover:duration-700"></span>
                   <span className="absolute -inset-24 origin-left rotate-12 scale-x-0 transform bg-sky-900 transition-transform duration-300 group-hover:scale-x-50 group-hover:duration-500"></span>
                   <span className="absolute z-10 text-center text-white opacity-0 duration-100 ease-out group-hover:opacity-100 group-hover:duration-700">
-                    Login
+                    {isLoading ? (
+                      <ImSpinner6 className="animate-spin m-auto text-xl" />
+                    ) : (
+                      "LogIn"
+                    )}
                   </span>
-                  Login
+                  {isLoading ? (
+                    <ImSpinner6 className="animate-spin m-auto text-xl" />
+                  ) : (
+                    "LogIn"
+                  )}
                 </button>
               </TRForm>
               <div className="w-full rounded-lg mt-6 xl:p-0">
