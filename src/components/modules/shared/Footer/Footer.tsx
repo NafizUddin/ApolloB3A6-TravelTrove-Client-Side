@@ -117,7 +117,7 @@ const Footer = () => {
                 >
                   <path
                     d="M1.25 6L13.25 6M9.5 10.5L13.4697 6.53033C13.7197 6.28033 13.8447 6.15533 13.8447 6C13.8447 5.84467 13.7197 5.71967 13.4697 5.46967L9.5 1.5"
-                    stroke="#dc232e"
+                    stroke="#f5840c"
                     strokeWidth="1.8"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -130,7 +130,7 @@ const Footer = () => {
           <div className="py-7 border-t border-gray-200">
             <div className="flex items-center justify-center flex-col lg:justify-between lg:flex-row">
               <span className="text-sm text-gray-500 ">
-                ©<a href="https://pagedone.io/">TurboShine</a> 2024, All rights
+                ©<a href="https://pagedone.io/">TravelTrove</a> 2024, All rights
                 reserved.
               </span>
               <div className="flex mt-4 space-x-4 sm:justify-center lg:mt-0 ">
@@ -156,7 +156,7 @@ const Footer = () => {
                 </a>
                 <a
                   href=""
-                  className="relative w-8 h-8 rounded-full transition-all duration-500 flex justify-center items-center bg-[linear-gradient(45deg,#FEE411_6.9%,#FEDB16_10.98%,#FEC125_17.77%,#FE983D_26.42%,#FE5F5E_36.5%,#FE2181_46.24%,#9000DC_85.57%)]  hover:bg-gradient-to-b from-[#dc232e] to-[#dc232e]  
+                  className="relative w-8 h-8 rounded-full transition-all duration-500 flex justify-center items-center bg-[linear-gradient(45deg,#FEE411_6.9%,#FEDB16_10.98%,#FEC125_17.77%,#FE983D_26.42%,#FE5F5E_36.5%,#FE2181_46.24%,#9000DC_85.57%)]  hover:bg-gradient-to-b from-[#1773aa] to-[#1773aa]  
                         "
                 >
                   <svg
@@ -173,7 +173,7 @@ const Footer = () => {
                 </a>
                 <a
                   href=""
-                  className="relative w-8 h-8 rounded-full transition-all duration-500 flex justify-center items-center bg-[#337FFF]  hover:bg-primary"
+                  className="relative w-8 h-8 rounded-full transition-all duration-500 flex justify-center items-center bg-[#337FFF] hover:bg-primary"
                 >
                   <svg
                     className="w-[1rem] h-[1rem] text-white"

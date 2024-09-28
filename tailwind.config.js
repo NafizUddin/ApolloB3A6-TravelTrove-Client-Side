@@ -29,7 +29,6 @@ module.exports = {
             secondary: {
               DEFAULT: "#f5840c",
             },
-            // focus: "#BEF264",
           }, // light theme colors
         },
         dark: {

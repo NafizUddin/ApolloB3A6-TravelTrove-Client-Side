@@ -1,13 +1,17 @@
 "use client";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
+import TRForm from "@/src/components/form/TRForm";
+import { zodResolver } from "@hookform/resolvers/zod";
+import loginValidationSchema from "@/src/schemas/login.schema";
+import TRInput from "@/src/components/form/TRInput";
+import Image from "next/image";
+import logo from "@/src/assets/logo.jpg";
 
 export type TLogin = {
   email: string;
@@ -15,9 +19,6 @@ export type TLogin = {
 };
 
 const LoginPage = () => {
-  const { register, handleSubmit, reset, formState } = useForm<TLogin>();
-  const { errors } = formState;
-  const [showPassword, setShowPassword] = useState(false);
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
 
@@ -74,12 +75,20 @@ const LoginPage = () => {
     <div>
       <div className="m-auto xl:container px-12 sm:px-0 mx-auto">
         <div className="mx-auto h-full sm:w-max">
-          <div className="m-auto  py-12">
-            <div className="rounded-3xl border bg-gray-50 -mx-6 sm:-mx-10 p-8 sm:p-10">
+          <div className="m-auto py-8">
+            <div className="rounded-3xl border border-primary-400 bg-gray-50 -mx-6 sm:-mx-10 p-8 shadow-2xl">
               <div className="space-y-4 mb-6">
-                <Link href="/">
-                  <h1 className="text-4xl text-center">Logo</h1>
-                </Link>
+                <div className="flex justify-center items-center">
+                  <Link href="/">
+                    <Image
+                      src={logo}
+                      alt="logo"
+                      height={200}
+                      width={200}
+                      className=""
+                    />
+                  </Link>
+                </div>
               </div>
               <h3 className="text-2xl font-semibold text-gray-700 text-center">
                 Login to your account
@@ -116,63 +125,27 @@ const LoginPage = () => {
                 </button>
               </div>
 
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="mt-7 space-y-8"
+              <TRForm
+                defaultValues={{
+                  email: "nafiz@gmail.com",
+                  password: "123456",
+                }}
+                onSubmit={onSubmit}
+                resolver={zodResolver(loginValidationSchema)}
               >
-                <div>
-                  <div className="relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-700  focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
-                    <input
-                      type="email"
-                      {...register("email", {
-                        required: {
-                          value: true,
-                          message: "Email is required",
-                        },
-                        pattern: {
-                          value:
-                            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                          message: "Invalid Email Format",
-                        },
-                      })}
-                      className="w-full bg-transparent pb-3  border-b border-gray-300 outline-none invalid:border-red-400 transition text-gray-800"
-                      placeholder="Enter your email"
-                    />
-                  </div>
-                  <p className="mt-2 text-sm text-primary font-medium">
-                    {errors?.email?.message as ReactNode}
-                  </p>
+                <div className="py-3">
+                  <TRInput name="email" label="Email" type="email" />
+                </div>
+                <div className="py-3">
+                  <TRInput name="password" label="Password" type="password" />
                 </div>
 
-                <div className="flex flex-col items-end">
-                  <div className="w-full relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      {...register("password", {
-                        required: {
-                          value: true,
-                          message: "Password is required",
-                        },
-                      })}
-                      id=""
-                      className="w-full bg-transparent pb-3  border-b border-gray-300 outline-none transition text-gray-800"
-                      placeholder="Enter your password"
-                      required
-                    />
-                    <span
-                      className="absolute right-3 top-2 text-gray-800"
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      {showPassword ? (
-                        <FaEyeSlash></FaEyeSlash>
-                      ) : (
-                        <FaEye></FaEye>
-                      )}
+                <div className="flex items-center justify-end">
+                  <button type="reset" className="-mr-3 w-max p-3">
+                    <span className="text-sm tracking-wide text-primary-600 ">
+                      Forgot password ?
                     </span>
-                  </div>
-                  <p className="mt-2 text-sm text-primary font-medium">
-                    {errors?.password?.message as ReactNode}
-                  </p>
+                  </button>
                 </div>
 
                 <button
@@ -187,7 +160,7 @@ const LoginPage = () => {
                   </span>
                   Login
                 </button>
-              </form>
+              </TRForm>
               <div className="w-full rounded-lg mt-6 xl:p-0">
                 <h1 className="text-center">
                   Don&apos;t have an account?{" "}
