@@ -22,10 +22,13 @@ module.exports = {
         light: {
           layout: {}, // light theme layout tokens
           colors: {
-            // primary: {
-            //   DEFAULT: "#ff8c00",
-            //   foreground: "#000000",
-            // },
+            primary: {
+              DEFAULT: "#1773aa",
+              foreground: "#000000",
+            },
+            secondary: {
+              DEFAULT: "#f5840c",
+            },
             // focus: "#BEF264",
           }, // light theme colors
         },

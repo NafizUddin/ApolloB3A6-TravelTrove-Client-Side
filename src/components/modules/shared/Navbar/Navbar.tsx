@@ -12,8 +12,9 @@ import {
 } from "@nextui-org/navbar";
 import { usePathname } from "next/navigation";
 import Button from "../../../ui/elements/Button";
-import { ThemeSwitch } from "../../../theme-switch";
 import Link from "next/link";
+import Image from "next/image";
+import logo from "@/src/assets/logo.jpg";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -22,7 +23,7 @@ export default function Navbar() {
     <NextUINavbar
       maxWidth="xl"
       position="sticky"
-      className="py-2"
+      className="pt-2 pb-5"
       classNames={{
         item: [
           "flex",
@@ -34,19 +35,23 @@ export default function Navbar() {
           "data-[active=true]:after:bottom-0",
           "data-[active=true]:after:left-0",
           "data-[active=true]:after:right-0",
-          "data-[active=true]:after:h-[2px]",
-          "data-[active=true]:after:rounded-[2px]",
+          "data-[active=true]:after:h-[3px]",
+          "data-[active=true]:after:rounded-[3px]",
           "data-[active=true]:after:bg-primary",
         ],
       }}
     >
-      <NavbarBrand>
-        <p className="font-bold text-inherit">ACME</p>
+      <NavbarBrand className="mt-3">
+        <Image src={logo} alt="logo" height={200} width={200} className="" />
       </NavbarBrand>
 
       <NavbarContent className="hidden sm:flex gap-6" justify="center">
         {siteConfig.navItems.map((item) => (
-          <NavbarItem key={item.label} isActive={pathname === item.href}>
+          <NavbarItem
+            className="text-lg"
+            key={item.label}
+            isActive={pathname === item.href}
+          >
             <Link
               href={item.href}
               aria-current={pathname === item.href ? "page" : undefined}
@@ -58,8 +63,6 @@ export default function Navbar() {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <ThemeSwitch />
-
         <NavbarItem className="hidden md:flex">
           <Link href={"/login"}>
             <Button btnText="Login" width="100px" height="45px" />

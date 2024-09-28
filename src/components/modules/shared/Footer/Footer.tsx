@@ -1,3 +1,6 @@
+import logo from "@/src/assets/logo.jpg";
+import Image from "next/image";
+
 const Footer = () => {
   return (
     <div>
@@ -6,16 +9,21 @@ const Footer = () => {
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 gap-y-8 md:gap-8 py-10 max-w-sm mx-auto sm:max-w-3xl lg:max-w-full">
             <div className="col-span-full mb-10 lg:col-span-2 lg:mb-0">
               <div className="flex justify-center lg:justify-start">
-                {/* <img src={logo} className="w-52" /> */}
-                <h1 className="text-4xl text-bold">Logo</h1>
+                <Image
+                  src={logo}
+                  alt="logo"
+                  height={200}
+                  width={200}
+                  className=""
+                />
               </div>
               <p className="py-8 text-sm text-gray-500 lg:max-w-xs text-center lg:text-left">
-                Your car deserves the best—Schedule your car care service with
-                us now!
+                Your next adventure awaits—Plan your perfect trip with expert
+                tips and destination guides now!
               </p>
               <a
                 href=""
-                className="py-2.5 px-5 h-9 block w-fit bg-primary rounded-full shadow-sm text-xs text-white mx-auto transition-all  duration-500 hover:bg-red-700 lg:mx-0"
+                className="py-2.5 px-5 h-9 block w-fit bg-primary rounded-full shadow-sm text-xs text-white mx-auto transition-all duration-500 hover:bg-primary-700 lg:mx-0"
               >
                 Contact us
               </a>
@@ -23,7 +31,7 @@ const Footer = () => {
 
             <div className="lg:mx-auto text-left ">
               <h4 className="text-lg text-primary font-medium mb-7">
-                TurboShine
+                TravelTrove
               </h4>
               <ul className="text-sm  transition-all duration-500">
                 <li className="mb-6">
@@ -38,7 +46,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <a href="" className=" text-gray-600 hover:text-gray-900">
-                    Pricing
+                    NewsFeed
                   </a>
                 </li>
               </ul>
@@ -46,22 +54,22 @@ const Footer = () => {
 
             <div className="lg:mx-auto text-left ">
               <h4 className="text-lg text-primary font-medium mb-7">
-                Services
+                Destinations
               </h4>
               <ul className="text-sm  transition-all duration-500">
                 <li className="mb-6">
                   <a href="" className="text-gray-600 hover:text-gray-900">
-                    Car Wash
+                    Popular Spots
                   </a>
                 </li>
                 <li className="mb-6">
                   <a href="" className=" text-gray-600 hover:text-gray-900">
-                    Interior Detailing
+                    Hidden Gems
                   </a>
                 </li>
                 <li>
                   <a href="" className=" text-gray-600 hover:text-gray-900">
-                    Wax & Polish
+                    City Guides
                   </a>
                 </li>
               </ul>
@@ -72,7 +80,7 @@ const Footer = () => {
               <ul className="text-sm  transition-all duration-500">
                 <li className="mb-6">
                   <a href="" className="text-gray-600 hover:text-gray-900">
-                    Customer Support
+                    Community Support
                   </a>
                 </li>
                 <li className="mb-6">
