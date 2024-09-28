@@ -17,6 +17,8 @@ import logo from "@/src/assets/logo.jpg";
 import { useUser } from "@/src/context/user.provider";
 import { ImSpinner6 } from "react-icons/im";
 import { useUserLogin, useUserRegistration } from "@/src/hooks/auth.hook";
+import TRFileInput from "@/src/components/form/TRFileInput";
+import registerValidationSchema from "@/src/schemas/register.schema";
 
 const RegisterPage = () => {
   const searchParams = useSearchParams();
@@ -81,7 +83,7 @@ const RegisterPage = () => {
                 Create your account
               </h3>
 
-              <FormProvider {...methods}>
+              {/* <FormProvider {...methods}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="py-3">
                     <TRInput name="name" label="Full Name" type="text" />
@@ -151,7 +153,47 @@ const RegisterPage = () => {
                     )}
                   </button>
                 </form>
-              </FormProvider>
+              </FormProvider> */}
+
+              <TRForm
+                // defaultValues={{
+                //   email: "admin@gmail.com",
+                //   password: "admin123",
+                // }}
+                onSubmit={onSubmit}
+                resolver={zodResolver(registerValidationSchema)}
+              >
+                <div className="py-3">
+                  <TRInput name="name" label="Full Name" type="text" />
+                </div>
+                <div className="py-3">
+                  <TRInput name="email" label="Email" type="email" />
+                </div>
+                <div className="py-3">
+                  <TRInput name="password" label="Password" type="password" />
+                </div>
+
+                <div className="py-3">
+                  <TRFileInput name="image" label="Upload Image" />{" "}
+                </div>
+
+                <button
+                  type="submit"
+                  className="group relative z-10 h-11 w-full overflow-hidden bg-primary text-white rounded-full text-center font-semibold text-lg"
+                >
+                  <span className="absolute -inset-24 origin-left rotate-12 scale-x-0 transform bg-white transition-transform duration-700 group-hover:scale-x-100 group-hover:duration-300"></span>
+                  <span className="absolute -inset-24 origin-left rotate-12 scale-x-0 transform bg-sky-700 transition-transform duration-500 group-hover:scale-x-100 group-hover:duration-700"></span>
+                  <span className="absolute -inset-24 origin-left rotate-12 scale-x-0 transform bg-sky-900 transition-transform duration-300 group-hover:scale-x-50 group-hover:duration-500"></span>
+                  <span className="absolute z-10 text-center text-white opacity-0 duration-100 ease-out group-hover:opacity-100 group-hover:duration-700">
+                    {isLoading ? "" : "LogIn"}
+                  </span>
+                  {isLoading ? (
+                    <ImSpinner6 className="animate-spin m-auto text-xl" />
+                  ) : (
+                    "LogIn"
+                  )}
+                </button>
+              </TRForm>
 
               <div className="w-full rounded-lg mt-6 xl:p-0">
                 <h1 className="text-center">
