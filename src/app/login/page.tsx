@@ -160,11 +160,7 @@ const LoginPage = () => {
                   <span className="absolute -inset-24 origin-left rotate-12 scale-x-0 transform bg-sky-700 transition-transform duration-500 group-hover:scale-x-100 group-hover:duration-700"></span>
                   <span className="absolute -inset-24 origin-left rotate-12 scale-x-0 transform bg-sky-900 transition-transform duration-300 group-hover:scale-x-50 group-hover:duration-500"></span>
                   <span className="absolute z-10 text-center text-white opacity-0 duration-100 ease-out group-hover:opacity-100 group-hover:duration-700">
-                    {isLoading ? (
-                      <ImSpinner6 className="animate-spin m-auto text-xl" />
-                    ) : (
-                      "LogIn"
-                    )}
+                    {isLoading ? "" : "LogIn"}
                   </span>
                   {isLoading ? (
                     <ImSpinner6 className="animate-spin m-auto text-xl" />

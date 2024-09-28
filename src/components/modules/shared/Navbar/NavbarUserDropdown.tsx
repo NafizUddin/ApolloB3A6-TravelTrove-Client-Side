@@ -12,6 +12,7 @@ import {
   DropdownItem,
 } from "@nextui-org/dropdown";
 import { usePathname, useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface IProps {
   user: IUser;
@@ -29,6 +30,8 @@ export default function NavbarUserDropdown({ user }: IProps) {
     if (protectedRoutes.some((route) => pathname.match(route))) {
       router.push("/");
     }
+
+    toast.success("Logged out successfully");
   };
 
   return (
