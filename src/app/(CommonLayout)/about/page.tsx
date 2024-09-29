@@ -2,6 +2,7 @@ import PageSectionTitle from "@/src/components/ui/section/PageSectionTitle";
 import Team from "./_sections/Team";
 import Headers from "./_sections/Headers";
 import Missions from "./_sections/Missions";
+import AboutBanner from "./_sections/AboutBanner";
 
 const About = () => {
   return (
@@ -13,6 +14,7 @@ const About = () => {
       <Headers />
       <Missions />
       <Team />
+      <AboutBanner />
     </div>
   );
 };
