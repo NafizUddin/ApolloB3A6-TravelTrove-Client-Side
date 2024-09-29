@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Team = () => {
   return (
-    <div className="my-10">
+    <div className="my-14">
       <SectionTitle sub="OUR TEAM" heading="MEET OUR EXPERT TEAM" />
 
       <div className="py-20">

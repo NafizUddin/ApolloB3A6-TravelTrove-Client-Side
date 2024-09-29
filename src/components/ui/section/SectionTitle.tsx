@@ -22,7 +22,7 @@ const SectionTitle = ({ sub, heading }: { sub: string; heading: string }) => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : -20 }}
           transition={{ duration: 0.6, delay: 0.15, ease: "easeInOut" }}
-          className="text-backup md:text-lg font-bold tracking-widest"
+          className="text-backup text-sm md:text-lg font-bold tracking-widest"
         >
           {sub}
         </motion.p>

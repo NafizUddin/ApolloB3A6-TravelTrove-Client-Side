@@ -1,6 +1,6 @@
 const Headers = () => {
   return (
-    <div className="w-11/12 mx-auto">
+    <div className="w-11/12 mx-auto mb-5">
       <div className="border-t-4 w-[80px] border-backup" />
       <h1 className="uppercase my-5 xl:text-[20px] tracking-[10px]">
         We are TravelTrove
