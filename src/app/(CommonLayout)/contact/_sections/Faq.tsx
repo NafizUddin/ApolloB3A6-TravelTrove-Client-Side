@@ -19,9 +19,14 @@ const Faq = () => {
         "Pack versatile clothing that can be layered, and don't forget essentials like passport, medications, and chargers. Check the weather forecast for your destination.",
     },
     {
-      title: " How can I stay safe while traveling?",
+      title: "How can I stay safe while traveling?",
       description:
         "Research your destination, be aware of your surroundings, and avoid carrying excessive amounts of cash or valuables. Let someone know your itinerary.",
+    },
+    {
+      title: "What should I do if I lose my passport?",
+      description:
+        "Contact your embassy or consulate immediately. They can help you obtain a replacement passport.",
     },
   ];
 
@@ -40,7 +45,7 @@ const Faq = () => {
         <h1 className="text-2xl md:text-4xl lg:text-3xl xl:text-4xl mt-8 font-bold text-center lg:text-left">
           Most Common Travel Question
         </h1>
-        <div className="mt-8">
+        <div className="mt-11">
           <div className="flex w-full justify-center">
             <div className="w-fit xl:w-full mx-auto cursor-pointer space-y-6">
               {/* mapping each accordion  */}
@@ -99,6 +104,70 @@ const Faq = () => {
         <h1 className="lg:text-xl text-primary border-l-[10px] border-backup pl-2 font-bold">
           GET IN TOUCH
         </h1>
+
+        <div className="mt-8">
+          <form>
+            <div className="mb-5">
+              <label htmlFor="name" className="mb-3 block font-semibold">
+                Full Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Full Name"
+                className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium  outline-none focus:border-primary focus:shadow-md"
+              />
+            </div>
+            <div className="mb-5">
+              <label htmlFor="email" className="mb-3 block font-semibold">
+                Email Address
+              </label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="example@domain.com"
+                className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium  outline-none focus:border-primary focus:shadow-md"
+              />
+            </div>
+            <div className="mb-5">
+              <label htmlFor="subject" className="mb-3 block font-semibold">
+                Subject
+              </label>
+              <input
+                type="text"
+                name="subject"
+                id="subject"
+                placeholder="Enter your subject"
+                className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium  outline-none focus:border-primary focus:shadow-md"
+              />
+            </div>
+            <div className="mb-5">
+              <label htmlFor="message" className="mb-3 block font-semibold">
+                Message
+              </label>
+              <textarea
+                rows={4}
+                name="message"
+                id="message"
+                placeholder="Type your message"
+                className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium  outline-none focus:border-primary focus:shadow-md"
+              ></textarea>
+            </div>
+            <div>
+              <button className="group relative z-10 h-14 w-full overflow-hidden bg-primary text-xl text-white rounded-3xl">
+                <span className="absolute -inset-44 origin-left rotate-12 scale-x-0 transform bg-white transition-transform duration-700 group-hover:scale-x-100 group-hover:duration-300"></span>
+                <span className="absolute -inset-44 origin-left rotate-12 scale-x-0 transform bg-sky-700 transition-transform duration-500 group-hover:scale-x-100 group-hover:duration-700"></span>
+                <span className="absolute -inset-44 origin-left rotate-12 scale-x-0 transform bg-sky-900 transition-transform duration-300 group-hover:scale-x-50 group-hover:duration-500"></span>
+                <span className="absolute z-10 text-center text-white opacity-0 duration-100 ease-out group-hover:opacity-100 group-hover:duration-700">
+                  Send Message
+                </span>
+                Send Message
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
