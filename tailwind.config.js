@@ -26,7 +26,7 @@ module.exports = {
               DEFAULT: "#1773aa",
               foreground: "#000000",
             },
-            secondary: {
+            backup: {
               DEFAULT: "#f5840c",
             },
           }, // light theme colors

@@ -14,7 +14,7 @@ import { usePathname } from "next/navigation";
 import Button from "../../../ui/elements/Button";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "@/src/assets/logo.jpg";
+import logo from "@/src/assets/logo.png";
 import { useUser } from "@/src/context/user.provider";
 import NavbarUserDropdown from "./NavbarUserDropdown";
 
@@ -28,7 +28,7 @@ export default function Navbar() {
     <NextUINavbar
       maxWidth="xl"
       position="sticky"
-      className="pt-2 pb-5"
+      className="pt-2 pb-1 lg:pb-4"
       classNames={{
         item: [
           "flex",
@@ -47,28 +47,46 @@ export default function Navbar() {
       }}
     >
       <NavbarBrand className="mt-3">
-        <Image src={logo} alt="logo" height={200} width={200} className="" />
+        <div className="lg:hidden">
+          <NavbarMenuToggle />
+        </div>
+        <Image
+          src={logo}
+          alt="logo"
+          height={200}
+          width={200}
+          className="hidden lg:flex"
+        />
       </NavbarBrand>
 
-      <NavbarContent className="hidden sm:flex gap-6" justify="center">
-        {siteConfig.navItems.map((item) => (
-          <NavbarItem
-            className="text-lg"
-            key={item.label}
-            isActive={pathname === item.href}
-          >
-            <Link
-              href={item.href}
-              aria-current={pathname === item.href ? "page" : undefined}
+      <NavbarContent justify="center">
+        <div className="hidden lg:flex gap-6">
+          {siteConfig.navItems.map((item) => (
+            <NavbarItem
+              className="text-lg"
+              key={item.label}
+              isActive={pathname === item.href}
             >
-              {item.label}
-            </Link>
-          </NavbarItem>
-        ))}
+              <Link
+                href={item.href}
+                aria-current={pathname === item.href ? "page" : undefined}
+              >
+                {item.label}
+              </Link>
+            </NavbarItem>
+          ))}
+        </div>
+        <Image
+          src={logo}
+          alt="logo"
+          height={170}
+          width={170}
+          className="flex lg:hidden"
+        />
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <NavbarItem className="hidden md:flex">
+        <NavbarItem className="flex">
           {user ? (
             <NavbarUserDropdown user={user} />
           ) : (
@@ -77,10 +95,6 @@ export default function Navbar() {
             </Link>
           )}
         </NavbarItem>
-
-        <div className="md:hidden">
-          <NavbarMenuToggle />
-        </div>
       </NavbarContent>
 
       <NavbarMenu>
