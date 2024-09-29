@@ -10,20 +10,16 @@ export const siteConfig = {
       href: "/",
     },
     {
+      label: "About",
+      href: "/about",
+    },
+    {
       label: "Contact",
       href: "/contact",
     },
     {
-      label: "Pricing",
-      href: "/pricing",
-    },
-    {
       label: "Blog",
       href: "/blog",
-    },
-    {
-      label: "About",
-      href: "/about",
     },
   ],
   navMenuItems: [
