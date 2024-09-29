@@ -1,13 +1,6 @@
 "use client";
 import Link from "next/link";
-import {
-  FieldValues,
-  FormProvider,
-  SubmitHandler,
-  useForm,
-} from "react-hook-form";
-import { ReactNode, useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import TRForm from "@/src/components/form/TRForm";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,49 +9,47 @@ import Image from "next/image";
 import logo from "@/src/assets/logo.jpg";
 import { useUser } from "@/src/context/user.provider";
 import { ImSpinner6 } from "react-icons/im";
-import { useUserLogin, useUserRegistration } from "@/src/hooks/auth.hook";
+import { useUserRegistration } from "@/src/hooks/auth.hook";
 import TRFileInput from "@/src/components/form/TRFileInput";
 import registerValidationSchema from "@/src/schemas/register.schema";
+import { useEffect } from "react";
 
 const RegisterPage = () => {
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
   const router = useRouter();
-  const methods = useForm();
-  const {
-    handleSubmit,
-    setValue,
-    register,
-    formState: { errors },
-  } = methods;
   const { setIsLoading: userLoading } = useUser();
   const {
-    mutate: handleUserLogin,
+    mutate: handleUserRegister,
     isLoading,
     isSuccess,
   } = useUserRegistration();
 
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [fileName, setFileName] = useState<string>("");
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setSelectedImage(file);
-      setFileName(file.name); // Set the file name
-      setValue("image", file); // Set image file to react-hook-form
-    }
-  };
-
-  const clearFileSelection = () => {
-    setSelectedImage(null);
-    setFileName("");
-    setValue("image", null);
-  };
-
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    const userInfo = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    };
+    const image = data.image;
+
+    const formData = new FormData();
+    formData.append("data", JSON.stringify(userInfo));
+    formData.append("file", image);
+
+    handleUserRegister(formData);
+    userLoading(true);
   };
+
+  useEffect(() => {
+    if (!isLoading && isSuccess) {
+      if (redirect) {
+        router.push(redirect);
+      } else {
+        router.push("/");
+      }
+    }
+  }, [isLoading, isSuccess]);
 
   return (
     <div>
@@ -185,12 +176,12 @@ const RegisterPage = () => {
                   <span className="absolute -inset-24 origin-left rotate-12 scale-x-0 transform bg-sky-700 transition-transform duration-500 group-hover:scale-x-100 group-hover:duration-700"></span>
                   <span className="absolute -inset-24 origin-left rotate-12 scale-x-0 transform bg-sky-900 transition-transform duration-300 group-hover:scale-x-50 group-hover:duration-500"></span>
                   <span className="absolute z-10 text-center text-white opacity-0 duration-100 ease-out group-hover:opacity-100 group-hover:duration-700">
-                    {isLoading ? "" : "LogIn"}
+                    {isLoading ? "" : "Sign Up"}
                   </span>
                   {isLoading ? (
                     <ImSpinner6 className="animate-spin m-auto text-xl" />
                   ) : (
-                    "LogIn"
+                    "Sign Up"
                   )}
                 </button>
               </TRForm>

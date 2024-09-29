@@ -1,7 +1,8 @@
+import envConfig from "@/src/config/envConfig";
 import { Nexios } from "nexios-http";
 
 const nexiosInstance = new Nexios({
-  baseURL: "http://localhost:5000/api",
+  baseURL: envConfig.baseApi,
   headers: {
     "Content-Type": "application/json",
   },

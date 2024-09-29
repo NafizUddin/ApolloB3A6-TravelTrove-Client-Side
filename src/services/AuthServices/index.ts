@@ -1,4 +1,5 @@
 "use server";
+import axiosInstance from "@/src/lib/AxiosInstance";
 import nexiosInstance from "@/src/lib/NexiosInstance";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
@@ -21,7 +22,11 @@ export const loginUser = async (userData: FieldValues) => {
 
 export const registerUser = async (userData: FieldValues) => {
   try {
-    const response: any = await nexiosInstance.post("/auth/register", userData);
+    const response: any = await axiosInstance.post("/auth/register", userData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
     if (response.data.success) {
       cookies().set("accessToken", response.data?.data?.accessToken);
