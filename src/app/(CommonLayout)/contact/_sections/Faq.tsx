@@ -99,7 +99,7 @@ const Faq = () => {
           </div>
         </div>
       </div>
-      <div className="flex-1">
+      <div className="flex-1 mt-10 lg:mt-0">
         <h1 className="lg:text-xl text-primary border-l-[10px] border-backup pl-2 font-bold">
           GET IN TOUCH
         </h1>
@@ -155,7 +155,7 @@ const Faq = () => {
               ></textarea>
             </div>
             <div>
-              <button className="group relative z-10 h-14 w-full overflow-hidden bg-primary text-xl text-white rounded-3xl">
+              <button className="group relative z-10 h-14 w-full overflow-hidden bg-primary text-lg md:text-xl text-white rounded-3xl">
                 <span className="absolute -inset-44 origin-left rotate-12 scale-x-0 transform bg-white transition-transform duration-700 group-hover:scale-x-100 group-hover:duration-300"></span>
                 <span className="absolute -inset-44 origin-left rotate-12 scale-x-0 transform bg-sky-700 transition-transform duration-500 group-hover:scale-x-100 group-hover:duration-700"></span>
                 <span className="absolute -inset-44 origin-left rotate-12 scale-x-0 transform bg-sky-900 transition-transform duration-300 group-hover:scale-x-50 group-hover:duration-500"></span>
