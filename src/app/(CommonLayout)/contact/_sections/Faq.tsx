@@ -30,7 +30,6 @@ const Faq = () => {
     },
   ];
 
-  // toggle state and function
   const [isOpen, setIsOpen] = useState(null);
   const handleToggle = (idx: any) => {
     setIsOpen((prevIdx) => (prevIdx === idx ? null : idx));

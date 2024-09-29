@@ -1,6 +1,7 @@
 import PageSectionTitle from "@/src/components/ui/section/PageSectionTitle";
 import ContactCard from "./_sections/ContactCard";
 import Faq from "./_sections/Faq";
+import CallToAction from "./_sections/CallToAction";
 
 const Contact = () => {
   return (
@@ -11,6 +12,7 @@ const Contact = () => {
       />
       <ContactCard />
       <Faq />
+      <CallToAction />
     </>
   );
 };
