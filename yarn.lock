@@ -426,6 +426,26 @@
     "@react-types/menu" "3.9.9"
     "@react-types/shared" "3.23.1"
 
+"@nextui-org/modal@^2.0.41":
+  version "2.0.41"
+  resolved "https://registry.yarnpkg.com/@nextui-org/modal/-/modal-2.0.41.tgz#3fba82661413236e9b41f3b4d6c50c3205d6292c"
+  integrity sha512-Sirn319xAf7E4cZqvQ0o0Vd3Xqy0FRSuhOTwp8dALMGTMY61c2nIyurgVCNP6hh8dMvMT7zQEPP9/LE0boFCEQ==
+  dependencies:
+    "@nextui-org/framer-utils" "2.0.25"
+    "@nextui-org/react-utils" "2.0.17"
+    "@nextui-org/shared-icons" "2.0.9"
+    "@nextui-org/shared-utils" "2.0.8"
+    "@nextui-org/use-aria-button" "2.0.10"
+    "@nextui-org/use-aria-modal-overlay" "2.0.13"
+    "@nextui-org/use-disclosure" "2.0.10"
+    "@react-aria/dialog" "3.5.14"
+    "@react-aria/focus" "3.17.1"
+    "@react-aria/interactions" "3.21.3"
+    "@react-aria/overlays" "3.22.1"
+    "@react-aria/utils" "3.24.1"
+    "@react-stately/overlays" "3.6.7"
+    "@react-types/overlays" "3.8.7"
+
 "@nextui-org/navbar@2.0.37":
   version "2.0.37"
   resolved "https://registry.yarnpkg.com/@nextui-org/navbar/-/navbar-2.0.37.tgz#ccc1be6d43b35eedab251f3ecc8e1d0fd03f01ac"
@@ -643,6 +663,16 @@
     "@react-types/menu" "3.9.9"
     "@react-types/shared" "3.23.1"
 
+"@nextui-org/use-aria-modal-overlay@2.0.13":
+  version "2.0.13"
+  resolved "https://registry.yarnpkg.com/@nextui-org/use-aria-modal-overlay/-/use-aria-modal-overlay-2.0.13.tgz#2a505635f562fae12e1d94b39c263365b534b907"
+  integrity sha512-ifQxJwTX72lhVUofEVQqMbpe9vEUiCIqiimzlUjeVuE0cYOXaoJLEgPozHpYQrdjTNiwD5On0LLMRgz19XyAqw==
+  dependencies:
+    "@react-aria/overlays" "3.22.1"
+    "@react-aria/utils" "3.24.1"
+    "@react-stately/overlays" "3.6.7"
+    "@react-types/shared" "3.23.1"
+
 "@nextui-org/use-aria-toggle-button@2.0.10":
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/@nextui-org/use-aria-toggle-button/-/use-aria-toggle-button-2.0.10.tgz#a45f331274860b115e8aad3f6c91a163922e84af"
@@ -654,10 +684,26 @@
     "@react-types/button" "3.9.4"
     "@react-types/shared" "3.23.1"
 
+"@nextui-org/use-callback-ref@2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@nextui-org/use-callback-ref/-/use-callback-ref-2.0.6.tgz#6720a1381d4ce79ae7075949a647b03be8309d99"
+  integrity sha512-2WcwWuK1L/wIpTbibnLrysmmkzWomvkVIcgWayB6n/w+bpPrPCG7Zyg2WHzmMmDhe6imV//KKBgNKRi8Xhu/VA==
+  dependencies:
+    "@nextui-org/use-safe-layout-effect" "2.0.6"
+
 "@nextui-org/use-clipboard@2.0.7":
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/@nextui-org/use-clipboard/-/use-clipboard-2.0.7.tgz#f572f8c2c37f9248c4aebc7b31019e685ae33f82"
   integrity sha512-Bn1fF/goMwOA5DQyw3A4ebfgozwR8U5k5TAZMPiy1RBWgTFw7+lB0GNbH+DOnUGY5Vyztyaw6gtUyc3tVzJxeg==
+
+"@nextui-org/use-disclosure@2.0.10":
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/@nextui-org/use-disclosure/-/use-disclosure-2.0.10.tgz#9767ad6156fef3353a5bfb84207724f56456c850"
+  integrity sha512-s2I58d7x2f1JRriZnNm9ZoxrGmxF+DnC9BXM1sD99Wq1VNMd0dhitmx0mUWfUB7l5HLyZgKOeiSLG+ugy1F1Yw==
+  dependencies:
+    "@nextui-org/use-callback-ref" "2.0.6"
+    "@react-aria/utils" "3.24.1"
+    "@react-stately/utils" "3.10.1"
 
 "@nextui-org/use-image@2.0.6":
   version "2.0.6"
@@ -1431,6 +1477,13 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.13.tgz#2af91918ee12d9d32914feb13f5326658461b451"
   integrity sha512-hCZTSvwbzWGvhqxp/RqVqwU999pBf2vp7hzIjiYOsl8wqOmUxkQ6ddw1cV3l8811+kdUFus/q4d1Y3E3SyEifA==
 
+"@types/quill@^1.3.10":
+  version "1.3.10"
+  resolved "https://registry.yarnpkg.com/@types/quill/-/quill-1.3.10.tgz#dc1f7b6587f7ee94bdf5291bc92289f6f0497613"
+  integrity sha512-IhW3fPW+bkt9MLNlycw8u8fWb7oO7W5URC9MfZYHBlA24rex9rs23D5DETChu1zvgVdc5ka64ICjJOgQMr6Shw==
+  dependencies:
+    parchment "^1.1.2"
+
 "@types/react-dom@18.3.0":
   version "18.3.0"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.3.0.tgz#0cbc818755d87066ab6ca74fbedb2547d74a82b0"
@@ -1867,6 +1920,19 @@ client-only@0.0.1:
   resolved "https://registry.yarnpkg.com/client-only/-/client-only-0.0.1.tgz#38bba5d403c41ab150bff64a95c85013cf73bca1"
   integrity sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==
 
+clone@^2.1.1:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
+  integrity sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==
+
+cloudinary@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/cloudinary/-/cloudinary-2.5.0.tgz#f018416262b66fbcbc92ecb3136415fa484df50c"
+  integrity sha512-gPkyylFpyBAXiErAnMgZBlpwztHuZoik/OTLQM9oswjlzYHLMtQGoh0oisPBQvVHQxHmBUjcgwsAi393HDedqQ==
+  dependencies:
+    lodash "^4.17.21"
+    q "^1.5.1"
+
 clsx@2.1.1, clsx@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-2.1.1.tgz#eed397c9fd8bd882bfb18deab7102049a2f32999"
@@ -1996,6 +2062,18 @@ debug@^4.3.1, debug@^4.3.2, debug@^4.3.4, debug@^4.3.5:
   integrity sha512-Er2nc/H7RrMXZBFCEim6TCmMk02Z8vLC2Rbi1KEBggpo0fS6l0S1nnapwmIi3yW/+GOJap1Krg4w0Hg80oCqgQ==
   dependencies:
     ms "^2.1.3"
+
+deep-equal@^1.0.1:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/deep-equal/-/deep-equal-1.1.2.tgz#78a561b7830eef3134c7f6f3a3d6af272a678761"
+  integrity sha512-5tdhKF6DbU7iIzrIOa1AOUt39ZRm13cmL1cGEh//aqR8x9+tNfbywRf0n5FD/18OKMdo7DNEtrX2t22ZAkI+eg==
+  dependencies:
+    is-arguments "^1.1.1"
+    is-date-object "^1.0.5"
+    is-regex "^1.1.4"
+    object-is "^1.1.5"
+    object-keys "^1.1.1"
+    regexp.prototype.flags "^1.5.1"
 
 deep-equal@^2.0.5:
   version "2.2.3"
@@ -2526,10 +2604,25 @@ esutils@^2.0.2:
   resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.3.tgz#74d2eb4de0b8da1293711910d50775b9b710ef64"
   integrity sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==
 
+eventemitter3@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-2.0.3.tgz#b5e1079b59fb5e1ba2771c0a993be060a58c99ba"
+  integrity sha512-jLN68Dx5kyFHaePoXWPsCGW5qdyZQtLYHkxkg02/Mz6g0kYpDx4FyP6XfArhQdlOC4b8Mv+EMxPo/8La7Tzghg==
+
+extend@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
+  integrity sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==
+
 fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
   integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
+
+fast-diff@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/fast-diff/-/fast-diff-1.1.2.tgz#4b62c42b8e03de3f848460b639079920695d0154"
+  integrity sha512-KaJUt+M9t1qaIteSvjc6P3RbMdXsNhK61GRftR6SNxqmhthcd9MGIi4T+o0jD8LUSpSnSKXE20nLtJ3fOHxQig==
 
 fast-diff@^1.1.2:
   version "1.3.0"
@@ -3283,6 +3376,11 @@ lodash.omit@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.omit/-/lodash.omit-4.5.0.tgz#6eb19ae5a1ee1dd9df0b969e66ce0b7fa30b5e60"
   integrity sha512-XeqSp49hNGmlkj2EJlfrQFIzQ6lXdNro9sddtQzcJY8QaoC2GO0DT7xaIokHeyM+mIT0mPMlPvkYzg2xCuHdZg==
 
+lodash@^4.17.21, lodash@^4.17.4:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
+
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
@@ -3588,6 +3686,11 @@ package-json-from-dist@^1.0.0:
   resolved "https://registry.yarnpkg.com/package-json-from-dist/-/package-json-from-dist-1.0.0.tgz#e501cd3094b278495eb4258d4c9f6d5ac3019f00"
   integrity sha512-dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==
 
+parchment@^1.1.2, parchment@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/parchment/-/parchment-1.1.4.tgz#aeded7ab938fe921d4c34bc339ce1168bc2ffde5"
+  integrity sha512-J5FBQt/pM2inLzg4hEWmzQx/8h8D0CiDxaG3vyp9rKrQRSDgBlhjdP5jQGgosEajXPSQouXGHOmVdgo7QmJuOg==
+
 parent-module@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/parent-module/-/parent-module-1.0.1.tgz#691d2709e78c79fae3a156622452d00762caaaa2"
@@ -3772,10 +3875,36 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.3.1.tgz#027422e2faec0b25e1549c3e1bd8309b9133b6e5"
   integrity sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==
 
+q@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
+  integrity sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==
+
 queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
+
+quill-delta@^3.6.2:
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/quill-delta/-/quill-delta-3.6.3.tgz#b19fd2b89412301c60e1ff213d8d860eac0f1032"
+  integrity sha512-wdIGBlcX13tCHOXGMVnnTVFtGRLoP0imqxM696fIPwIf5ODIYUHIvHbZcyvGlZFiFhK5XzDC2lpjbxRhnM05Tg==
+  dependencies:
+    deep-equal "^1.0.1"
+    extend "^3.0.2"
+    fast-diff "1.1.2"
+
+quill@^1.3.7:
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/quill/-/quill-1.3.7.tgz#da5b2f3a2c470e932340cdbf3668c9f21f9286e8"
+  integrity sha512-hG/DVzh/TiknWtE6QmWAF/pxoZKYxfe3J/d/+ShUWkDvvkZQVTPeVmUJVu1uE6DDooC4fWTiCLh84ul89oNz5g==
+  dependencies:
+    clone "^2.1.1"
+    deep-equal "^1.0.1"
+    eventemitter3 "^2.0.3"
+    extend "^3.0.2"
+    parchment "^1.1.4"
+    quill-delta "^3.6.2"
 
 react-dom@18.3.1:
   version "18.3.1"
@@ -3806,6 +3935,15 @@ react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-quill@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-quill/-/react-quill-2.0.0.tgz#67a0100f58f96a246af240c9fa6841b363b3e017"
+  integrity sha512-4qQtv1FtCfLgoD3PXAur5RyxuUbPXQGOHgTlFie3jtxp43mXDtzCKaOgQ3mLyZfi1PUlyjycfivKelFhy13QUg==
+  dependencies:
+    "@types/quill" "^1.3.10"
+    lodash "^4.17.4"
+    quill "^1.3.7"
 
 react-remove-scroll-bar@^2.3.6:
   version "2.3.6"
