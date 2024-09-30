@@ -7,8 +7,6 @@ import { IPost } from "@/src/types";
 const LatestPosts = async () => {
   const { data } = await getAllPostsHomePage();
 
-  console.log(data?.result);
-
   return (
     <div className="my-16">
       <SectionTitle sub="Tips & Stories" heading="Latest Travel Insights" />

@@ -1,4 +1,8 @@
+"use client";
+
 import { IPost } from "@/src/types";
+import { Input } from "@nextui-org/input";
+import { useState } from "react";
 
 const TestPostCard = ({ singlePost }: any) => {
   const {
@@ -13,11 +17,9 @@ const TestPostCard = ({ singlePost }: any) => {
     createdAt,
   } = singlePost;
 
-  console.log(singlePost);
-
   return (
     <div className="my-5">
-      <article className="mb-4 break-inside p-6 rounded-xl bg-white flex flex-col bg-clip-border max-w-4xl mx-auto border border-primary">
+      <article className="mb-4 break-inside p-6 rounded-xl bg-white flex flex-col bg-clip-border md:w-11/12 lg:w-10/12 xl:w-[75%] mx-auto border border-primary">
         <div className="flex pb-6 items-center justify-between">
           <div className="flex">
             <a className="inline-block mr-4" href="#">
@@ -35,18 +37,16 @@ const TestPostCard = ({ singlePost }: any) => {
                   Wade Warren
                 </a>
               </div>
-              <div className="text-slate-500 dark:text-slate-400">
-                July 17, 2018
-              </div>
+              <div className="text-slate-500">July 17, 2018</div>
             </div>
           </div>
         </div>
         <h2 className="text-3xl font-extrabold">{title}</h2>
         <div className="py-4">
           <div className="flex justify-between gap-1">
-            <a className="flex" href="#">
+            <a className="flex w-full" href="#">
               <img
-                className="max-w-full rounded-br-lg object-cover xl:w-[896px] xl:h-[450px]"
+                className="rounded-br-lg object-cover w-full h-[450px]"
                 src={image}
               />
             </a>
@@ -55,45 +55,98 @@ const TestPostCard = ({ singlePost }: any) => {
         <p className="">
           <span dangerouslySetInnerHTML={{ __html: description }} />
         </p>
-        <div className="py-4">
+        <div className="py-4 flex gap-5">
           <a className="inline-flex items-center" href="#">
             <span className="mr-2">
               <svg
-                className="fill-rose-600 dark:fill-rose-400"
-                // style="width: 24px; height: 24px;"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
                 viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="lucide lucide-thumbs-up text-primary"
               >
-                <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
+                <path d="M7 10v12" />
+                <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z" />
+              </svg>
+            </span>
+            <span className="text-lg font-bold">{upvote}</span>
+          </a>
+          <a className="inline-flex items-center" href="#">
+            <span className="mr-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="lucide lucide-thumbs-down text-primary"
+              >
+                <path d="M17 14V2" />
+                <path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z" />
+              </svg>
+            </span>
+            <span className="text-lg font-bold">{downvote}</span>
+          </a>
+          <a className="inline-flex items-center" href="#">
+            <span className="mr-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="lucide lucide-message-circle text-primary"
+              >
+                <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
               </svg>
             </span>
             <span className="text-lg font-bold">34</span>
           </a>
         </div>
         <div className="relative">
-          <input
+          {/* <input
             className="pt-2 pb-2 pl-3 w-full h-11 bg-slate-100 dark:bg-slate-600 rounded-lg placeholder:text-slate-600 dark:placeholder:text-slate-300 font-medium pr-20"
             type="text"
             placeholder="Write a comment"
+          /> */}
+          <Input
+            type="text"
+            placeholder="Write a comment"
+            variant="bordered"
+            size="lg"
+            className="border-primary focus:ring-primary"
+            endContent={
+              <svg
+                className="fill-blue-500 size-8"
+                //   style="width: 24px; height: 24px;"
+                viewBox="0 0 24 24"
+              >
+                <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"></path>
+              </svg>
+            }
           />
-          <span className="flex absolute right-3 top-2/4 -mt-3 items-center">
+          {/* <span className="flex absolute right-3 top-2/4 -mt-3 items-center">
             <svg
-              className="mr-2"
-              //   style="width: 26px; height: 26px;"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill="currentColor"
-                d="M20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12M22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12M10,9.5C10,10.3 9.3,11 8.5,11C7.7,11 7,10.3 7,9.5C7,8.7 7.7,8 8.5,8C9.3,8 10,8.7 10,9.5M17,9.5C17,10.3 16.3,11 15.5,11C14.7,11 14,10.3 14,9.5C14,8.7 14.7,8 15.5,8C16.3,8 17,8.7 17,9.5M12,17.23C10.25,17.23 8.71,16.5 7.81,15.42L9.23,14C9.68,14.72 10.75,15.23 12,15.23C13.25,15.23 14.32,14.72 14.77,14L16.19,15.42C15.29,16.5 13.75,17.23 12,17.23Z"
-              ></path>
-            </svg>
-            <svg
-              className="fill-blue-500 dark:fill-slate-50"
+              className="fill-blue-500 size-8"
               //   style="width: 24px; height: 24px;"
               viewBox="0 0 24 24"
             >
               <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"></path>
             </svg>
-          </span>
+          </span> */}
         </div>
 
         <div className="pt-6">
