@@ -34,6 +34,8 @@ interface IProps {
     | "4xl"
     | "5xl"
     | "full";
+  onAction?: (onClose: () => void) => void;
+  isSubmitting?: boolean;
 }
 
 export default function TRModal({
@@ -43,6 +45,8 @@ export default function TRModal({
   buttonVariant = "light",
   buttonClassName,
   size = "3xl",
+  onAction,
+  isSubmitting = false,
 }: IProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -68,14 +72,21 @@ export default function TRModal({
                 {title}
               </ModalHeader>
               <ModalBody>{children}</ModalBody>
-              {/* <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
-                </Button>
-              </ModalFooter> */}
+              <ModalFooter>
+                <div className="w-full">
+                  <Button
+                    type="submit"
+                    color="primary"
+                    onPress={() => {
+                      if (onAction) onAction(onClose); // Trigger form submission and close modal if valid
+                    }}
+                    className="w-full text-white"
+                    isLoading={isSubmitting}
+                  >
+                    Action
+                  </Button>
+                </div>
+              </ModalFooter>
             </>
           )}
         </ModalContent>
