@@ -6,7 +6,7 @@ import TRForm from "@/src/components/form/TRForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TRInput from "@/src/components/form/TRInput";
 import Image from "next/image";
-import logo from "@/src/assets/logo.jpg";
+import logo from "@/src/assets/logo.png";
 import { useUser } from "@/src/context/user.provider";
 import { ImSpinner6 } from "react-icons/im";
 import { useUserRegistration } from "@/src/hooks/auth.hook";

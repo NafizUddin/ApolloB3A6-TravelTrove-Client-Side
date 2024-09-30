@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import loginValidationSchema from "@/src/schemas/login.schema";
 import TRInput from "@/src/components/form/TRInput";
 import Image from "next/image";
-import logo from "@/src/assets/logo.jpg";
+import logo from "@/src/assets/logo.png";
 import { useUser } from "@/src/context/user.provider";
 import { useUserLogin } from "@/src/hooks/auth.hook";
 import { ImSpinner6 } from "react-icons/im";
