@@ -1,3 +1,4 @@
+import NavigateUIModal from "@/src/components/modal/NavigateUIModal";
 import { ReactNode } from "react";
 
 const HomeLayout = ({
@@ -11,6 +12,7 @@ const HomeLayout = ({
     <>
       {children}
       {latestPosts}
+      {<NavigateUIModal />}
     </>
   );
 };

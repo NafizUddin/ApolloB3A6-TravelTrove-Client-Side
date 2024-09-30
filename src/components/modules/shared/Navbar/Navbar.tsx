@@ -22,8 +22,6 @@ export default function Navbar() {
   const pathname = usePathname();
   const { user } = useUser();
 
-  console.log(user);
-
   return (
     <NextUINavbar
       maxWidth="xl"

@@ -6,6 +6,7 @@ import "react-quill/dist/quill.snow.css";
 import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
 import axios from "axios";
+import { useCreatePost } from "@/src/hooks/post.hook";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -28,6 +29,12 @@ export default function NavigateUIModal() {
     useForm();
   const { errors } = formState;
   const [fileName, setFileName] = useState<string | null>(null);
+
+  const {
+    mutate: handlePostCreation,
+    isLoading: createPostLoading,
+    isSuccess,
+  } = useCreatePost();
 
   const handleContentChange = (value: any) => {
     setContent(value);
@@ -73,8 +80,23 @@ export default function NavigateUIModal() {
       });
 
       const imageUrl = response.data.secure_url;
+
+      // const postFormData = new FormData();
+      // postFormData.append("title", data.title);
+      // postFormData.append("category", data.category);
+      // postFormData.append("description", data.description);
+      // postFormData.append("image", imageUrl);
+
+      const postData = {
+        title: data.title,
+        category: data.category,
+        description: data.description,
+        image: imageUrl,
+      };
+
+      handlePostCreation(postData);
     } catch (error: any) {
-      console.error("Error uploading image:", error);
+      console.error(error);
     }
   };
 
