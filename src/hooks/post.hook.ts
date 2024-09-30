@@ -1,5 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
-import { createPost } from "../services/PostServices";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { createPost, getAllPostsHomePage } from "../services/PostServices";
 import toast from "react-hot-toast";
 
 interface PostData {
@@ -12,12 +12,12 @@ interface PostData {
 export const useCreatePost = () => {
   return useMutation<PostData, Error, PostData>({
     mutationKey: ["CREATE_POST"],
-    mutationFn: async (postData) => await createPost(postData),
-    onSuccess: () => {
-      toast.success("Post created successfully");
-    },
-    onError: (error) => {
-      toast.error(error.message);
+    mutationFn: async (postData) => {
+      return toast.promise(createPost(postData), {
+        loading: "Loading...",
+        success: "Post created successfully!",
+        error: "Error when creating post.",
+      });
     },
   });
 };

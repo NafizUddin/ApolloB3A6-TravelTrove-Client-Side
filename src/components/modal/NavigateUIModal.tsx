@@ -7,6 +7,7 @@ import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
 import axios from "axios";
 import { useCreatePost } from "@/src/hooks/post.hook";
+import toast from "react-hot-toast";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -95,6 +96,11 @@ export default function NavigateUIModal() {
       };
 
       handlePostCreation(postData);
+      // toast.promise(myPromise, {
+      //   loading: "Loading",
+      //   success: "Got the data",
+      //   error: "Error when fetching",
+      // });
     } catch (error: any) {
       console.error(error);
     }

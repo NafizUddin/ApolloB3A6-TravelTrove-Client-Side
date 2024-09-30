@@ -4,7 +4,9 @@ import { cookies } from "next/headers";
 
 const nexiosInstance = new Nexios({
   baseURL: envConfig.baseApi,
-  credentials: "include",
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 nexiosInstance.interceptors.request.use((config) => {
