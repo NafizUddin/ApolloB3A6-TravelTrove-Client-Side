@@ -37,3 +37,11 @@ export interface IPost {
   status: keyof typeof POST_STATUS;
   createdAt?: Date;
 }
+
+export interface ICreatePostData {
+  title: string;
+  category: string;
+  description: string;
+  image: string;
+  status: string;
+}

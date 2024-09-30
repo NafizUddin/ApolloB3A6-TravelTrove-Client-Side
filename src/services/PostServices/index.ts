@@ -1,17 +1,11 @@
 "use server";
 import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
+import { ICreatePostData } from "@/src/types";
 import nexiosInstance from "nexios-http";
 import { revalidateTag } from "next/cache";
 
-interface PostData {
-  title: string;
-  category: string;
-  description: string;
-  image: string;
-}
-
-export const createPost = async (formData: PostData): Promise<any> => {
+export const createPost = async (formData: ICreatePostData): Promise<any> => {
   try {
     const { data } = await axiosInstance.post("/posts", formData);
 
@@ -31,6 +25,7 @@ export const getAllPostsHomePage = async () => {
   };
 
   const res = await fetch(`${envConfig.baseApi}/posts`, fetchOption);
+  const data = await res.json();
 
-  return res.json();
+  return data;
 };

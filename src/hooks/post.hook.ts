@@ -1,16 +1,10 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { createPost, getAllPostsHomePage } from "../services/PostServices";
+import { useMutation } from "@tanstack/react-query";
+import { createPost } from "../services/PostServices";
 import toast from "react-hot-toast";
-
-interface PostData {
-  title: string;
-  category: string;
-  description: string;
-  image: string;
-}
+import { ICreatePostData } from "../types";
 
 export const useCreatePost = () => {
-  return useMutation<PostData, Error, PostData>({
+  return useMutation<ICreatePostData, Error, ICreatePostData>({
     mutationKey: ["CREATE_POST"],
     mutationFn: async (postData) => {
       return toast.promise(createPost(postData), {

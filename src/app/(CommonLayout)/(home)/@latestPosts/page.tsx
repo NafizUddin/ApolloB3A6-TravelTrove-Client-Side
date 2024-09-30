@@ -9,12 +9,12 @@ const LatestPosts = async () => {
 
   return (
     <div className="my-16">
-      <SectionTitle sub="Tips & Stories" heading="Latest Travel Insights" />
+      <SectionTitle sub="TIPS & STORIES" heading="LATEST TRAVEL INSIGHTS" />
 
       <div className="my-10">
         {data?.result &&
-          data?.result?.map((singlePost: IPost) => (
-            <TestPostCard singlePost={singlePost} />
+          data?.result?.map((singlePost: IPost, index: number) => (
+            <TestPostCard key={index} singlePost={singlePost} />
           ))}
         {/* <PostCard /> */}
       </div>

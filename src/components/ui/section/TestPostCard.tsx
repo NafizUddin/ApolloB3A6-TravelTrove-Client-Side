@@ -39,6 +39,35 @@ const TestPostCard = ({ singlePost }: any) => {
               </div>
               <div className="text-slate-500">July 17, 2018</div>
             </div>
+            <div className="ml-4">
+              <span className="rounded-full bg-primary px-3 py-1 text-white text-sm flex gap-2 items-center cursor-pointer hover:bg-primary-700">
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-user-plus"
+                  >
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <line x1="19" x2="19" y1="8" y2="14" />
+                    <line x1="22" x2="16" y1="11" y2="11" />
+                  </svg>
+                </span>
+                <span>Follow</span>
+              </span>
+            </div>
+          </div>
+          <div>
+            <span className="rounded-full border border-primary px-3 py-2  text-primary font-semibold">
+              {category}
+            </span>
           </div>
         </div>
         <h2 className="text-3xl font-extrabold">{title}</h2>
@@ -53,7 +82,11 @@ const TestPostCard = ({ singlePost }: any) => {
           </div>
         </div>
         <p className="">
-          <span dangerouslySetInnerHTML={{ __html: description }} />
+          {/* <span dangerouslySetInnerHTML={{ __html: description }} /> */}
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus nisi
+          et explicabo iure, temporibus odit pariatur consequatur adipisci
+          quaerat, corrupti placeat nostrum aspernatur, aperiam natus similique
+          architecto sit eaque saepe?
         </p>
         <div className="py-4 flex gap-5">
           <a className="inline-flex items-center" href="#">
@@ -65,9 +98,9 @@ const TestPostCard = ({ singlePost }: any) => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className="lucide lucide-thumbs-up text-primary"
               >
                 <path d="M7 10v12" />
@@ -85,9 +118,9 @@ const TestPostCard = ({ singlePost }: any) => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className="lucide lucide-thumbs-down text-primary"
               >
                 <path d="M17 14V2" />
@@ -105,9 +138,9 @@ const TestPostCard = ({ singlePost }: any) => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className="lucide lucide-message-circle text-primary"
               >
                 <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />

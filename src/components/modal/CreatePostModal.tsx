@@ -8,6 +8,8 @@ import { Select, SelectItem } from "@nextui-org/select";
 import axios from "axios";
 import { useCreatePost } from "@/src/hooks/post.hook";
 import toast from "react-hot-toast";
+import { Checkbox } from "@nextui-org/checkbox";
+import { cn } from "@nextui-org/theme";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -23,13 +25,14 @@ export const travelCategory = [
 const CLOUDINARY_UPLOAD_PRESET = "assignments"; // replace with your Cloudinary upload preset
 const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/ddefkg087/image/upload";
 
-export default function NavigateUIModal() {
+export default function CreatePostModal() {
   const [openModal, setOpenModal] = useState(false);
   const [content, setContent] = useState("");
   const { register, handleSubmit, reset, formState, control, setValue } =
     useForm();
   const { errors } = formState;
   const [fileName, setFileName] = useState<string | null>(null);
+  const [isSelected, setIsSelected] = useState(false);
 
   const {
     mutate: handlePostCreation,
@@ -93,14 +96,10 @@ export default function NavigateUIModal() {
         category: data.category,
         description: data.description,
         image: imageUrl,
+        status: isSelected ? "PREMIUM" : "BASIC",
       };
 
       handlePostCreation(postData);
-      // toast.promise(myPromise, {
-      //   loading: "Loading",
-      //   success: "Got the data",
-      //   error: "Error when fetching",
-      // });
     } catch (error: any) {
       console.error(error);
     }
@@ -108,12 +107,12 @@ export default function NavigateUIModal() {
 
   return (
     <div className="mx-auto w-fit">
-      <button
+      <textarea
+        placeholder="Tell us your story or share a tip! 🌍"
         onClick={() => setOpenModal(true)}
-        className="rounded-md border border-zinc-500 px-5 py-[6px] text-zinc-500 hover:bg-zinc-200"
-      >
-        Welcome!
-      </button>
+        className="rounded-md border border-zinc-500 px-3 py-2 text-zinc-500 hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400 w-[600px] h-20 resize-none"
+      />
+
       <div
         onClick={() => setOpenModal(false)}
         className={`fixed z-[100] w-screen ${
@@ -139,75 +138,80 @@ export default function NavigateUIModal() {
           </svg>
           <h1 className="mb-2 text-3xl font-semibold">Create Travel Post</h1>
           <div>
+            <div className="mt-7">
+              <Checkbox isSelected={isSelected} onValueChange={setIsSelected}>
+                Mark as Premium
+              </Checkbox>
+            </div>
             <form
               onSubmit={handleSubmit(handleCreatePost)}
-              className="space-y-5 mt-5"
+              className="space-y-3"
             >
-              <Controller
-                name="title"
-                control={control}
-                rules={{ required: "Please provide post title" }}
-                render={({ field }) => (
-                  <Input
-                    {...field}
-                    label="Post Title"
-                    variant="underlined"
-                    color="primary"
-                    isClearable
-                  />
+              <div>
+                <Controller
+                  name="title"
+                  control={control}
+                  rules={{ required: "Please provide post title" }}
+                  render={({ field }) => (
+                    <Input {...field} label="Post Title" variant="underlined" />
+                  )}
+                />
+                {errors.title && (
+                  <p className="text-red-500">
+                    {errors.title.message as ReactNode}
+                  </p>
                 )}
-              />
-              {errors.title && (
-                <p className="text-red-500">
-                  {errors.title.message as ReactNode}
-                </p>
-              )}
+              </div>
 
-              <Controller
-                name="category"
-                control={control}
-                rules={{ required: "Please select a category" }}
-                render={({ field }) => (
-                  <Select {...field} label="Select a category">
-                    {travelCategory.map((category) => (
-                      <SelectItem key={category.key}>
-                        {category.label}
-                      </SelectItem>
-                    ))}
-                  </Select>
+              <div>
+                <Controller
+                  name="category"
+                  control={control}
+                  rules={{ required: "Please select a category" }}
+                  render={({ field }) => (
+                    <Select {...field} label="Select a category">
+                      {travelCategory.map((category) => (
+                        <SelectItem key={category.key}>
+                          {category.label}
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  )}
+                />
+                {errors.category && (
+                  <p className="text-red-500">
+                    {errors.category.message as ReactNode}
+                  </p>
                 )}
-              />
-              {errors.category && (
-                <p className="text-red-500">
-                  {errors.category.message as ReactNode}
-                </p>
-              )}
+              </div>
 
-              <Controller
-                name="description"
-                control={control}
-                rules={{ required: "Please provide post description" }}
-                render={({ field }) => (
-                  <div className="w-full space-y-3">
-                    <label className="font-semibold">Post Description</label>
-                    <ReactQuill
-                      {...field}
-                      value={content}
-                      onChange={(value) => {
-                        setContent(value);
-                        field.onChange(value);
-                      }}
-                      modules={modules}
-                      className="h-[110px]"
-                    />
-                  </div>
+              <div>
+                <Controller
+                  name="description"
+                  control={control}
+                  rules={{ required: "Please provide post description" }}
+                  render={({ field }) => (
+                    <div className="w-full space-y-3">
+                      <label className="font-semibold">Post Description</label>
+                      <ReactQuill
+                        {...field}
+                        value={content}
+                        onChange={(value) => {
+                          setContent(value);
+                          field.onChange(value);
+                        }}
+                        modules={modules}
+                        className="h-[110px]"
+                      />
+                    </div>
+                  )}
+                />
+                {errors.description && (
+                  <p className="text-red-500 mt-12">
+                    {errors.description.message as ReactNode}
+                  </p>
                 )}
-              />
-              {errors.description && (
-                <p className="text-red-500 mt-3">
-                  {errors.description.message as ReactNode}
-                </p>
-              )}
+              </div>
 
               {/* <div className="flex flex-col">
                 <div className="mt-8">
@@ -276,7 +280,7 @@ export default function NavigateUIModal() {
               </div> */}
 
               <div className="flex flex-col">
-                <div className="mt-8">
+                <div className="mt-9">
                   <label
                     className="flex h-14 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-primary-400 text-default-800 shadow-sm transition-all duration-100 hover:border-primary-600"
                     htmlFor={"image"}

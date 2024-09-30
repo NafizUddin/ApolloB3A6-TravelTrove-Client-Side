@@ -1,6 +1,6 @@
 import TestModal from "@/src/components/modal/TestModal";
 import Banner from "./_homeSections/Banner/Banner";
-import NavigateUIModal from "@/src/components/modal/NavigateUIModal";
+import CreatePostModal from "@/src/components/modal/CreatePostModal";
 
 export default function Home() {
   return (
