@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
+import axios from "axios";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -16,6 +17,9 @@ export const travelCategory = [
   { key: "Luxury Travel", label: "Luxury Travel" },
   { key: "Budget Travel", label: "Budget Travel" },
 ];
+
+const CLOUDINARY_UPLOAD_PRESET = "assignments"; // replace with your Cloudinary upload preset
+const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/ddefkg087/image/upload";
 
 export default function NavigateUIModal() {
   const [openModal, setOpenModal] = useState(false);
@@ -52,12 +56,26 @@ export default function NavigateUIModal() {
     setValue("image", null);
   };
 
-  const handleCreatePost = (data: any) => {
+  const handleCreatePost = async (data: any) => {
     if (!data.title || !data.category || !data.description || !data.image)
       return;
     setOpenModal(false);
 
-    console.log(data);
+    const formData = new FormData();
+    formData.append("file", data.image);
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+    try {
+      const response = await axios.post(CLOUDINARY_URL, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const imageUrl = response.data.secure_url;
+    } catch (error: any) {
+      console.error("Error uploading image:", error);
+    }
   };
 
   return (
@@ -158,7 +176,7 @@ export default function NavigateUIModal() {
                 )}
               />
               {errors.description && (
-                <p className="text-red-500">
+                <p className="text-red-500 mt-3">
                   {errors.description.message as ReactNode}
                 </p>
               )}
