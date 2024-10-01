@@ -12,7 +12,12 @@ export const createComment = async (commentData: IComment): Promise<any> => {
 
     return data;
   } catch (error: any) {
-    console.log(error.response ? error.response.data : error.message);
+    const errorMessage =
+      error?.response?.data?.message ||
+      error?.message ||
+      "Unknown error occurred";
+    console.error(errorMessage);
+    throw new Error(errorMessage);
   }
 };
 
@@ -36,8 +41,6 @@ export const updateComment = async (
   id: string,
   updatedComment: IUpdateComment
 ): Promise<any> => {
-  console.log(id, updatedComment);
-
   try {
     const { data } = await axiosInstance.put(`/comments/${id}`, updatedComment);
 
@@ -45,6 +48,28 @@ export const updateComment = async (
 
     return data;
   } catch (error: any) {
-    console.log(error.response ? error.response.data : error.message);
+    const errorMessage =
+      error?.response?.data?.message ||
+      error?.message ||
+      "Unknown error occurred";
+    console.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+};
+
+export const deleteComment = async (id: string): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.delete(`/comments/${id}`);
+
+    revalidateTag("comments");
+
+    return data;
+  } catch (error: any) {
+    const errorMessage =
+      error?.response?.data?.message ||
+      error?.message ||
+      "Unknown error occurred";
+    console.error(errorMessage);
+    throw new Error(errorMessage);
   }
 };

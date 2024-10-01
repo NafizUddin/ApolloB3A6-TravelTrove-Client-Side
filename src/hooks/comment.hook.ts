@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { IComment, IUpdateComment } from "../types";
 import {
   createComment,
+  deleteComment,
   getPostAllComments,
   updateComment,
 } from "../services/CommentServices";
@@ -40,6 +41,19 @@ export const useUpdateComment = () => {
         loading: "Updating comment...",
         success: "Comment updated successfully!",
         error: "Error when updating comment.",
+      });
+    },
+  });
+};
+
+export const useDeleteComment = () => {
+  return useMutation<any, Error, { id: string }>({
+    mutationKey: ["DELETE_COMMENT"],
+    mutationFn: async ({ id }) => {
+      return toast.promise(deleteComment(id), {
+        loading: "Deleting comment...",
+        success: "Comment deleted successfully!",
+        error: "Error when deleting comment.",
       });
     },
   });

@@ -7,10 +7,12 @@ import parse from "html-react-parser";
 import { useUser } from "@/src/context/user.provider";
 import {
   useCreateComment,
+  useDeleteComment,
   useGetPostAllComments,
   useUpdateComment,
 } from "@/src/hooks/comment.hook";
 import { Tooltip } from "@nextui-org/tooltip";
+import { DeleteModal } from "../../modal/DeleteModal";
 
 const TravelPostCard = ({ singlePost }: any) => {
   const {
@@ -30,6 +32,7 @@ const TravelPostCard = ({ singlePost }: any) => {
   const { user } = useUser();
   const { mutate: handleCreateComment } = useCreateComment();
   const { mutate: handleCommentUpdate } = useUpdateComment();
+  const { mutate: handleCommentDelete } = useDeleteComment();
   const { data: allComments, isLoading: commentLoading } =
     useGetPostAllComments(_id);
 
@@ -37,6 +40,10 @@ const TravelPostCard = ({ singlePost }: any) => {
   const [editedComments, setEditedComments] = useState<{
     [key: string]: string;
   }>({});
+  const [commentIdToDelete, setCommentIdToDelete] = useState<string | null>(
+    null
+  );
+  const [openModal, setOpenModal] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
@@ -95,6 +102,12 @@ const TravelPostCard = ({ singlePost }: any) => {
       setIsEditing(null);
     } catch (error: any) {
       console.log(error.message);
+    }
+  };
+
+  const handleDeleteComment = () => {
+    if (commentIdToDelete) {
+      handleCommentDelete({ id: commentIdToDelete });
     }
   };
 
@@ -251,6 +264,14 @@ const TravelPostCard = ({ singlePost }: any) => {
           />
         </div>
 
+        {commentIdToDelete && (
+          <DeleteModal
+            handleDeleteComment={handleDeleteComment}
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+          />
+        )}
+
         <div>
           {allComments?.data?.result?.length > 0 && (
             <div className="pt-6">
@@ -351,8 +372,15 @@ const TravelPostCard = ({ singlePost }: any) => {
                                 </svg>
                               </div>
                             </Tooltip>
+
                             <Tooltip showArrow={true} content="Delete Comment">
-                              <div className="bg-blue-500 p-1 rounded-full w-8 h-8 flex items-center justify-center">
+                              <div
+                                onClick={() => {
+                                  setCommentIdToDelete(comment._id);
+                                  setOpenModal(true);
+                                }}
+                                className="bg-blue-500 p-1 rounded-full w-8 h-8 flex items-center justify-center cursor-pointer"
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   width="16"
