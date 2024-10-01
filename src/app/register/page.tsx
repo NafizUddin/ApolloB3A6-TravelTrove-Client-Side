@@ -29,18 +29,8 @@ const RegisterPage = () => {
   } = useUserRegistration();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    // const userInfo = {
-    //   name: data.name,
-    //   email: data.email,
-    //   password: data.password,
-    // };
-    // const image = data.image;
-
-    // const formData = new FormData();
-    // formData.append("data", JSON.stringify(userInfo));
-    // formData.append("file", image);
-
-    let imageUrl;
+    let imageUrl =
+      "https://www.pngall.com/wp-content/uploads/5/Profile-PNG-Free-Download.png";
 
     if (data?.image) {
       const formData = new FormData();
@@ -72,8 +62,10 @@ const RegisterPage = () => {
         name: data.name,
         email: data.email,
         password: data.password,
-        ...(imageUrl && { image: imageUrl }),
+        profilePhoto: imageUrl,
       };
+
+      console.log("final user", userData);
 
       handleUserRegister(userData);
       userLoading(true);

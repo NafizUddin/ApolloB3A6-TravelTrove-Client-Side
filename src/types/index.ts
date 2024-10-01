@@ -50,7 +50,7 @@ export interface IRegister {
   name: string;
   email: string;
   password: string;
-  image?: string;
+  profilePhoto: string;
 }
 
 export interface IComment {

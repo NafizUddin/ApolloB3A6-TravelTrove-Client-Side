@@ -202,72 +202,6 @@ export default function CreatePostModal() {
                 )}
               </div>
 
-              {/* <div className="flex flex-col">
-                <div className="mt-8">
-                  <label
-                    className="flex h-14 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-primary text-default-800 shadow-sm transition-all duration-100 hover:border-primary-700"
-                    htmlFor="image"
-                  >
-                    Upload Post Image
-                  </label>
-                </div>
-                <Controller
-                  name="image"
-                  control={control}
-                  rules={{ required: "Image is required" }}
-                  render={({ field }) => (
-                    <>
-                      <input
-                        {...field}
-                        accept="image/*"
-                        className="hidden"
-                        id="image"
-                        type="file"
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (file) {
-                            setFileName(file.name);
-                            // Pass the file object to react-hook-form
-                            field.onChange(file);
-                          } else {
-                            // Handle case where no file is selected
-                            setFileName(null);
-                            field.onChange(null); // Clear the field value
-                          }
-                        }}
-                      />
-                    </>
-                  )}
-                />
-
-                {fileName && (
-                  <div className="mt-2 flex items-center text-sm text-gray-600 justify-between">
-                    <span
-                      className="font-medium mr-2 truncate w-60"
-                      style={{
-                        overflow: "hidden",
-                        whiteSpace: "nowrap",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      Selected file: {fileName}
-                    </span>
-                    <button
-                      type="button"
-                      className="text-red-500 hover:text-red-700 font-medium"
-                      onClick={clearFileSelection}
-                    >
-                      Clear
-                    </button>
-                  </div>
-                )}
-                {errors.image && (
-                  <p className="mt-1 text-sm text-red-600 text-center">
-                    {errors.image.message as ReactNode}
-                  </p>
-                )}
-              </div> */}
-
               <div className="flex flex-col">
                 <div className="mt-9">
                   <label
@@ -306,6 +240,12 @@ export default function CreatePostModal() {
                       Clear
                     </button>
                   </div>
+                )}
+
+                {!fileName && errors.image && (
+                  <p className="mt-1 text-sm text-red-600 text-center">
+                    {errors.image.message as ReactNode}
+                  </p>
                 )}
               </div>
 
