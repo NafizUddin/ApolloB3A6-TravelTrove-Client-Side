@@ -31,10 +31,36 @@ const TravelPostCard = ({ singlePost }: any) => {
   const { data: allComments, isLoading: commentLoading } =
     useGetPostAllComments(_id);
 
-  console.log(allComments?.data?.result);
+  const [isEditing, setIsEditing] = useState<string | null>("");
+  const [editedComments, setEditedComments] = useState<{
+    [key: string]: string;
+  }>({});
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
+  };
+
+  const handleEdit = (id: string, text: string) => {
+    setIsEditing(id);
+    setEditedComments((prev) => ({
+      ...prev,
+      [id]: text,
+    }));
+  };
+
+  const handleCancel = () => {
+    setIsEditing(null);
+  };
+
+  // Handle input change
+  const handleEditCommentChange = (
+    id: string,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setEditedComments((prev) => ({
+      ...prev,
+      [id]: e.target.value,
+    }));
   };
 
   const handleCommentSubmit = () => {
@@ -54,6 +80,11 @@ const TravelPostCard = ({ singlePost }: any) => {
     } catch (error: any) {
       console.log(error.message);
     }
+  };
+
+  const handleUpdateComment = (commentId: string) => {
+    const updatedComment = editedComments[commentId];
+    console.log(updatedComment, commentId);
   };
 
   return (
@@ -212,79 +243,132 @@ const TravelPostCard = ({ singlePost }: any) => {
         <div>
           {allComments?.data?.result?.length > 0 && (
             <div className="pt-6">
-              {allComments.data.result.map((comment: any) => (
-                <div key={comment._id} className="media flex pb-4">
-                  <a className="mr-4" href="#">
-                    <img
-                      className="rounded-full max-w-none w-12 h-12 object-cover"
-                      src={comment.user?.profilePhoto}
-                      alt={comment.user?.name}
-                    />
-                  </a>
-                  <div className="flex justify-between gap-7 w-full">
-                    <div>
+              {allComments.data.result.map((comment: any) => {
+                return (
+                  <div key={comment._id} className="media flex pb-4">
+                    <a className="mr-4" href="#">
+                      <img
+                        className="rounded-full max-w-none w-12 h-12 object-cover"
+                        src={comment.user?.profilePhoto}
+                        alt={comment.user?.name}
+                      />
+                    </a>
+                    <div className="flex justify-between items-center gap-7 w-full">
+                      <div className="w-full">
+                        {/* increase the width of this div */}
+                        <div className="w-full">
+                          <a
+                            className="inline-block text-base font-bold mr-2"
+                            href="#"
+                          >
+                            {comment.user?.name}
+                          </a>
+                          <span className="text-slate-500 dark:text-slate-300">
+                            {/* Replace with actual comment time */}
+                            {new Date(comment.createdAt).toLocaleString()}
+                          </span>
+                        </div>
+                        <div>
+                          {comment?.user?._id === user?._id &&
+                          comment._id === isEditing ? (
+                            <div className="flex gap-3">
+                              <div className="relative w-full">
+                                <Input
+                                  type="text"
+                                  placeholder="Write a comment"
+                                  variant="bordered"
+                                  size="md"
+                                  className="border-primary focus:ring-primary"
+                                  value={
+                                    editedComments[comment._id] !== undefined
+                                      ? editedComments[comment._id]
+                                      : comment.text
+                                  }
+                                  onChange={(e) =>
+                                    handleEditCommentChange(comment._id, e)
+                                  }
+                                  endContent={
+                                    <svg
+                                      className="fill-blue-500 size-8 cursor-pointer"
+                                      onClick={() =>
+                                        handleUpdateComment(comment._id)
+                                      }
+                                      viewBox="0 0 24 24"
+                                      style={{ width: 24, height: 24 }}
+                                    >
+                                      <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"></path>
+                                    </svg>
+                                  }
+                                />
+                              </div>
+                              <button
+                                onClick={handleCancel}
+                                className="rounded-md border border-rose-600 py-[3px] px-2 text-rose-600 duration-150 hover:bg-rose-600 hover:text-white"
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          ) : (
+                            <p>{comment.text}</p>
+                          )}
+                        </div>
+                      </div>
                       <div>
-                        <a
-                          className="inline-block text-base font-bold mr-2"
-                          href="#"
-                        >
-                          {comment.user?.name}
-                        </a>
-                        <span className="text-slate-500 dark:text-slate-300">
-                          {/* Replace with actual comment time */}
-                          {new Date(comment.createdAt).toLocaleString()}
-                        </span>
+                        {comment?.user?._id === user?._id && (
+                          <div className="flex gap-3 mr-2">
+                            <Tooltip showArrow={true} content="Edit Comment">
+                              <div
+                                onClick={() =>
+                                  handleEdit(comment._id, comment.text)
+                                }
+                                className="bg-blue-500 p-1 rounded-full w-8 h-8 flex items-center justify-center"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="white"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  className="lucide lucide-pencil"
+                                >
+                                  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+                                  <path d="m15 5 4 4" />
+                                </svg>
+                              </div>
+                            </Tooltip>
+                            <Tooltip showArrow={true} content="Delete Comment">
+                              <div className="bg-blue-500 p-1 rounded-full w-8 h-8 flex items-center justify-center">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="white"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  className="lucide lucide-trash-2"
+                                >
+                                  <path d="M3 6h18" />
+                                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                                  <line x1="10" x2="10" y1="11" y2="17" />
+                                  <line x1="14" x2="14" y1="11" y2="17" />
+                                </svg>
+                              </div>
+                            </Tooltip>
+                          </div>
+                        )}
                       </div>
-                      <p>{comment.text}</p>
                     </div>
-                    {comment.user === user?._id && (
-                      <div className="flex gap-3 mr-2">
-                        <Tooltip showArrow={true} content="Edit Comment">
-                          <div className="bg-blue-500 p-1 rounded-full w-8 h-8 flex items-center justify-center">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="white"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="lucide lucide-pencil"
-                            >
-                              <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
-                              <path d="m15 5 4 4" />
-                            </svg>
-                          </div>
-                        </Tooltip>
-                        <Tooltip showArrow={true} content="Delete Comment">
-                          <div className="bg-blue-500 p-1 rounded-full w-8 h-8 flex items-center justify-center">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="white"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="lucide lucide-trash-2"
-                            >
-                              <path d="M3 6h18" />
-                              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                              <line x1="10" x2="10" y1="11" y2="17" />
-                              <line x1="14" x2="14" y1="11" y2="17" />
-                            </svg>
-                          </div>
-                        </Tooltip>
-                      </div>
-                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
               <div className="w-full">
                 <a
                   href="#"
