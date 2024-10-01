@@ -21,9 +21,6 @@ export const travelCategory = [
   { key: "Budget Travel", label: "Budget Travel" },
 ];
 
-// const CLOUDINARY_UPLOAD_PRESET = "assignments"; // replace with your Cloudinary upload preset
-// const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/ddefkg087/image/upload";
-
 export default function CreatePostModal() {
   const [openModal, setOpenModal] = useState(false);
   const [content, setContent] = useState("");
@@ -90,8 +87,6 @@ export default function CreatePostModal() {
         image: imageUrl,
         status: isSelected ? "PREMIUM" : "BASIC",
       };
-
-      console.log("postdata", postData);
 
       handlePostCreation(postData);
     } catch (error: any) {

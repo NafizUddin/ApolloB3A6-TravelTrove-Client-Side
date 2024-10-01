@@ -42,9 +42,6 @@ const RegisterPage = () => {
 
     let imageUrl;
 
-    console.log(envConfig.cloudinary_upload_preset);
-    console.log(envConfig.cloudinary_url);
-
     if (data?.image) {
       const formData = new FormData();
       formData.append("file", data.image);
@@ -65,8 +62,6 @@ const RegisterPage = () => {
         );
 
         imageUrl = response.data.secure_url;
-
-        console.log(imageUrl);
       } catch (error: any) {
         console.error(error.message);
       }

@@ -4,6 +4,8 @@ import { IPost } from "@/src/types";
 import { Input } from "@nextui-org/input";
 import { useState } from "react";
 import parse from "html-react-parser";
+import { user } from "@nextui-org/theme";
+import { useUser } from "@/src/context/user.provider";
 
 const TravelPostCard = ({ singlePost }: any) => {
   const {
@@ -16,7 +18,28 @@ const TravelPostCard = ({ singlePost }: any) => {
     downvote,
     status,
     createdAt,
+    _id,
   } = singlePost;
+
+  const [comment, setComment] = useState<string>("");
+  const { user } = useUser();
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setComment(e.target.value);
+  };
+
+  const handleCommentSubmit = () => {
+    setComment("");
+
+    const commentData = {
+      text: comment,
+      user: user?._id,
+      post: _id,
+      email: user?.email,
+    };
+
+    console.log(commentData);
+  };
 
   return (
     <div className="my-5">
@@ -25,8 +48,8 @@ const TravelPostCard = ({ singlePost }: any) => {
           <div className="flex">
             <a className="inline-block mr-4" href="#">
               <img
-                className="rounded-full max-w-none w-12 h-12"
-                src="https://randomuser.me/api/portraits/men/35.jpg"
+                className="rounded-full max-w-none w-12 h-12 object-cover"
+                src={postAuthor?.profilePhoto}
               />
             </a>
             <div className="flex flex-col">
@@ -35,7 +58,7 @@ const TravelPostCard = ({ singlePost }: any) => {
                   className="inline-block text-lg font-bold dark:text-white"
                   href="#"
                 >
-                  Wade Warren
+                  {postAuthor?.name}
                 </a>
               </div>
               <div className="text-slate-500">July 17, 2018</div>
@@ -71,7 +94,7 @@ const TravelPostCard = ({ singlePost }: any) => {
             </span>
           </div>
         </div>
-        <div className="mt-2 mb-6">
+        <div className="mt-2 mb-6 md:mb-0 md:mt-0">
           <span className="rounded-full border border-primary px-3 py-2  text-primary font-semibold md:hidden mb-2">
             {category}
           </span>
@@ -150,36 +173,25 @@ const TravelPostCard = ({ singlePost }: any) => {
           </a>
         </div>
         <div className="relative">
-          {/* <input
-            className="pt-2 pb-2 pl-3 w-full h-11 bg-slate-100 dark:bg-slate-600 rounded-lg placeholder:text-slate-600 dark:placeholder:text-slate-300 font-medium pr-20"
-            type="text"
-            placeholder="Write a comment"
-          /> */}
           <Input
             type="text"
             placeholder="Write a comment"
             variant="bordered"
             size="lg"
             className="border-primary focus:ring-primary"
+            value={comment} // Bind the value to the state
+            onChange={handleInputChange} // Handle input change
             endContent={
               <svg
                 className="fill-blue-500 size-8"
-                //   style="width: 24px; height: 24px;"
+                onClick={handleCommentSubmit} // Handle submission when the icon is clicked
                 viewBox="0 0 24 24"
+                style={{ width: 24, height: 24 }}
               >
                 <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"></path>
               </svg>
             }
           />
-          {/* <span className="flex absolute right-3 top-2/4 -mt-3 items-center">
-            <svg
-              className="fill-blue-500 size-8"
-              //   style="width: 24px; height: 24px;"
-              viewBox="0 0 24 24"
-            >
-              <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"></path>
-            </svg>
-          </span> */}
         </div>
 
         <div className="pt-6">
@@ -214,7 +226,7 @@ const TravelPostCard = ({ singlePost }: any) => {
                   <span className="text-base font-bold">12</span>
                 </a>
                 <button className="py-2 px-4 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg">
-                  Repply
+                  Reply
                 </button>
               </div>
             </div>

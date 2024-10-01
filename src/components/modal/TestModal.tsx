@@ -42,7 +42,6 @@ const TestModal = () => {
 
   const handleCreatePost: SubmitHandler<FieldValues> = (data) => {
     setIsSubmitting(true); // Set loading state
-    console.log("Form Data:", data);
 
     // Simulate form submission
     setTimeout(() => {
