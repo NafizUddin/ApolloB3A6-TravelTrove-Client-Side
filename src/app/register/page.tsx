@@ -13,6 +13,9 @@ import { useUserRegistration } from "@/src/hooks/auth.hook";
 import TRFileInput from "@/src/components/form/TRFileInput";
 import registerValidationSchema from "@/src/schemas/register.schema";
 import { useEffect } from "react";
+import envConfig from "@/src/config/envConfig";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const RegisterPage = () => {
   const searchParams = useSearchParams();
@@ -25,20 +28,63 @@ const RegisterPage = () => {
     isSuccess,
   } = useUserRegistration();
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const userInfo = {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-    };
-    const image = data.image;
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    // const userInfo = {
+    //   name: data.name,
+    //   email: data.email,
+    //   password: data.password,
+    // };
+    // const image = data.image;
 
-    const formData = new FormData();
-    formData.append("data", JSON.stringify(userInfo));
-    formData.append("file", image);
+    // const formData = new FormData();
+    // formData.append("data", JSON.stringify(userInfo));
+    // formData.append("file", image);
 
-    handleUserRegister(formData);
-    userLoading(true);
+    let imageUrl;
+
+    console.log(envConfig.cloudinary_upload_preset);
+    console.log(envConfig.cloudinary_url);
+
+    if (data?.image) {
+      const formData = new FormData();
+      formData.append("file", data.image);
+      formData.append(
+        "upload_preset",
+        envConfig.cloudinary_upload_preset as string
+      );
+
+      try {
+        const response = await axios.post(
+          envConfig.cloudinary_url as string,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        imageUrl = response.data.secure_url;
+
+        console.log(imageUrl);
+      } catch (error: any) {
+        console.error(error.message);
+      }
+    }
+
+    try {
+      const userData = {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        ...(imageUrl && { image: imageUrl }),
+      };
+
+      handleUserRegister(userData);
+      userLoading(true);
+    } catch (error: any) {
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -73,78 +119,6 @@ const RegisterPage = () => {
               <h3 className="text-2xl font-semibold text-gray-700 text-center">
                 Create your account
               </h3>
-
-              {/* <FormProvider {...methods}>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className="py-3">
-                    <TRInput name="name" label="Full Name" type="text" />
-                  </div>
-                  <div className="py-3">
-                    <TRInput name="email" label="Email" type="email" />
-                  </div>
-                  <div className="py-3">
-                    <TRInput name="password" label="Password" type="password" />
-                  </div>
-
-                  <div className="py-3">
-                    <label
-                      className="flex h-14 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-primary-400 text-default-800 shadow-sm transition-all duration-100 hover:border-primary-600"
-                      htmlFor="image"
-                    >
-                      Upload image
-                    </label>
-                    <input
-                      accept="image/*"
-                      className="hidden"
-                      id="image"
-                      type="file"
-                      onChange={handleImageChange}
-                    />
-                    {fileName && (
-                      <div className="mt-2 flex items-center text-sm text-gray-600 justify-between">
-                        <span
-                          className="font-medium mr-2 truncate w-60"
-                          style={{
-                            overflow: "hidden",
-                            whiteSpace: "nowrap",
-                            textOverflow: "ellipsis",
-                          }}
-                        >
-                          Selected file: {fileName}
-                        </span>
-                        <button
-                          type="button"
-                          className="text-red-500 hover:text-red-700 font-medium"
-                          onClick={clearFileSelection}
-                        >
-                          Clear
-                        </button>
-                      </div>
-                    )}
-
-                    <p className="text-sm text-red-600 font-medium text-center mt-2">
-                      {errors?.image?.message as ReactNode}
-                    </p>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="group relative z-10 h-11 w-full overflow-hidden bg-primary text-white rounded-full text-center font-semibold text-lg"
-                  >
-                    <span className="absolute -inset-24 origin-left rotate-12 scale-x-0 transform bg-white transition-transform duration-700 group-hover:scale-x-100 group-hover:duration-300"></span>
-                    <span className="absolute -inset-24 origin-left rotate-12 scale-x-0 transform bg-sky-700 transition-transform duration-500 group-hover:scale-x-100 group-hover:duration-700"></span>
-                    <span className="absolute -inset-24 origin-left rotate-12 scale-x-0 transform bg-sky-900 transition-transform duration-300 group-hover:scale-x-50 group-hover:duration-500"></span>
-                    <span className="absolute z-10 text-center text-white opacity-0 duration-100 ease-out group-hover:opacity-100 group-hover:duration-700">
-                      {isLoading ? "" : "Sign Up"}
-                    </span>
-                    {isLoading ? (
-                      <ImSpinner6 className="animate-spin m-auto text-xl" />
-                    ) : (
-                      "Sign Up"
-                    )}
-                  </button>
-                </form>
-              </FormProvider> */}
 
               <TRForm
                 // defaultValues={{

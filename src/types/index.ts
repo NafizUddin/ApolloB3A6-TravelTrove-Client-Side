@@ -45,3 +45,10 @@ export interface ICreatePostData {
   image: string;
   status: string;
 }
+
+export interface IRegister {
+  name: string;
+  email: string;
+  password: string;
+  image?: string;
+}

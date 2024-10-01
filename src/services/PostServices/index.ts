@@ -2,7 +2,6 @@
 import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
 import { ICreatePostData } from "@/src/types";
-import nexiosInstance from "nexios-http";
 import { revalidateTag } from "next/cache";
 
 export const createPost = async (formData: ICreatePostData): Promise<any> => {

@@ -7,9 +7,8 @@ import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
 import axios from "axios";
 import { useCreatePost } from "@/src/hooks/post.hook";
-import toast from "react-hot-toast";
 import { Checkbox } from "@nextui-org/checkbox";
-import { cn } from "@nextui-org/theme";
+import envConfig from "@/src/config/envConfig";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -22,8 +21,8 @@ export const travelCategory = [
   { key: "Budget Travel", label: "Budget Travel" },
 ];
 
-const CLOUDINARY_UPLOAD_PRESET = "assignments"; // replace with your Cloudinary upload preset
-const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/ddefkg087/image/upload";
+// const CLOUDINARY_UPLOAD_PRESET = "assignments"; // replace with your Cloudinary upload preset
+// const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/ddefkg087/image/upload";
 
 export default function CreatePostModal() {
   const [openModal, setOpenModal] = useState(false);
@@ -34,15 +33,7 @@ export default function CreatePostModal() {
   const [fileName, setFileName] = useState<string | null>(null);
   const [isSelected, setIsSelected] = useState(false);
 
-  const {
-    mutate: handlePostCreation,
-    isLoading: createPostLoading,
-    isSuccess,
-  } = useCreatePost();
-
-  const handleContentChange = (value: any) => {
-    setContent(value);
-  };
+  const { mutate: handlePostCreation } = useCreatePost();
 
   const modules = {
     toolbar: {
@@ -74,22 +65,23 @@ export default function CreatePostModal() {
 
     const formData = new FormData();
     formData.append("file", data.image);
-    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+    formData.append(
+      "upload_preset",
+      envConfig.cloudinary_upload_preset as string
+    );
 
     try {
-      const response = await axios.post(CLOUDINARY_URL, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        envConfig.cloudinary_url as string,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       const imageUrl = response.data.secure_url;
-
-      // const postFormData = new FormData();
-      // postFormData.append("title", data.title);
-      // postFormData.append("category", data.category);
-      // postFormData.append("description", data.description);
-      // postFormData.append("image", imageUrl);
 
       const postData = {
         title: data.title,
@@ -99,9 +91,11 @@ export default function CreatePostModal() {
         status: isSelected ? "PREMIUM" : "BASIC",
       };
 
+      console.log("postdata", postData);
+
       handlePostCreation(postData);
     } catch (error: any) {
-      console.error(error);
+      console.error(error.message);
     }
   };
 
@@ -293,9 +287,7 @@ export default function CreatePostModal() {
                   className="hidden"
                   id={"image"}
                   type="file"
-                  {...register("image", {
-                    required: "Please upload a travel photo",
-                  })}
+                  {...register("image")}
                   onChange={handleFileChange}
                 />
 
@@ -319,12 +311,6 @@ export default function CreatePostModal() {
                       Clear
                     </button>
                   </div>
-                )}
-
-                {!fileName && errors.image && (
-                  <p className="mt-1 text-sm text-red-600 text-center">
-                    {errors.image.message as ReactNode}
-                  </p>
                 )}
               </div>
 

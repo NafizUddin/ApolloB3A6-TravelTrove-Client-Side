@@ -1,6 +1,7 @@
 "use server";
 import axiosInstance from "@/src/lib/AxiosInstance";
 import nexiosInstance from "@/src/lib/NexiosInstance";
+import { IRegister } from "@/src/types";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
@@ -20,13 +21,9 @@ export const loginUser = async (userData: FieldValues) => {
   }
 };
 
-export const registerUser = async (userData: FieldValues) => {
+export const registerUser = async (userData: IRegister) => {
   try {
-    const response: any = await axiosInstance.post("/auth/register", userData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response: any = await axiosInstance.post("/auth/register", userData);
 
     if (response.data.success) {
       cookies().set("accessToken", response.data?.data?.accessToken);

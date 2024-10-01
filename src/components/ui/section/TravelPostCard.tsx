@@ -3,6 +3,7 @@
 import { IPost } from "@/src/types";
 import { Input } from "@nextui-org/input";
 import { useState } from "react";
+import parse from "html-react-parser";
 
 const TravelPostCard = ({ singlePost }: any) => {
   const {
@@ -86,13 +87,7 @@ const TravelPostCard = ({ singlePost }: any) => {
             </a>
           </div>
         </div>
-        <p className="">
-          {/* <span dangerouslySetInnerHTML={{ __html: description }} /> */}
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus nisi
-          et explicabo iure, temporibus odit pariatur consequatur adipisci
-          quaerat, corrupti placeat nostrum aspernatur, aperiam natus similique
-          architecto sit eaque saepe?
-        </p>
+        <div className="">{parse(description)}</div>
         <div className="py-4 flex gap-5">
           <a className="inline-flex items-center" href="#">
             <span className="mr-2">
