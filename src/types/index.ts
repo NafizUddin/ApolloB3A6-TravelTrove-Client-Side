@@ -59,3 +59,7 @@ export interface IComment {
   user: string;
   post: string;
 }
+
+export interface IUpdateComment {
+  text: string;
+}

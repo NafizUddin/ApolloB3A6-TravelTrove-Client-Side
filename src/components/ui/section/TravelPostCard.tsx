@@ -8,6 +8,7 @@ import { useUser } from "@/src/context/user.provider";
 import {
   useCreateComment,
   useGetPostAllComments,
+  useUpdateComment,
 } from "@/src/hooks/comment.hook";
 import { Tooltip } from "@nextui-org/tooltip";
 
@@ -28,6 +29,7 @@ const TravelPostCard = ({ singlePost }: any) => {
   const [comment, setComment] = useState<string>("");
   const { user } = useUser();
   const { mutate: handleCreateComment } = useCreateComment();
+  const { mutate: handleCommentUpdate } = useUpdateComment();
   const { data: allComments, isLoading: commentLoading } =
     useGetPostAllComments(_id);
 
@@ -73,8 +75,6 @@ const TravelPostCard = ({ singlePost }: any) => {
       email: user?.email as string,
     };
 
-    console.log(commentData);
-
     try {
       handleCreateComment(commentData);
     } catch (error: any) {
@@ -85,6 +85,17 @@ const TravelPostCard = ({ singlePost }: any) => {
   const handleUpdateComment = (commentId: string) => {
     const updatedComment = editedComments[commentId];
     console.log(updatedComment, commentId);
+
+    const newComment = {
+      text: updatedComment,
+    };
+
+    try {
+      handleCommentUpdate({ id: commentId, updatedComment: newComment });
+      setIsEditing(null);
+    } catch (error: any) {
+      console.log(error.message);
+    }
   };
 
   return (
