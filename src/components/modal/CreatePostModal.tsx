@@ -110,7 +110,7 @@ export default function CreatePostModal() {
       <textarea
         placeholder="Tell us your story or share a tip! 🌍"
         onClick={() => setOpenModal(true)}
-        className="rounded-md border border-zinc-500 px-3 py-2 text-zinc-500 hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400 w-[600px] h-20 resize-none"
+        className="rounded-md border border-zinc-500 px-3 py-2 text-zinc-500 hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400 w-[350px] md:w-[600px] h-20 resize-none"
       />
 
       <div
@@ -121,7 +121,7 @@ export default function CreatePostModal() {
       >
         <div
           onClick={(e_) => e_.stopPropagation()}
-          className={`absolute max-w-3xl xl:max-w-4xl rounded-lg bg-white p-6 drop-shadow-lg overflow-y-auto h-fit max-h-[90vh] ${
+          className={`absolute w-11/12 mx-auto md:max-w-3xl xl:max-w-4xl rounded-lg bg-white p-6 drop-shadow-lg overflow-y-auto h-fit max-h-[90vh] ${
             openModal
               ? "opacity-1 duration-300"
               : "scale-110 opacity-0 duration-150"
