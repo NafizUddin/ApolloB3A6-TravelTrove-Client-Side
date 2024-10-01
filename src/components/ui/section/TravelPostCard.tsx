@@ -4,7 +4,7 @@ import { IPost } from "@/src/types";
 import { Input } from "@nextui-org/input";
 import { useState } from "react";
 
-const TestPostCard = ({ singlePost }: any) => {
+const TravelPostCard = ({ singlePost }: any) => {
   const {
     title,
     category,
@@ -19,7 +19,7 @@ const TestPostCard = ({ singlePost }: any) => {
 
   return (
     <div className="my-5">
-      <article className="mb-4 break-inside p-6 rounded-xl bg-white flex flex-col bg-clip-border md:w-11/12 lg:w-10/12 xl:w-[75%] mx-auto border border-primary">
+      <article className="mb-4 break-inside p-4 md:p-6 rounded-xl bg-white flex flex-col bg-clip-border md:w-11/12 lg:w-10/12 xl:w-[75%] mx-auto border border-primary">
         <div className="flex pb-6 items-center justify-between">
           <div className="flex">
             <a className="inline-block mr-4" href="#">
@@ -39,7 +39,7 @@ const TestPostCard = ({ singlePost }: any) => {
               </div>
               <div className="text-slate-500">July 17, 2018</div>
             </div>
-            <div className="ml-4">
+            <div className="ml-3 md:ml-4">
               <span className="rounded-full bg-primary px-3 py-1 text-white text-sm flex gap-2 items-center cursor-pointer hover:bg-primary-700">
                 <span>
                   <svg
@@ -60,15 +60,20 @@ const TestPostCard = ({ singlePost }: any) => {
                     <line x1="22" x2="16" y1="11" y2="11" />
                   </svg>
                 </span>
-                <span>Follow</span>
+                <span className="md:block">Follow</span>
               </span>
             </div>
           </div>
           <div>
-            <span className="rounded-full border border-primary px-3 py-2  text-primary font-semibold">
+            <span className="rounded-full border border-primary px-3 py-2  text-primary font-semibold hidden md:block mb-2">
               {category}
             </span>
           </div>
+        </div>
+        <div className="mt-2 mb-6">
+          <span className="rounded-full border border-primary px-3 py-2  text-primary font-semibold md:hidden mb-2">
+            {category}
+          </span>
         </div>
         <h2 className="text-3xl font-extrabold">{title}</h2>
         <div className="py-4">
@@ -270,4 +275,4 @@ const TestPostCard = ({ singlePost }: any) => {
   );
 };
 
-export default TestPostCard;
+export default TravelPostCard;

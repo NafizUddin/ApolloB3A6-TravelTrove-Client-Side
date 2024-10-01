@@ -333,7 +333,7 @@ export default function CreatePostModal() {
                     // onClick={() => setOpenModal(false)}
                     className="rounded-md bg-emerald-600 w-full py-[6px] text-white hover:bg-emerald-700"
                   >
-                    Ok
+                    Submit
                   </button>
                 </div>
 

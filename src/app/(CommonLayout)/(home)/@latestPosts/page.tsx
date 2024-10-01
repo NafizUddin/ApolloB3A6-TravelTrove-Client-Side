@@ -1,6 +1,5 @@
-import PostCard from "@/src/components/ui/section/PostCard";
 import SectionTitle from "@/src/components/ui/section/SectionTitle";
-import TestPostCard from "@/src/components/ui/section/TestPostCard";
+import TravelPostCard from "@/src/components/ui/section/TravelPostCard";
 import { getAllPostsHomePage } from "@/src/services/PostServices";
 import { IPost } from "@/src/types";
 
@@ -14,9 +13,8 @@ const LatestPosts = async () => {
       <div className="my-10">
         {data?.result &&
           data?.result?.map((singlePost: IPost, index: number) => (
-            <TestPostCard key={index} singlePost={singlePost} />
+            <TravelPostCard key={index} singlePost={singlePost} />
           ))}
-        {/* <PostCard /> */}
       </div>
     </div>
   );
