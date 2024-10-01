@@ -1,11 +1,11 @@
 "use client";
 
-import { IPost } from "@/src/types";
+import { IComment, IPost } from "@/src/types";
 import { Input } from "@nextui-org/input";
 import { useState } from "react";
 import parse from "html-react-parser";
-import { user } from "@nextui-org/theme";
 import { useUser } from "@/src/context/user.provider";
+import { useCreateComment } from "@/src/hooks/comment.hook";
 
 const TravelPostCard = ({ singlePost }: any) => {
   const {
@@ -23,6 +23,7 @@ const TravelPostCard = ({ singlePost }: any) => {
 
   const [comment, setComment] = useState<string>("");
   const { user } = useUser();
+  const { mutate: handleCreateComment } = useCreateComment();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
@@ -31,14 +32,20 @@ const TravelPostCard = ({ singlePost }: any) => {
   const handleCommentSubmit = () => {
     setComment("");
 
-    const commentData = {
+    const commentData: IComment = {
       text: comment,
-      user: user?._id,
+      user: user?._id as string,
       post: _id,
-      email: user?.email,
+      email: user?.email as string,
     };
 
     console.log(commentData);
+
+    try {
+      handleCreateComment(commentData);
+    } catch (error: any) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -179,12 +186,12 @@ const TravelPostCard = ({ singlePost }: any) => {
             variant="bordered"
             size="lg"
             className="border-primary focus:ring-primary"
-            value={comment} // Bind the value to the state
-            onChange={handleInputChange} // Handle input change
+            value={comment}
+            onChange={handleInputChange}
             endContent={
               <svg
-                className="fill-blue-500 size-8"
-                onClick={handleCommentSubmit} // Handle submission when the icon is clicked
+                className="fill-blue-500 size-8 cursor-pointer"
+                onClick={handleCommentSubmit}
                 viewBox="0 0 24 24"
                 style={{ width: 24, height: 24 }}
               >

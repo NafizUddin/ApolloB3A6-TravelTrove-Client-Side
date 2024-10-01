@@ -52,3 +52,10 @@ export interface IRegister {
   password: string;
   image?: string;
 }
+
+export interface IComment {
+  text: string;
+  email: string;
+  user: string;
+  post: string;
+}
