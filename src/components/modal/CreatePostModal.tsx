@@ -282,7 +282,7 @@ export default function CreatePostModal() {
               <div className="flex flex-col">
                 <div className="mt-9">
                   <label
-                    className="flex h-14 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-primary-400 text-default-800 shadow-sm transition-all duration-100 hover:border-primary-600"
+                    className="flex h-14 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-gray-300 text-default-800 shadow-sm transition-all duration-100 hover:border-primary-600"
                     htmlFor={"image"}
                   >
                     {"Upload Post Image"}
@@ -293,7 +293,9 @@ export default function CreatePostModal() {
                   className="hidden"
                   id={"image"}
                   type="file"
-                  {...register("image")}
+                  {...register("image", {
+                    required: "Please upload a travel photo",
+                  })}
                   onChange={handleFileChange}
                 />
 
@@ -319,9 +321,9 @@ export default function CreatePostModal() {
                   </div>
                 )}
 
-                {!fileName && errors["image"] && (
+                {!fileName && errors.image && (
                   <p className="mt-1 text-sm text-red-600 text-center">
-                    {errors["image"].message as ReactNode}
+                    {errors.image.message as ReactNode}
                   </p>
                 )}
               </div>
