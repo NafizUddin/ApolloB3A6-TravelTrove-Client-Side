@@ -15,3 +15,19 @@ export const createComment = async (commentData: IComment): Promise<any> => {
     console.log(error.response ? error.response.data : error.message);
   }
 };
+
+export const getPostAllComments = async (postId: string) => {
+  const fetchOption = {
+    next: {
+      tags: ["comments"],
+    },
+  };
+
+  const res = await fetch(
+    `${envConfig.baseApi}/comments?post=${postId}`,
+    fetchOption
+  );
+  const data = await res.json();
+
+  return data;
+};

@@ -1,7 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { IComment } from "../types";
-import { createComment } from "../services/CommentServices";
+import { createComment, getPostAllComments } from "../services/CommentServices";
 
 export const useCreateComment = () => {
   return useMutation<IComment, Error, IComment>({
@@ -13,5 +13,13 @@ export const useCreateComment = () => {
         error: "Error when creating comment.",
       });
     },
+  });
+};
+
+export const useGetPostAllComments = (postId: string) => {
+  return useQuery({
+    queryKey: [postId],
+    queryFn: async () => await getPostAllComments(postId),
+    enabled: !!postId, // Only run the query if postId is provided
   });
 };
