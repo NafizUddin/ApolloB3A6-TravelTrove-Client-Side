@@ -20,6 +20,7 @@ import {
   useRemoveDownvotePost,
   useRemoveUpvotePost,
 } from "@/src/hooks/post.hook";
+import Link from "next/link";
 
 const TravelPostCard = ({ singlePost }: any) => {
   const {
@@ -159,11 +160,13 @@ const TravelPostCard = ({ singlePost }: any) => {
               />
             </a>
             <div className="flex flex-col">
-              <div>
-                <a className="inline-block text-lg font-bold">
-                  {postAuthor?.name}
-                </a>
-              </div>
+              <Link href={`/postDetails?id=${_id}`}>
+                <div>
+                  <a className="inline-block text-lg font-bold">
+                    {postAuthor?.name}
+                  </a>
+                </div>
+              </Link>
               <div className="text-slate-500">
                 {new Date(createdAt).toLocaleDateString("en-US", {
                   year: "numeric",
@@ -172,65 +175,67 @@ const TravelPostCard = ({ singlePost }: any) => {
                 })}
               </div>
             </div>
-            <div className="ml-3 md:ml-4">
-              {postAuthor?.followers?.includes(user?._id) ? (
-                <span
-                  onClick={() =>
-                    handleRemoveFollow(postAuthor?._id, postAuthor?.name)
-                  }
-                  className="rounded-full bg-primary px-3 py-1 text-white text-sm flex gap-2 items-center cursor-pointer hover:bg-primary-700"
-                >
-                  <span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-user-x"
-                    >
-                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                      <circle cx="9" cy="7" r="4" />
-                      <line x1="17" x2="22" y1="8" y2="13" />
-                      <line x1="22" x2="17" y1="8" y2="13" />
-                    </svg>
+            {postAuthor?._id !== user?._id && (
+              <div className="ml-3 md:ml-4">
+                {postAuthor?.followers?.includes(user?._id) ? (
+                  <span
+                    onClick={() =>
+                      handleRemoveFollow(postAuthor?._id, postAuthor?.name)
+                    }
+                    className="rounded-full bg-primary px-3 py-1 text-white text-sm flex gap-2 items-center cursor-pointer hover:bg-primary-700"
+                  >
+                    <span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-user-x"
+                      >
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <line x1="17" x2="22" y1="8" y2="13" />
+                        <line x1="22" x2="17" y1="8" y2="13" />
+                      </svg>
+                    </span>
+                    <span className="md:block">Unfollow</span>
                   </span>
-                  <span className="md:block">Unfollow</span>
-                </span>
-              ) : (
-                <span
-                  onClick={() =>
-                    handleAddFollow(postAuthor?._id, postAuthor?.name)
-                  }
-                  className="rounded-full bg-primary px-3 py-1 text-white text-sm flex gap-2 items-center cursor-pointer hover:bg-primary-700"
-                >
-                  <span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-user-plus"
-                    >
-                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                      <circle cx="9" cy="7" r="4" />
-                      <line x1="19" x2="19" y1="8" y2="14" />
-                      <line x1="22" x2="16" y1="11" y2="11" />
-                    </svg>
+                ) : (
+                  <span
+                    onClick={() =>
+                      handleAddFollow(postAuthor?._id, postAuthor?.name)
+                    }
+                    className="rounded-full bg-primary px-3 py-1 text-white text-sm flex gap-2 items-center cursor-pointer hover:bg-primary-700"
+                  >
+                    <span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-user-plus"
+                      >
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <line x1="19" x2="19" y1="8" y2="14" />
+                        <line x1="22" x2="16" y1="11" y2="11" />
+                      </svg>
+                    </span>
+                    <span className="md:block">Follow</span>
                   </span>
-                  <span className="md:block">Follow</span>
-                </span>
-              )}
-            </div>
+                )}
+              </div>
+            )}
           </div>
           <div>
             <span className="rounded-full border border-primary px-3 py-2  text-primary font-semibold hidden md:block mb-2">
@@ -259,7 +264,10 @@ const TravelPostCard = ({ singlePost }: any) => {
           <div className="inline-flex items-center">
             {upvote?.includes(user?._id) ? (
               <div
-                onClick={() => handleRemoveUpvote(_id as string)}
+                onClick={() =>
+                  postAuthor?._id !== user?._id &&
+                  handleRemoveUpvote(_id as string)
+                }
                 className="mr-2 cursor-pointer"
               >
                 <svg
@@ -280,7 +288,10 @@ const TravelPostCard = ({ singlePost }: any) => {
               </div>
             ) : (
               <div
-                onClick={() => handleAddUpvote(_id as string)}
+                onClick={() =>
+                  postAuthor?._id !== user?._id &&
+                  handleAddUpvote(_id as string)
+                }
                 className="mr-2 cursor-pointer"
               >
                 <svg
@@ -306,7 +317,9 @@ const TravelPostCard = ({ singlePost }: any) => {
           <a className="inline-flex items-center">
             {downvote?.includes(user?._id) ? (
               <span
-                onClick={() => handleRemoveDownvote(_id)}
+                onClick={() =>
+                  postAuthor?._id !== user?._id && handleRemoveDownvote(_id)
+                }
                 className="mr-2 cursor-pointer"
               >
                 <svg
@@ -327,7 +340,9 @@ const TravelPostCard = ({ singlePost }: any) => {
               </span>
             ) : (
               <span
-                onClick={() => handleAddDownvote(_id)}
+                onClick={() =>
+                  postAuthor?._id !== user?._id && handleAddDownvote(_id)
+                }
                 className="mr-2 cursor-pointer"
               >
                 <svg

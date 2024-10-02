@@ -17,26 +17,28 @@ export const createPost = async (formData: ICreatePostData): Promise<any> => {
   }
 };
 
-export const getAllPostsHomePage = async () => {
-  const fetchOption = {
-    next: {
-      tags: ["posts"],
-    },
-  };
+// export const getAllPostsHomePage = async () => {
+//   const fetchOption = {
+//     next: {
+//       tags: ["posts"],
+//     },
+//   };
 
-  const secondFetchOption = {
-    cache: "no-store",
-  };
+//   const secondFetchOption = {
+//     cache: "no-store",
+//   };
 
-  const res = await fetch(`${envConfig.baseApi}/posts`, fetchOption);
-  const data = await res.json();
+//   const res = await fetch(`${envConfig.baseApi}/posts`, fetchOption);
+//   const data = await res.json();
 
-  return data;
-};
+//   return data;
+// };
 
 export const getAllPostsNewsFeed = async (apiUrl: string) => {
   const res = await fetch(apiUrl, {
-    cache: "no-store",
+    next: {
+      tags: ["posts"],
+    },
   });
   const data = await res.json();
 
@@ -109,4 +111,13 @@ export const removeDownvote = async (postId: string): Promise<any> => {
     console.error(errorMessage);
     throw new Error(errorMessage);
   }
+};
+
+export const getSinglePost = async (id: string) => {
+  const res = await fetch(`${envConfig.baseApi}/posts/${id}`, {
+    cache: "no-store",
+  });
+  const data = await res.json();
+
+  return data;
 };

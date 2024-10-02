@@ -4,6 +4,7 @@ import {
   addUpvote,
   createPost,
   getAllPostsNewsFeed,
+  getSinglePost,
   removeDownvote,
   removeUpvote,
 } from "../services/PostServices";
@@ -27,6 +28,14 @@ export const useGetAllPosts = (apiUrl: string) => {
   return useQuery({
     queryKey: [apiUrl],
     queryFn: async () => await getAllPostsNewsFeed(apiUrl),
+  });
+};
+
+export const useGetSinglePost = (id: string) => {
+  return useQuery({
+    queryKey: ["singlePost", id],
+    queryFn: async () => await getSinglePost(id),
+    enabled: !!id, // Only fetch if id is truthy
   });
 };
 

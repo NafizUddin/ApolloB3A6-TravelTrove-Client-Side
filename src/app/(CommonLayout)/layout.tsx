@@ -11,7 +11,6 @@ export default function CommonLayout({
     <div>
       <Navbar />
       {children}
-      <Footer />
     </div>
   );
 }

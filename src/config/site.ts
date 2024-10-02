@@ -6,12 +6,8 @@ export const siteConfig = {
     "Discover, share, and explore travel stories, tips, and guides from a community of travel enthusiasts. Plan your next adventure with expert advice and unique insights into destinations around the world.",
   navItems: [
     {
-      label: "Home",
-      href: "/",
-    },
-    {
       label: "NewsFeed",
-      href: "/newsfeed",
+      href: "/",
     },
     {
       label: "About",
@@ -20,10 +16,6 @@ export const siteConfig = {
     {
       label: "Contact",
       href: "/contact",
-    },
-    {
-      label: "Profile",
-      href: "/profile",
     },
   ],
   navMenuItems: [

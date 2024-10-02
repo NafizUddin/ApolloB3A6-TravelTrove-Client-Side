@@ -1,4 +1,4 @@
-import SectionTitle from "@/src/components/ui/section/SectionTitle";
+import SectionTitle from "../../../../components/ui/section/SectionTitle";
 import Image from "next/image";
 
 const Team = () => {
