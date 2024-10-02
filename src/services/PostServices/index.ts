@@ -24,9 +24,11 @@ export const getAllPostsHomePage = async () => {
     },
   };
 
-  const res = await fetch(`${envConfig.baseApi}/posts`, {
+  const secondFetchOption = {
     cache: "no-store",
-  });
+  };
+
+  const res = await fetch(`${envConfig.baseApi}/posts`, fetchOption);
   const data = await res.json();
 
   return data;
