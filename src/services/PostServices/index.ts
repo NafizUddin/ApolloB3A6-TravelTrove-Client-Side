@@ -34,6 +34,15 @@ export const getAllPostsHomePage = async () => {
   return data;
 };
 
+export const getAllPostsNewsFeed = async (apiUrl: string) => {
+  const res = await fetch(apiUrl, {
+    cache: "no-store",
+  });
+  const data = await res.json();
+
+  return data;
+};
+
 export const addUpvote = async (postId: string): Promise<any> => {
   try {
     const { data } = await axiosInstance.post(`/posts/${postId}/upvote`);

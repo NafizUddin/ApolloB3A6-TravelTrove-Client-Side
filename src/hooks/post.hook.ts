@@ -1,8 +1,9 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   addDownvote,
   addUpvote,
   createPost,
+  getAllPostsNewsFeed,
   removeDownvote,
   removeUpvote,
 } from "../services/PostServices";
@@ -19,6 +20,13 @@ export const useCreatePost = () => {
         error: "Error when creating post.",
       });
     },
+  });
+};
+
+export const useGetAllPosts = (apiUrl: string) => {
+  return useQuery({
+    queryKey: [apiUrl],
+    queryFn: async () => await getAllPostsNewsFeed(apiUrl),
   });
 };
 
