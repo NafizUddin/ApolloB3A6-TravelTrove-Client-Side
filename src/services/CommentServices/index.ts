@@ -32,6 +32,7 @@ export const getPostAllComments = async (postId: string) => {
     `${envConfig.baseApi}/comments?post=${postId}`,
     fetchOption
   );
+
   const data = await res.json();
 
   return data;

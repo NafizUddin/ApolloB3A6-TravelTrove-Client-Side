@@ -1,10 +1,13 @@
 "use server";
 
 import axiosInstance from "@/src/lib/AxiosInstance";
+import { revalidateTag } from "next/cache";
 
 export const followUser = async (followedId: string): Promise<any> => {
   try {
     const { data } = await axiosInstance.post(`/users/${followedId}/follow`);
+
+    revalidateTag("follow");
 
     return data;
   } catch (error: any) {
@@ -20,6 +23,8 @@ export const followUser = async (followedId: string): Promise<any> => {
 export const unFollowUser = async (followedId: string): Promise<any> => {
   try {
     const { data } = await axiosInstance.delete(`/users/${followedId}/follow`);
+
+    revalidateTag("follow");
 
     return data;
   } catch (error: any) {
