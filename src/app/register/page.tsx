@@ -65,8 +65,6 @@ const RegisterPage = () => {
         profilePhoto: imageUrl,
       };
 
-      console.log("final user", userData);
-
       handleUserRegister(userData);
       userLoading(true);
     } catch (error: any) {

@@ -135,7 +135,7 @@ const LoginPage = () => {
                 //   password: "admin123",
                 // }}
                 defaultValues={{
-                  email: "nafizuddin.usa@gmail.com",
+                  email: "nafizuddin.ctg@gmail.com",
                   password: "nafiz123",
                 }}
                 onSubmit={onSubmit}

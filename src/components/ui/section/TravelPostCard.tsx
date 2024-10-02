@@ -91,7 +91,6 @@ const TravelPostCard = ({ singlePost }: any) => {
 
   const handleUpdateComment = (commentId: string) => {
     const updatedComment = editedComments[commentId];
-    console.log(updatedComment, commentId);
 
     const newComment = {
       text: updatedComment,
@@ -239,7 +238,9 @@ const TravelPostCard = ({ singlePost }: any) => {
                 <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
               </svg>
             </span>
-            <span className="text-lg font-bold">34</span>
+            <span className="text-lg font-bold">
+              {allComments?.data?.result?.length || 0}
+            </span>
           </a>
         </div>
         <div className="relative">

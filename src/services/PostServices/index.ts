@@ -3,6 +3,7 @@ import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
 import { ICreatePostData } from "@/src/types";
 import { revalidateTag } from "next/cache";
+import { cache } from "react";
 
 export const createPost = async (formData: ICreatePostData): Promise<any> => {
   try {
@@ -17,13 +18,11 @@ export const createPost = async (formData: ICreatePostData): Promise<any> => {
 };
 
 export const getAllPostsHomePage = async () => {
-  const fetchOption = {
+  const res = await fetch(`${envConfig.baseApi}/posts`, {
     next: {
       tags: ["posts"],
     },
-  };
-
-  const res = await fetch(`${envConfig.baseApi}/posts`, fetchOption);
+  });
   const data = await res.json();
 
   return data;

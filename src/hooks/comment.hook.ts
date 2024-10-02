@@ -15,7 +15,7 @@ export const useCreateComment = () => {
       return toast.promise(createComment(commentData), {
         loading: "Loading...",
         success: "You added a new comment!",
-        error: "Error when creating comment.",
+        error: "Please login first!",
       });
     },
   });
