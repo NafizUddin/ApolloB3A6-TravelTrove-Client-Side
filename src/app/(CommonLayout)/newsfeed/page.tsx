@@ -11,6 +11,8 @@ import {
   DropdownTrigger,
 } from "@nextui-org/dropdown";
 import { Key, useEffect, useState } from "react";
+import { BiFilterAlt } from "react-icons/bi";
+import { ImCross } from "react-icons/im";
 
 const NewsFeed = () => {
   const [filterApplied, setFilterApplied] = useState(false);
@@ -121,20 +123,42 @@ const NewsFeed = () => {
       {filterApplied && (
         <div className="border mt-4 p-4 rounded flex gap-3 items-center">
           <p className="font-semibold">Filtered By:</p>
-          <div className="flex flex-wrap gap-2">
+          <div
+            onClick={() => setSearchInput("")}
+            className="flex flex-wrap gap-2"
+          >
             {debouncedSearchTerm && (
-              <span className="bg-gray-200 px-2 py-1 rounded">
-                {debouncedSearchTerm}
+              <span className="bg-gray-200 px-3 py-2 rounded flex gap-2 items-center">
+                <span>{debouncedSearchTerm}</span>
+                <span>
+                  <ImCross className="text-sm" />
+                </span>
               </span>
             )}
             {category && (
-              <span className="bg-gray-200 px-2 py-1 rounded">{category}</span>
+              <span
+                onClick={() => setCategory("")}
+                className="bg-gray-200 px-3 py-2 rounded flex gap-2 items-center"
+              >
+                <span>{category}</span>
+                <span>
+                  <ImCross className="text-sm" />
+                </span>
+              </span>
             )}
             {sort && (
-              <span className="bg-gray-200 px-2 py-1 rounded">{sort}</span>
+              <span
+                onClick={() => setSort("")}
+                className="bg-gray-200 px-3 py-2 rounded flex gap-2 items-center"
+              >
+                <span>{sort}</span>
+                <span>
+                  <ImCross className="text-sm" />
+                </span>
+              </span>
             )}
             <button
-              className="bg-gray-200 px-2 py-1 rounded"
+              className="bg-gray-200 px-3 py-2 rounded flex items-center gap-2"
               onClick={() => {
                 setSearchInput("");
                 setCategory("");
@@ -142,7 +166,10 @@ const NewsFeed = () => {
                 setFilterApplied(false);
               }}
             >
-              Clear All
+              <span>
+                <BiFilterAlt className="text-lg" />
+              </span>
+              <span>Clear All</span>
             </button>
           </div>
         </div>
