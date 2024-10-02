@@ -31,3 +31,37 @@ export const getAllPostsHomePage = async () => {
 
   return data;
 };
+
+export const addUpvote = async (postId: string): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.post(`/posts/${postId}/upvote`);
+
+    revalidateTag("posts");
+
+    return data;
+  } catch (error: any) {
+    const errorMessage =
+      error?.response?.data?.message ||
+      error?.message ||
+      "Unknown error occurred";
+    console.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+};
+
+export const removeUpvote = async (postId: string): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.delete(`/posts/${postId}/upvote`);
+
+    revalidateTag("posts");
+
+    return data;
+  } catch (error: any) {
+    const errorMessage =
+      error?.response?.data?.message ||
+      error?.message ||
+      "Unknown error occurred";
+    console.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+};
