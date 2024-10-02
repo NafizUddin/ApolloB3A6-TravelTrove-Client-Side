@@ -65,3 +65,37 @@ export const removeUpvote = async (postId: string): Promise<any> => {
     throw new Error(errorMessage);
   }
 };
+
+export const addDownvote = async (postId: string): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.post(`/posts/${postId}/downvote`);
+
+    revalidateTag("posts");
+
+    return data;
+  } catch (error: any) {
+    const errorMessage =
+      error?.response?.data?.message ||
+      error?.message ||
+      "Unknown error occurred";
+    console.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+};
+
+export const removeDownvote = async (postId: string): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.delete(`/posts/${postId}/downvote`);
+
+    revalidateTag("posts");
+
+    return data;
+  } catch (error: any) {
+    const errorMessage =
+      error?.response?.data?.message ||
+      error?.message ||
+      "Unknown error occurred";
+    console.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+};

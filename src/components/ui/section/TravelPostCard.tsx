@@ -14,7 +14,12 @@ import {
 import { Tooltip } from "@nextui-org/tooltip";
 import { DeleteModal } from "../../modal/DeleteModal";
 import { useFollowUser, useUnfollowUser } from "@/src/hooks/user.hook";
-import { useAddUpvotePost, useRemoveUpvotePost } from "@/src/hooks/post.hook";
+import {
+  useAddDownvotePost,
+  useAddUpvotePost,
+  useRemoveDownvotePost,
+  useRemoveUpvotePost,
+} from "@/src/hooks/post.hook";
 
 const TravelPostCard = ({ singlePost }: any) => {
   const {
@@ -39,6 +44,8 @@ const TravelPostCard = ({ singlePost }: any) => {
   const { mutate: handleUnfollowUser } = useUnfollowUser();
   const { mutate: handleAddUpvotePost } = useAddUpvotePost();
   const { mutate: handleRemoveUpvotePost } = useRemoveUpvotePost();
+  const { mutate: handleAddDownvotePost } = useAddDownvotePost();
+  const { mutate: handleRemoveDownvotePost } = useRemoveDownvotePost();
   const { data: allComments, isLoading: commentLoading } =
     useGetPostAllComments(_id);
 
@@ -130,6 +137,14 @@ const TravelPostCard = ({ singlePost }: any) => {
 
   const handleRemoveUpvote = (id: string) => {
     handleRemoveUpvotePost({ id });
+  };
+
+  const handleAddDownvote = (id: string) => {
+    handleAddDownvotePost({ id });
+  };
+
+  const handleRemoveDownvote = (id: string) => {
+    handleRemoveDownvotePost({ id });
   };
 
   return (
@@ -285,25 +300,51 @@ const TravelPostCard = ({ singlePost }: any) => {
 
             <span className="text-lg font-bold">{upvote?.length || 0}</span>
           </div>
-          <a className="inline-flex items-center" href="#">
-            <span className="mr-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-thumbs-down text-primary"
+          <a className="inline-flex items-center">
+            {downvote?.includes(user?._id) ? (
+              <span
+                onClick={() => handleRemoveDownvote(_id)}
+                className="mr-2 cursor-pointer"
               >
-                <path d="M17 14V2" />
-                <path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z" />
-              </svg>
-            </span>
-            <span className="text-lg font-bold">{downvote}</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-thumbs-down text-primary"
+                >
+                  <path d="M17 14V2" />
+                  <path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z" />
+                </svg>
+              </span>
+            ) : (
+              <span
+                onClick={() => handleAddDownvote(_id)}
+                className="mr-2 cursor-pointer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-thumbs-down text-primary"
+                >
+                  <path d="M17 14V2" />
+                  <path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z" />
+                </svg>
+              </span>
+            )}
+            <span className="text-lg font-bold">{downvote?.length || 0}</span>
           </a>
           <a className="inline-flex items-center" href="#">
             <span className="mr-2">
