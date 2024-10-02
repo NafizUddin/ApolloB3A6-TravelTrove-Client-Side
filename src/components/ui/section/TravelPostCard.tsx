@@ -21,6 +21,7 @@ import {
   useRemoveUpvotePost,
 } from "@/src/hooks/post.hook";
 import Link from "next/link";
+import { Skeleton } from "@nextui-org/skeleton";
 
 const TravelPostCard = ({ singlePost }: any) => {
   const {
@@ -243,23 +244,36 @@ const TravelPostCard = ({ singlePost }: any) => {
             </span>
           </div>
         </div>
+
+        {/* category part for small device */}
         <div className="mt-2 mb-6 md:mb-0 md:mt-0">
           <span className="rounded-full border border-primary px-3 py-2  text-primary font-semibold md:hidden mb-2">
             {category}
           </span>
         </div>
+
+        {/* title part */}
         <h2 className="text-3xl font-extrabold">{title}</h2>
+
+        {/* image part */}
         <div className="py-4">
           <div className="flex justify-between gap-1">
             <a className="flex w-full">
-              <img
-                className="rounded-br-lg object-cover w-full h-[450px]"
-                src={image}
-              />
+              <div className="overflow-hidden rounded-br-lg w-full h-[450px]">
+                <img
+                  className="object-cover w-full h-full transition-transform duration-300 hover:scale-105 rounded-md"
+                  src={image}
+                  alt="Description"
+                />
+              </div>
             </a>
           </div>
         </div>
+
+        {/* description */}
         <div className="">{parse(description)}</div>
+
+        {/* upvote,downvote & comment count */}
         <div className="py-4 flex gap-5">
           <div className="inline-flex items-center">
             {upvote?.includes(user?._id) ? (
@@ -386,6 +400,8 @@ const TravelPostCard = ({ singlePost }: any) => {
             </span>
           </a>
         </div>
+
+        {/* Write comment part */}
         <div className="relative">
           <Input
             type="text"
@@ -416,8 +432,9 @@ const TravelPostCard = ({ singlePost }: any) => {
           />
         )}
 
+        {/* Comment Section */}
         <div>
-          {allComments?.data?.result?.length > 0 && (
+          {allComments?.data?.result?.length > 0 ? (
             <div className="pt-6">
               {allComments.data.result.map((comment: any) => {
                 return (
@@ -621,6 +638,16 @@ const TravelPostCard = ({ singlePost }: any) => {
                 <a className="py-3 px-4 w-full block bg-slate-100 dark:bg-slate-700 text-center rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition ease-in-out delay-75">
                   Show more comments
                 </a>
+              </div>
+            </div>
+          ) : (
+            <div className="max-w-[300px] w-full flex items-center gap-3">
+              <div>
+                <Skeleton className="flex rounded-full w-12 h-12" />
+              </div>
+              <div className="w-full flex flex-col gap-2">
+                <Skeleton className="h-3 w-3/5 rounded-lg" />
+                <Skeleton className="h-3 w-4/5 rounded-lg" />
               </div>
             </div>
           )}

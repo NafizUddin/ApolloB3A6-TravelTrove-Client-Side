@@ -15,6 +15,8 @@ import { Key, useEffect, useState } from "react";
 import { BiFilterAlt } from "react-icons/bi";
 import { ImCross } from "react-icons/im";
 import CreatePost from "../_homeSections/CreatePost/CreatePost";
+import LoadingCardWithoutComment from "@/src/components/ui/section/LoadingCardWithoutComment";
+import TravelPostCardWithoutComment from "@/src/components/ui/section/TravelPostCardWithoutComment";
 
 const NewsFeed = () => {
   const [filterApplied, setFilterApplied] = useState(false);
@@ -180,12 +182,20 @@ const NewsFeed = () => {
       )}
 
       <div className="my-10">
-        {filteredPosts?.data?.result &&
-          filteredPosts?.data?.result?.map(
-            (singlePost: IPost, index: number) => (
-              <TravelPostCard key={index} singlePost={singlePost} />
-            )
-          )}
+        {filteredPosts?.data?.result ? (
+          <div>
+            {filteredPosts?.data?.result?.map(
+              (singlePost: IPost, index: number) => (
+                <TravelPostCardWithoutComment
+                  key={index}
+                  singlePost={singlePost}
+                />
+              )
+            )}
+          </div>
+        ) : (
+          <LoadingCardWithoutComment />
+        )}
       </div>
     </div>
   );

@@ -40,6 +40,7 @@ export const config = {
   matcher: [
     "/login",
     "/register",
+    "/postDetails",
     "/user-dashboard/:page*",
     "/admin-dashboard/:page*",
   ],
