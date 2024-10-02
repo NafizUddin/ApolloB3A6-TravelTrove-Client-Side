@@ -18,10 +18,14 @@ export const createPost = async (formData: ICreatePostData): Promise<any> => {
 };
 
 export const getAllPostsHomePage = async () => {
-  const res = await fetch(`${envConfig.baseApi}/posts`, {
+  const fetchOption = {
     next: {
       tags: ["posts"],
     },
+  };
+
+  const res = await fetch(`${envConfig.baseApi}/posts`, {
+    cache: "no-store",
   });
   const data = await res.json();
 
