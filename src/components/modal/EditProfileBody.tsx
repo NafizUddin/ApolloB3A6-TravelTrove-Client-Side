@@ -58,7 +58,7 @@ const EditProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
       }
     }
     try {
-      const userData: IUpdateUser = {
+      const userData = {
         name: data.name ? data.name : user.name,
         email: data.email ? data.email : user.email,
         profilePhoto: imageUrl,

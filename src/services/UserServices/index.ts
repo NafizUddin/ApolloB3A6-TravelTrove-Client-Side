@@ -1,7 +1,7 @@
 "use server";
 
 import axiosInstance from "@/src/lib/AxiosInstance";
-import { IUpdateComment, IUser } from "@/src/types";
+import { IUpdateComment, IUpdateUser, IUser } from "@/src/types";
 import { revalidateTag } from "next/cache";
 
 export const followUser = async (followedId: string): Promise<any> => {
@@ -38,16 +38,9 @@ export const unFollowUser = async (followedId: string): Promise<any> => {
   }
 };
 
-export const updateUser = async (
-  payload: Partial<IUpdateComment>,
-  id: string
-) => {
-  console.log("payload", payload);
-
+export const updateUser = async (payload: Partial<IUser>, id: string) => {
   try {
     const { data } = await axiosInstance.put(`/users/${id}`, payload);
-
-    revalidateTag("users");
 
     return data;
   } catch (error: any) {
