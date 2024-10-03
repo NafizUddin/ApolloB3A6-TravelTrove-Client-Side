@@ -1,5 +1,4 @@
-import { useState } from "react";
-import ModalBody from "./ModalBody"; // Assuming ModalBody is in the same folder
+import ModalBody from "./ModalBody";
 
 export const DeleteModal = ({
   handleDeleteComment,

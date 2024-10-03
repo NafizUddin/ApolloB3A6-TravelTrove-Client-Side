@@ -12,7 +12,7 @@ import {
   useUpdateComment,
 } from "@/src/hooks/comment.hook";
 import { Tooltip } from "@nextui-org/tooltip";
-import { DeleteModal } from "../../modal/DeleteModal";
+import { DeleteModal } from "../../modal/DeleteCommentModal/DeleteModal";
 import { useFollowUser, useUnfollowUser } from "@/src/hooks/user.hook";
 import {
   useAddDownvotePost,

@@ -1,4 +1,4 @@
-import CreatePostModal from "@/src/components/modal/CreatePostModal";
+import CreatePostModal from "@/src/components/modal/CreatePostModal/CreatePostModal";
 
 const CreatePost = () => {
   return (

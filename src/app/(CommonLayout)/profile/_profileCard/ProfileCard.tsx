@@ -1,6 +1,6 @@
 "use client";
-import { DeleteModal } from "@/src/components/modal/DeleteModal";
-import { ProfileEditModal } from "@/src/components/modal/ProfileEditModal";
+
+import { ProfileEditModal } from "@/src/components/modal/ProfileEditModal/ProfileEditModal";
 import { IUser } from "@/src/types";
 import { useState } from "react";
 
@@ -19,7 +19,7 @@ export default function ProfileCard({ user }: { user: IUser }) {
     postCount,
   } = user;
 
-  const [openModal, setOpenModal] = useState(false);
+  const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
 
   return (
     <div className="flex flex-col items-center justify-center md:flex-row">
@@ -109,7 +109,7 @@ export default function ProfileCard({ user }: { user: IUser }) {
         <div>
           <button
             onClick={() => {
-              setOpenModal(true);
+              setOpenEditProfileModal(true);
             }}
             className="rounded-full border-2 border-primary px-4 py-2 text-sm text-primary hover:bg-primary-500 hover:text-white  duration-300 font-semibold"
           >
@@ -117,11 +117,11 @@ export default function ProfileCard({ user }: { user: IUser }) {
           </button>
         </div>
 
-        {openModal && (
+        {openEditProfileModal && (
           <ProfileEditModal
             user={user}
-            openModal={openModal}
-            setOpenModal={setOpenModal}
+            openModal={openEditProfileModal}
+            setOpenModal={setOpenEditProfileModal}
           />
         )}
       </div>

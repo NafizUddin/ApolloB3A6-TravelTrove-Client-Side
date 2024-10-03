@@ -1,6 +1,4 @@
-import CreatePostModal from "@/src/components/modal/CreatePostModal";
 import { ReactNode } from "react";
-import CreatePost from "./_homeSections/CreatePost/CreatePost";
 
 const HomeLayout = ({
   children,

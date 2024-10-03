@@ -3,14 +3,14 @@
 import { useUserRegistration } from "@/src/hooks/auth.hook";
 import { IUpdateUser, IUser } from "@/src/types";
 import { ImSpinner6 } from "react-icons/im";
-import TRForm from "../form/TRForm";
+import TRForm from "../../form/TRForm";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import updateProfileValidationSchema from "@/src/schemas/updateProfile.schema";
-import TRInput from "../form/TRInput";
-import TRFileInput from "../form/TRFileInput";
+import TRInput from "../../form/TRInput";
+import TRFileInput from "../../form/TRFileInput";
 import envConfig from "@/src/config/envConfig";
 import axios from "axios";
 import { useUpdateUser } from "@/src/hooks/user.hook";
