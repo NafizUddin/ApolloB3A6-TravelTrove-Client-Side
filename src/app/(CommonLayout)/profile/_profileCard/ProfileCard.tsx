@@ -1,6 +1,7 @@
 "use client";
 
 import { ProfileEditModal } from "@/src/components/modal/ProfileEditModal/ProfileEditModal";
+import VerifyModal from "@/src/components/modal/VerifyProfileModal/VerifyModal";
 import { IUser } from "@/src/types";
 import { useState } from "react";
 
@@ -20,6 +21,7 @@ export default function ProfileCard({ user }: { user: IUser }) {
   } = user;
 
   const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
+  const [openVerifyProfileModal, setOpenVerifyProfileModal] = useState(false);
 
   return (
     <div className="flex flex-col items-center justify-center md:flex-row">
@@ -64,7 +66,12 @@ export default function ProfileCard({ user }: { user: IUser }) {
             </span>
           </div>
           {!isVerified && totalUpvote > 0 && (
-            <div className="flex gap-1 justify-center items-center">
+            <div
+              onClick={() => {
+                setOpenVerifyProfileModal(true);
+              }}
+              className="flex gap-1 justify-center items-center cursor-pointer"
+            >
               <span className="underline font-medium">GET VERIFIED</span>
               <span>
                 <svg
@@ -122,6 +129,14 @@ export default function ProfileCard({ user }: { user: IUser }) {
             user={user}
             openModal={openEditProfileModal}
             setOpenModal={setOpenEditProfileModal}
+          />
+        )}
+
+        {openVerifyProfileModal && (
+          <VerifyModal
+            user={user}
+            openModal={openVerifyProfileModal}
+            setOpenModal={setOpenVerifyProfileModal}
           />
         )}
       </div>
