@@ -27,12 +27,12 @@ export default function ProfileCard({ user }: { user: IUser }) {
     <div className="flex flex-col items-center justify-center md:flex-row">
       <div className="group relative sm:w-[350px]">
         <img
-          className="h-full w-full scale-105 transform rounded-lg bg-black/70"
+          className="h-full md:w-full scale-105 transform rounded-lg bg-black/70"
           src={profilePhoto}
           alt="user photo"
         />
       </div>
-      <div className="min-w-[350px] space-y-12 rounded-br-lg rounded-tr-lg bg-white p-10 text-center shadow-[0px_7px_30px_2px_rgba(100,100,111,0.2)] md:w-[400px]">
+      <div className="w-full md:min-w-[350px] space-y-12 rounded-br-lg rounded-tr-lg bg-white p-10 text-center shadow-[0px_7px_30px_2px_rgba(100,100,111,0.2)] md:w-[400px]">
         <div className="space-y-1">
           <h2 className="text-center flex justify-center items-center text-2xl font-medium text-gray-700 lg:text-3xl">
             <span>{name}</span>
@@ -118,7 +118,7 @@ export default function ProfileCard({ user }: { user: IUser }) {
             onClick={() => {
               setOpenEditProfileModal(true);
             }}
-            className="rounded-full border-2 border-primary px-4 py-2 text-sm text-primary hover:bg-primary-500 hover:text-white  duration-300 font-semibold"
+            className="rounded-full border-2 border-primary px-4 py-2 text-sm text-primary hover:bg-primary hover:text-white  duration-300 font-semibold"
           >
             EDIT PROFILE
           </button>

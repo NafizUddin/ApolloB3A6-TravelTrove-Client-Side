@@ -79,7 +79,7 @@ const VerifyProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
                         <path d="m9 12 2 2 4-4" />
                       </svg>
                     </span>
-                    <span>First premium advantage</span>
+                    <span>Unlock Exclusive Content</span>
                   </div>
                   <li className="space-x-2 flex items-center">
                     <span className="font-semibold text-primary">
@@ -99,7 +99,7 @@ const VerifyProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
                         <path d="m9 12 2 2 4-4" />
                       </svg>
                     </span>
-                    <span>Second premium advantage</span>
+                    <span>Profile Verification Badge</span>
                   </li>
                   <li className="space-x-2 flex items-center">
                     <span>
@@ -119,7 +119,7 @@ const VerifyProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
                         <path d="m9 12 2 2 4-4" />
                       </svg>
                     </span>
-                    <span>Third advantage</span>
+                    <span>Access Premium Travel Tips</span>
                   </li>
                 </ul>
               </div>
@@ -166,7 +166,7 @@ const VerifyProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
                         <path d="m9 12 2 2 4-4" />
                       </svg>
                     </span>
-                    <span>First premium advantage</span>
+                    <span>Create & Share Posts</span>
                   </div>
                   <li className="space-x-2 flex items-center">
                     <span className="font-semibold text-primary">
@@ -186,7 +186,7 @@ const VerifyProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
                         <path d="m9 12 2 2 4-4" />
                       </svg>
                     </span>
-                    <span>Second premium advantage</span>
+                    <span>Follow Travelers</span>
                   </li>
                   <li className="space-x-2 flex items-center">
                     <span>
@@ -206,7 +206,7 @@ const VerifyProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
                         <path d="m9 12 2 2 4-4" />
                       </svg>
                     </span>
-                    <span>Third advantage</span>
+                    <span>Comment on Stories</span>
                   </li>
                 </ul>
               </div>
@@ -223,7 +223,7 @@ const VerifyProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
             className="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
           >
             <span className="relative text-base font-semibold text-white dark:text-dark">
-              Start plan
+              Start Premium
             </span>
           </button>
           <button
@@ -231,7 +231,7 @@ const VerifyProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
             className="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:bg-sky-50 before:border before:border-sky-500 dark:before:border-gray-600 dark:before:bg-gray-700 before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
           >
             <span className="relative text-base font-semibold text-sky-600 dark:text-white">
-              Get Started
+              Cancel
             </span>
           </button>
         </div>
