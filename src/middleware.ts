@@ -25,7 +25,7 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  if (pathname === "/postDetails") {
+  if (pathname === "/postDetails" || pathname === "/profile") {
     return NextResponse.next();
   }
 
@@ -45,6 +45,7 @@ export const config = {
     "/login",
     "/register",
     "/postDetails",
+    "/profile",
     "/user-dashboard/:page*",
     "/admin-dashboard/:page*",
   ],

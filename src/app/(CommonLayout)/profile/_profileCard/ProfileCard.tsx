@@ -16,6 +16,8 @@ export default function ProfileCard({ user }: { user: IUser }) {
     postCount,
   } = user;
 
+  console.log(user);
+
   return (
     <div className="flex flex-col items-center justify-center md:flex-row">
       <div className="group relative  sm:w-[350px]">
@@ -35,31 +37,47 @@ export default function ProfileCard({ user }: { user: IUser }) {
           <p className="text-gray-500">{email}</p>
           <div className="py-2">
             <span className="rounded-full border-2 border-primary px-3 py-1 text-xs font-semibold text-primary">
-              {status}
+              {status} PLAN
+            </span>
+          </div>
+          <div className="flex gap-1 justify-center items-center">
+            <span className="underline font-medium">GET VERIFIED</span>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="#1773aa"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-badge-check"
+              >
+                <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
             </span>
           </div>
         </div>
         <div className="flex flex-wrap items-center justify-between">
           <div className="space-y-1">
-            <p className="text-sm text-gray-500 dark:text-white/70">Posts</p>
-            <p className="text-2xl tracking-wider text-gray-700 dark:text-white/80 lg:text-3xl">
-              23
+            <p className="text-sm text-gray-500">Posts</p>
+            <p className="text-2xl tracking-wider text-gray-700 lg:text-3xl">
+              {postCount}
             </p>
           </div>
           <div className="space-y-1">
-            <p className="text-sm text-gray-500 dark:text-white/70">
-              Following
-            </p>
-            <p className="text-2xl tracking-wider text-gray-700 dark:text-white/80 lg:text-3xl">
-              314
+            <p className="text-sm text-gray-500">Following</p>
+            <p className="text-2xl tracking-wider text-gray-700 lg:text-3xl">
+              {following?.length || 0}
             </p>
           </div>
           <div className="space-y-1">
-            <p className="text-sm text-gray-500 dark:text-white/70">
-              Followers
-            </p>
-            <p className="text-2xl tracking-wider text-gray-700 dark:text-white/80 lg:text-3xl">
-              487
+            <p className="text-sm text-gray-500">Followers</p>
+            <p className="text-2xl tracking-wider text-gray-700 lg:text-3xl">
+              {followers?.length || 0}
             </p>
           </div>
         </div>

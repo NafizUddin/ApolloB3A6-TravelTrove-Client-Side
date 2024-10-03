@@ -32,7 +32,6 @@ export const useGetAllPosts = (apiUrl: string) => {
 };
 
 export const useGetSinglePost = (id: string) => {
-  console.log("tanstack query",id);
   return useQuery({
     queryKey: ["singlePost", id],
     queryFn: async () => await getSinglePost(id),
