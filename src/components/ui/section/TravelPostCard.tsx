@@ -634,11 +634,11 @@ const TravelPostCard = ({ singlePost }: any) => {
                   </div>
                 );
               })}
-              <div className="w-full">
+              {/* <div className="w-full">
                 <a className="py-3 px-4 w-full block bg-slate-100 dark:bg-slate-700 text-center rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition ease-in-out delay-75">
                   Show more comments
                 </a>
-              </div>
+              </div> */}
             </div>
           ) : (
             <div className="max-w-[300px] w-full flex items-center gap-3">

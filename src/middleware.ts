@@ -13,6 +13,7 @@ const roleBasedRoutes = {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  console.log(pathname);
   const user = await getCurrentUser();
 
   if (!user) {
@@ -23,6 +24,10 @@ export async function middleware(request: NextRequest) {
         new URL(`/login?redirect=${pathname}`, request.url)
       );
     }
+  }
+
+  if (pathname === "/postDetails") {
+    return NextResponse.next();
   }
 
   if (user?.role && roleBasedRoutes[user?.role as Role]) {

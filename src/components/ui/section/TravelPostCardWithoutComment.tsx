@@ -26,8 +26,8 @@ const TravelPostCardWithoutComment = ({ singlePost }: any) => {
 
   return (
     <div className="my-5">
-      <Link href={`/postDetails?id=${_id}`}>
-        <article className="mb-4 break-inside p-4 md:p-6 rounded-xl bg-white flex flex-col bg-clip-border md:w-11/12 lg:w-10/12 xl:w-[75%] mx-auto border border-primary cursor-pointer">
+      <Link href={`/postDetails?id=${_id}`} className="cursor-pointer">
+        <div className="mb-4 break-inside p-4 md:p-6 rounded-xl bg-white flex flex-col bg-clip-border md:w-11/12 lg:w-10/12 xl:w-[75%] mx-auto border border-primary">
           <div className="flex pb-6 items-center justify-between">
             <div className="flex">
               <a className="inline-block mr-4">
@@ -52,7 +52,7 @@ const TravelPostCardWithoutComment = ({ singlePost }: any) => {
                   })}
                 </div>
               </div>
-              {postAuthor?._id !== user?._id && (
+              {user && postAuthor?._id !== user?._id && (
                 <div className="ml-3 md:ml-4">
                   {postAuthor?.followers?.includes(user?._id) ? (
                     <span
@@ -148,7 +148,7 @@ const TravelPostCardWithoutComment = ({ singlePost }: any) => {
 
           {/* description */}
           <div className="">{parse(description)}</div>
-        </article>
+        </div>
       </Link>
     </div>
   );
