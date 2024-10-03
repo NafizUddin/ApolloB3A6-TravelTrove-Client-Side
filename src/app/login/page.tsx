@@ -37,7 +37,7 @@ const LoginPage = () => {
   useEffect(() => {
     if (!isLoading && isSuccess) {
       if (redirect) {
-        const redirectUrl = id ? `${redirect}?id=${id}` : redirect;
+        // const redirectUrl = id ? `${redirect}?id=${id}` : redirect;
         router.push(redirect);
       } else {
         router.push("/");
