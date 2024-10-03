@@ -21,6 +21,11 @@ export interface IUser {
   email: string;
   status: string;
   profilePhoto: string;
+  followers: [];
+  following: [];
+  isVerified: boolean;
+  postCount: number;
+  totalUpvote: number;
   createdAt?: string;
   updatedAt?: string;
 }
