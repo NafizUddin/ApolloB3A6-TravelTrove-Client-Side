@@ -63,7 +63,7 @@ export default function ProfileCard({ user }: { user: IUser }) {
               {status} PLAN
             </span>
           </div>
-          {!isVerified && (
+          {!isVerified && totalUpvote > 0 && (
             <div className="flex gap-1 justify-center items-center">
               <span className="underline font-medium">GET VERIFIED</span>
               <span>

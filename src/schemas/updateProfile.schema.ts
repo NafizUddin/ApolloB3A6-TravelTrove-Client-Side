@@ -16,9 +16,11 @@ const updateProfileValidationSchema = z.object({
   image: z
     .any()
     .optional()
-    .refine((file) => {
-      // If file is provided, check it's a valid image
-      return !file || (file instanceof File && file.type.startsWith("image/"));
+    .refine((fileList) => {
+      // Ensure the fileList is either empty or contains a valid image file
+      if (!fileList || fileList.length === 0) return true; // No file uploaded, valid case
+      const file = fileList[0]; // Get the first file (if any)
+      return file instanceof File && file.type.startsWith("image/");
     }, "Please upload a valid image file (JPG, PNG, etc.)"),
 });
 

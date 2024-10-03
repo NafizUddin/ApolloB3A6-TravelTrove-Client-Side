@@ -73,3 +73,9 @@ export interface IComment {
 export interface IUpdateComment {
   text: string;
 }
+
+export interface IUpdateUser {
+  name?: string;
+  email?: string;
+  profilePhoto?: string;
+}

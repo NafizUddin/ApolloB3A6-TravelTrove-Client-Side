@@ -1,5 +1,7 @@
+"use client";
+
 import { useUserRegistration } from "@/src/hooks/auth.hook";
-import { IUser } from "@/src/types";
+import { IUpdateUser, IUser } from "@/src/types";
 import { ImSpinner6 } from "react-icons/im";
 import TRForm from "../form/TRForm";
 import { useEffect } from "react";
@@ -9,6 +11,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import updateProfileValidationSchema from "@/src/schemas/updateProfile.schema";
 import TRInput from "../form/TRInput";
 import TRFileInput from "../form/TRFileInput";
+import envConfig from "@/src/config/envConfig";
+import axios from "axios";
+import { useUpdateUser } from "@/src/hooks/user.hook";
 
 interface IModalBodyProps {
   setOpenModal: any;
@@ -16,60 +21,55 @@ interface IModalBodyProps {
 }
 
 const EditProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
-  const {
-    mutate: handleUserRegister,
-    isLoading,
-    isSuccess,
-  } = useUserRegistration();
+  const { mutate: handleUpdateUser } = useUpdateUser();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    // let imageUrl =
-    //   "https://www.pngall.com/wp-content/uploads/5/Profile-PNG-Free-Download.png";
-    // if (data?.image) {
-    //   const formData = new FormData();
-    //   formData.append("file", data.image);
-    //   formData.append(
-    //     "upload_preset",
-    //     envConfig.cloudinary_upload_preset as string
-    //   );
-    //   try {
-    //     const response = await axios.post(
-    //       envConfig.cloudinary_url as string,
-    //       formData,
-    //       {
-    //         headers: {
-    //           "Content-Type": "multipart/form-data",
-    //         },
-    //       }
-    //     );
-    //     imageUrl = response.data.secure_url;
-    //   } catch (error: any) {
-    //     console.error(error.message);
-    //   }
-    // }
-    // try {
-    //   const userData = {
-    //     name: data.name,
-    //     email: data.email,
-    //     password: data.password,
-    //     profilePhoto: imageUrl,
-    //   };
-    //   handleUserRegister(userData);
-    // } catch (error: any) {
-    //   toast.error(error.message);
-    // }
-    () => setOpenModal(false);
-  };
+    if (
+      data.name === user.name &&
+      data.email === user.email &&
+      data.image[0] === undefined
+    ) {
+      setOpenModal(false);
+      return;
+    }
 
-  //   useEffect(() => {
-  //     if (!isLoading && isSuccess) {
-  //       if (redirect) {
-  //         router.push(redirect);
-  //       } else {
-  //         router.push("/");
-  //       }
-  //     }
-  //   }, [isLoading, isSuccess]);
+    let imageUrl = user?.profilePhoto;
+
+    if (data?.image) {
+      const formData = new FormData();
+      formData.append("file", data.image);
+      formData.append(
+        "upload_preset",
+        envConfig.cloudinary_upload_preset as string
+      );
+      try {
+        const response = await axios.post(
+          envConfig.cloudinary_url as string,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        imageUrl = response.data.secure_url;
+      } catch (error: any) {
+        console.error(error.message);
+      }
+    }
+    try {
+      const userData: IUpdateUser = {
+        name: data.name ? data.name : user.name,
+        email: data.email ? data.email : user.email,
+        profilePhoto: imageUrl,
+      };
+
+      handleUpdateUser({ userData, id: user._id });
+      setOpenModal(false);
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <div
