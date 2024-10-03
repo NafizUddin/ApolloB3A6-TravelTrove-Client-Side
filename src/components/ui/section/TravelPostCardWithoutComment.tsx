@@ -14,7 +14,8 @@ const TravelPostCardWithoutComment = ({ singlePost }: any) => {
   const { mutate: handleFollowUser } = useFollowUser();
   const { mutate: handleUnfollowUser } = useUnfollowUser();
 
-  const [openModal, setOpenModal] = useState(false);
+  const params = new URLSearchParams();
+  params.set("id", _id);
 
   const handleAddFollow = (id: string, name: string) => {
     handleFollowUser({ id, name });
@@ -26,22 +27,25 @@ const TravelPostCardWithoutComment = ({ singlePost }: any) => {
 
   return (
     <div className="my-5">
-      <Link href={`/postDetails?id=${_id}`} className="cursor-pointer">
+      <Link
+        href={`/postDetails?${params.toString()}`}
+        className="cursor-pointer"
+      >
         <div className="mb-4 break-inside p-4 md:p-6 rounded-xl bg-white flex flex-col bg-clip-border md:w-11/12 lg:w-10/12 xl:w-[75%] mx-auto border border-primary">
           <div className="flex pb-6 items-center justify-between">
             <div className="flex">
-              <a className="inline-block mr-4">
+              <div className="inline-block mr-4">
                 <img
                   className="rounded-full max-w-none w-12 h-12 object-cover"
                   src={postAuthor?.profilePhoto}
                 />
-              </a>
+              </div>
               <div className="flex flex-col">
                 <Link href={`/postDetails?id=${_id}`}>
                   <div>
-                    <a className="inline-block text-lg font-bold">
+                    <div className="inline-block text-lg font-bold">
                       {postAuthor?.name}
-                    </a>
+                    </div>
                   </div>
                 </Link>
                 <div className="text-slate-500">
@@ -134,7 +138,7 @@ const TravelPostCardWithoutComment = ({ singlePost }: any) => {
           {/* image part */}
           <div className="py-4">
             <div className="flex justify-between gap-1">
-              <a className="flex w-full">
+              <div className="flex w-full">
                 <div className="overflow-hidden rounded-br-lg w-full h-[450px]">
                   <img
                     className="object-cover w-full h-full transition-transform duration-300 hover:scale-105 rounded-md"
@@ -142,7 +146,7 @@ const TravelPostCardWithoutComment = ({ singlePost }: any) => {
                     alt="Description"
                   />
                 </div>
-              </a>
+              </div>
             </div>
           </div>
 

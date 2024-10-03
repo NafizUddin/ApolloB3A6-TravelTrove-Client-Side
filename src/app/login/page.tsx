@@ -24,6 +24,7 @@ export type TLogin = {
 const LoginPage = () => {
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
+  const id = searchParams.get("id");
   const router = useRouter();
   const { setIsLoading: userLoading } = useUser();
   const { mutate: handleUserLogin, isLoading, isSuccess } = useUserLogin();
@@ -36,6 +37,7 @@ const LoginPage = () => {
   useEffect(() => {
     if (!isLoading && isSuccess) {
       if (redirect) {
+        const redirectUrl = id ? `${redirect}?id=${id}` : redirect;
         router.push(redirect);
       } else {
         router.push("/");

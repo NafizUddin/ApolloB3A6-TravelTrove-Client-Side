@@ -11,9 +11,8 @@ const roleBasedRoutes = {
 };
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const { pathname, search } = request.nextUrl;
 
-  console.log(pathname);
   const user = await getCurrentUser();
 
   if (!user) {
@@ -21,7 +20,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     } else {
       return NextResponse.redirect(
-        new URL(`/login?redirect=${pathname}`, request.url)
+        new URL(`/login?redirect=${pathname}${search}`, request.url)
       );
     }
   }

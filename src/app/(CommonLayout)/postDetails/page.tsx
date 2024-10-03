@@ -9,10 +9,8 @@ const PostDetails = () => {
   const id = searchParams.get("id");
 
   const { data: singlePost, isLoading: postLoading } = id
-    ? useGetSinglePost(id as string)
+    ? useGetSinglePost(id) // TypeScript will infer the type
     : { data: null, isLoading: false };
-
-  console.log(singlePost);
 
   return (
     <div className="mt-5">

@@ -5,6 +5,11 @@ export const POST_STATUS = {
   PREMIUM: "PREMIUM",
 } as const;
 
+export const USER_ROLE = {
+  ADMIN: "ADMIN",
+  USER: "USER",
+} as const;
+
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
@@ -12,7 +17,7 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
 export interface IUser {
   _id: string;
   name: string;
-  role: string;
+  role: keyof typeof USER_ROLE;
   email: string;
   status: string;
   profilePhoto: string;

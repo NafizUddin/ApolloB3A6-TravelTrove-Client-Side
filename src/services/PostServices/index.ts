@@ -114,10 +114,11 @@ export const removeDownvote = async (postId: string): Promise<any> => {
 };
 
 export const getSinglePost = async (id: string) => {
-  const res = await fetch(`${envConfig.baseApi}/posts/${id}`, {
-    cache: "no-store",
-  });
-  const data = await res.json();
-
-  return data;
+  try {
+    const res = await axiosInstance.get(`/posts/${id}`); // Log the entire response
+    return res.data; // Ensure you're returning only the data
+  } catch (error) {
+    console.error("Error fetching post:", error);
+    throw error; // Rethrow the error for React Query to catch
+  }
 };

@@ -34,6 +34,10 @@ export default function NavbarUserDropdown({ user }: IProps) {
     toast.success("Logged out successfully");
   };
 
+  const handleNavigation = (pathname: string) => {
+    router.push(pathname);
+  };
+
   return (
     <div className="flex items-center gap-4">
       <Dropdown placement="bottom-end">
@@ -50,12 +54,18 @@ export default function NavbarUserDropdown({ user }: IProps) {
             <p className="font-semibold">Signed in as</p>
             <p className="font-semibold">{user.email}</p>
           </DropdownItem>
-          <DropdownItem key="settings">My Settings</DropdownItem>
-          <DropdownItem key="team_settings">Team Settings</DropdownItem>
-          <DropdownItem key="analytics">Analytics</DropdownItem>
-          <DropdownItem key="system">System</DropdownItem>
-          <DropdownItem key="configurations">Configurations</DropdownItem>
-          <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
+          <DropdownItem onClick={() => handleNavigation("/profile")}>
+            My Profile
+          </DropdownItem>
+          <DropdownItem
+            onClick={() =>
+              handleNavigation(
+                user?.role === "USER" ? "/user-dashboard" : "/admin-dashboard"
+              )
+            }
+          >
+            Dashboard
+          </DropdownItem>
           <DropdownItem
             onClick={() => handleLogout()}
             key="logout"
