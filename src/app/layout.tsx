@@ -1,6 +1,5 @@
 import "@/src/styles/globals.css";
 import { Metadata, Viewport } from "next";
-import { Link } from "@nextui-org/link";
 import clsx from "clsx";
 
 import { Providers } from "../lib/Providers";
@@ -33,11 +32,7 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="en">
       <head />
-      <body
-        className={clsx(
-          "min-h-screen bg-background antialiased xl:container xl:mx-auto mx-6"
-        )}
-      >
+      <body className={clsx("min-h-screen bg-background antialiased")}>
         <Providers>{children}</Providers>
       </body>
     </html>
