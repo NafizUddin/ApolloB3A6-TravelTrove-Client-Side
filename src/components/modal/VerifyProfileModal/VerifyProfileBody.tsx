@@ -2,26 +2,29 @@
 import { useUser } from "@/src/context/user.provider";
 import { useStartPremium } from "@/src/hooks/premium.hook";
 import { IUser } from "@/src/types";
+import { updateAccessTokenInCookies } from "@/src/utils/updateAccessTokenInCookies";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 interface IModalBodyProps {
   setOpenModal: any;
 }
 
 const VerifyProfileBody = ({ setOpenModal }: IModalBodyProps) => {
-  // const [premiumData, setPremiumData] = useState(null);
-
-  const { user, updateProfile } = useUser();
+  const { updateProfile } = useUser();
 
   const handleSuccess = (data: any) => {
-    // setPremiumData(data);
+    toast.dismiss();
 
     if (data.paymentSession.result) {
+      toast.success("Subscribed to Premium plan successfully!");
       window.location.href = data.paymentSession.payment_url;
     }
 
     updateProfile(data.data);
+
+    updateAccessTokenInCookies(data.data);
   };
 
   const { mutate: handleStartPremium } = useStartPremium(handleSuccess);
@@ -41,21 +44,16 @@ const VerifyProfileBody = ({ setOpenModal }: IModalBodyProps) => {
         premiumCharge: 19,
       };
 
+      toast.loading("Processing payment...");
       handleStartPremium(payload);
 
       setOpenModal(false);
     } catch (error) {
+      toast.dismiss();
+      toast.error("An error occurred while processing the payment");
       console.error("Client Error:", error);
     }
   };
-
-  // useEffect(() => {
-  //   if (premiumData) {
-  //     console.log("Premium data updated:", premiumData); // Log when premiumData changes
-  //   }
-  // }, [premiumData]);
-
-  console.log(user);
 
   return (
     <div

@@ -12,8 +12,6 @@ export const useStartPremium = (onSuccessCallback: any) => {
       return response; // Return the response for further processing
     },
     onSuccess: (data) => {
-      console.log(data, "from hook");
-      toast.success("Subscribed to Premium plan successfully!");
       onSuccessCallback(data); // Call the provided callback with the response data
     },
     onError: (error) => {
