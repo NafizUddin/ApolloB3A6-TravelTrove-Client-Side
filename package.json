@@ -40,6 +40,7 @@
 		"framer-motion": "~11.1.1",
 		"html-react-parser": "^5.1.16",
 		"intl-messageformat": "^10.5.0",
+		"jsonwebtoken": "^9.0.2",
 		"jwt-decode": "^4.0.0",
 		"lottie-react": "^2.4.0",
 		"lucide-react": "^0.446.0",
@@ -47,6 +48,7 @@
 		"next": "14.2.4",
 		"next-auth": "^4.24.8",
 		"next-themes": "^0.2.1",
+		"nookies": "^2.5.2",
 		"react": "18.3.1",
 		"react-dom": "18.3.1",
 		"react-hook-form": "^7.53.0",
@@ -56,6 +58,7 @@
 		"zod": "^3.23.8"
 	},
 	"devDependencies": {
+		"@types/jsonwebtoken": "^9.0.7",
 		"@types/node": "20.5.7",
 		"@types/react": "18.3.3",
 		"@types/react-dom": "18.3.0",

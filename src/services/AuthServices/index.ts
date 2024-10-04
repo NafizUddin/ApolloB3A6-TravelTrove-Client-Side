@@ -61,8 +61,11 @@ export const getCurrentUser = async () => {
       isVerified: decodedToken.isVerified,
       totalUpvote: decodedToken.totalUpvote,
       postCount: decodedToken.postCount,
+      paymentStatus: decodedToken.paymentStatus,
+      transactionId: decodedToken.transactionId,
       premiumStart: decodedToken.premiumStart,
       premiumEnd: decodedToken.premiumEnd,
+      premiumCharge: decodedToken.premiumCharge,
     };
   }
 

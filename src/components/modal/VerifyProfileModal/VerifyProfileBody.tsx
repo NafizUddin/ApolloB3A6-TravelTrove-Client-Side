@@ -12,7 +12,7 @@ interface IModalBodyProps {
 const VerifyProfileBody = ({ setOpenModal }: IModalBodyProps) => {
   // const [premiumData, setPremiumData] = useState(null);
 
-  const { user, setUser } = useUser();
+  const { user, updateProfile } = useUser();
 
   const handleSuccess = (data: any) => {
     // setPremiumData(data);
@@ -21,7 +21,7 @@ const VerifyProfileBody = ({ setOpenModal }: IModalBodyProps) => {
       window.location.href = data.paymentSession.payment_url;
     }
 
-    setUser(data.data);
+    updateProfile(data.data);
   };
 
   const { mutate: handleStartPremium } = useStartPremium(handleSuccess);

@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { followUser, unFollowUser, updateUser } from "../services/UserServices";
 import { IUpdateUser, IUser } from "../types";
 import { useUser } from "../context/user.provider";
+import { updateAccessTokenInCookies } from "../utils/updateAccessTokenInCookies";
 
 export const useFollowUser = () => {
   return useMutation<any, Error, { id: string; name: string }>({
@@ -31,7 +32,7 @@ export const useUnfollowUser = () => {
 };
 
 export const useUpdateUser = () => {
-  const { user, setUser } = useUser();
+  const { user, updateProfile } = useUser();
 
   return useMutation<any, Error, { userData: Partial<IUser>; id: string }>({
     mutationKey: ["UPDATE_USER"],
@@ -56,11 +57,16 @@ export const useUpdateUser = () => {
           isVerified: userData.isVerified || user.isVerified,
           totalUpvote: userData.totalUpvote || user.totalUpvote,
           postCount: userData.postCount || user.postCount,
-          createdAt: user.createdAt,
-          updatedAt: userData.updatedAt || user.updatedAt,
+          paymentStatus: userData.paymentStatus || user.paymentStatus || "",
+          transactionId: userData.transactionId || user.transactionId || "",
+          premiumStart: userData.premiumStart || user.premiumStart,
+          premiumEnd: userData.premiumEnd || user.premiumEnd,
+          premiumCharge: userData.premiumCharge || user.premiumCharge || 0,
         };
 
-        setUser(updatedUser);
+        updateProfile(updatedUser);
+
+        updateAccessTokenInCookies(updatedUser);
       }
     },
   });

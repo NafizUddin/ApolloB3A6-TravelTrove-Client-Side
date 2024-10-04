@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import { useEffect } from "react";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";

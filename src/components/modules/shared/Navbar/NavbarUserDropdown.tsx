@@ -20,11 +20,12 @@ interface IProps {
 
 export default function NavbarUserDropdown({ user }: IProps) {
   const router = useRouter();
-  const { setIsLoading: userLoading } = useUser();
+  const { setUser, setIsLoading: userLoading } = useUser();
   const pathname = usePathname();
 
   const handleLogout = () => {
     logout();
+    setUser(null);
     userLoading(true);
 
     if (protectedRoutes.some((route) => pathname.match(route))) {
