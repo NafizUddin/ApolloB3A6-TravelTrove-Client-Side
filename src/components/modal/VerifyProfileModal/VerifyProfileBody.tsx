@@ -1,4 +1,7 @@
+"use-client";
+import { useStartPremium } from "@/src/hooks/premium.hook";
 import { IUser } from "@/src/types";
+import { format } from "date-fns";
 
 interface IModalBodyProps {
   setOpenModal: any;
@@ -6,6 +9,33 @@ interface IModalBodyProps {
 }
 
 const VerifyProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
+  const { mutate: handleStartPremium } = useStartPremium();
+
+  const handlePayment = () => {
+    try {
+      const transactionId = `TXN-${Date.now()}`;
+
+      const payload = {
+        transactionId,
+        paymentStatus: "Pending",
+        premiumStart: format(new Date(), "dd-MM-yyyy"),
+        premiumEnd: format(
+          new Date(new Date().setMonth(new Date().getMonth() + 1)),
+          "dd-MM-yyyy"
+        ), // one month later// one month later
+        premiumCharge: 19,
+      };
+
+      handleStartPremium(payload);
+
+      // Here I have to get that data from the premium service function
+
+      setOpenModal(false);
+    } catch (error) {
+      console.error("Client Error:", error);
+    }
+  };
+
   return (
     <div
       onClick={(e) => e.stopPropagation()}
@@ -219,7 +249,7 @@ const VerifyProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
         {/* Button */}
         <div className="flex gap-2 w-80">
           <button
-            onClick={() => setOpenModal(false)}
+            onClick={handlePayment}
             className="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
           >
             <span className="relative text-base font-semibold text-white dark:text-dark">

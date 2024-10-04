@@ -26,6 +26,11 @@ export interface IUser {
   isVerified: boolean;
   postCount: number;
   totalUpvote: number;
+  paymentStatus?: string;
+  transactionId?: string;
+  premiumStart?: string;
+  premiumEnd?: string;
+  premiumCharge?: number;
   createdAt?: string;
   updatedAt?: string;
 }

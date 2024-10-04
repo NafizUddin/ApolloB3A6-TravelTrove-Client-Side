@@ -36,6 +36,7 @@
 		"axios": "^1.7.7",
 		"cloudinary": "^2.5.0",
 		"clsx": "2.1.1",
+		"date-fns": "^4.1.0",
 		"framer-motion": "~11.1.1",
 		"html-react-parser": "^5.1.16",
 		"intl-messageformat": "^10.5.0",
