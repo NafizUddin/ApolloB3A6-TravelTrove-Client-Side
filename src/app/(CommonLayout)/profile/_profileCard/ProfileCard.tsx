@@ -27,7 +27,7 @@ export default function ProfileCard({ user }: { user: IUser }) {
     <div className="flex flex-col items-center justify-center md:flex-row">
       <div className="group relative sm:w-[350px]">
         <img
-          className="h-full md:w-full scale-105 transform rounded-lg bg-black/70"
+          className="h-[437px] md:w-full scale-105 transform rounded-lg bg-black/70 object-cover"
           src={profilePhoto}
           alt="user photo"
         />

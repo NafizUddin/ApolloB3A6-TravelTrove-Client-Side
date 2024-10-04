@@ -24,24 +24,25 @@ const EditProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
   const { mutate: handleUpdateUser } = useUpdateUser();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    if (
-      data.name === user.name &&
-      data.email === user.email &&
-      data.image[0] === undefined
-    ) {
+    const hasImage = !!data.image;
+    const hasNameChanged = data.name !== user.name;
+    const hasEmailChanged = data.email !== user.email;
+
+    if (!hasImage && !hasNameChanged && !hasEmailChanged) {
       setOpenModal(false);
       return;
     }
 
     let imageUrl = user?.profilePhoto;
 
-    if (data?.image) {
+    if (hasImage) {
       const formData = new FormData();
       formData.append("file", data.image);
       formData.append(
         "upload_preset",
         envConfig.cloudinary_upload_preset as string
       );
+
       try {
         const response = await axios.post(
           envConfig.cloudinary_url as string,
@@ -55,10 +56,13 @@ const EditProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
         imageUrl = response.data.secure_url;
       } catch (error: any) {
         console.error(error.message);
+        toast.error("Failed to upload image");
+        return;
       }
     }
+
     try {
-      const userData = {
+      const userData: IUpdateUser = {
         name: data.name ? data.name : user.name,
         email: data.email ? data.email : user.email,
         profilePhoto: imageUrl,
@@ -86,7 +90,7 @@ const EditProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
               email: user.email,
             }}
             onSubmit={onSubmit}
-            resolver={zodResolver(updateProfileValidationSchema)}
+            // resolver={zodResolver(updateProfileValidationSchema)}
           >
             <div className="py-3">
               <TRInput name="name" label="Full Name" type="text" />
@@ -102,13 +106,13 @@ const EditProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
             <div className="flex gap-5 justify-center items-center">
               <button
                 type="submit"
-                className="rounded-md bg-green-600 px-6 py-2 text-sm text-white"
+                className="rounded-md bg-green-600 px-6 py-2 text-sm text-white hover:bg-green-700"
               >
                 Submit
               </button>
               <button
                 onClick={() => setOpenModal(false)}
-                className="rounded-md border border-gray-600 px-6 py-2 text-sm text-gray-600 hover:bg-gray-600 hover:text-white"
+                className="rounded-md border border-rose-600 px-6 py-2 text-sm text-rose-600 duration-150 hover:bg-rose-600 hover:text-white"
               >
                 Cancel
               </button>
