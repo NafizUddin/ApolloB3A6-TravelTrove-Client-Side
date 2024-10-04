@@ -1,14 +1,9 @@
 "use client";
 
-import { useUserRegistration } from "@/src/hooks/auth.hook";
 import { IUpdateUser, IUser } from "@/src/types";
-import { ImSpinner6 } from "react-icons/im";
 import TRForm from "../../form/TRForm";
-import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import updateProfileValidationSchema from "@/src/schemas/updateProfile.schema";
 import TRInput from "../../form/TRInput";
 import TRFileInput from "../../form/TRFileInput";
 import envConfig from "@/src/config/envConfig";
@@ -32,6 +27,8 @@ const EditProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
       setOpenModal(false);
       return;
     }
+
+    toast.loading("Updating Profile...");
 
     let imageUrl = user?.profilePhoto;
 
@@ -68,7 +65,10 @@ const EditProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
         profilePhoto: imageUrl,
       };
 
+      toast.dismiss();
+
       handleUpdateUser({ userData, id: user._id });
+      toast.success("Profile updated successfully!");
       setOpenModal(false);
     } catch (error: any) {
       toast.error(error.message);
@@ -90,7 +90,6 @@ const EditProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
               email: user.email,
             }}
             onSubmit={onSubmit}
-            // resolver={zodResolver(updateProfileValidationSchema)}
           >
             <div className="py-3">
               <TRInput name="name" label="Full Name" type="text" />

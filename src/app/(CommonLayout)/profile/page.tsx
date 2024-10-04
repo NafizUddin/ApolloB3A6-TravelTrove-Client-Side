@@ -8,7 +8,7 @@ const Profile = () => {
   const { user } = useUser();
 
   return (
-    <div className="my-12">
+    <div className="my-8 xl:my-10">
       {user ? <ProfileCard user={user} /> : <ProfileLoadingCard />}{" "}
     </div>
   );

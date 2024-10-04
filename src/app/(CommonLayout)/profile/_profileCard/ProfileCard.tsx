@@ -7,9 +7,7 @@ import { useState } from "react";
 
 export default function ProfileCard({ user }: { user: IUser }) {
   const {
-    _id,
     name,
-    role,
     email,
     status,
     profilePhoto,
@@ -27,7 +25,7 @@ export default function ProfileCard({ user }: { user: IUser }) {
     <div className="flex flex-col items-center justify-center md:flex-row">
       <div className="group relative sm:w-[350px]">
         <img
-          className="h-[437px] md:w-full scale-105 transform rounded-lg bg-black/70 object-cover"
+          className="h-full w-[95%] mx-auto lg:h-[400px] xl:h-[437px] md:w-full scale-105 transform rounded-lg bg-black/70 object-cover"
           src={profilePhoto}
           alt="user photo"
         />

@@ -36,13 +36,7 @@ export const useUpdateUser = () => {
 
   return useMutation<any, Error, { userData: Partial<IUser>; id: string }>({
     mutationKey: ["UPDATE_USER"],
-    mutationFn: async ({ userData, id }) => {
-      return toast.promise(updateUser(userData, id), {
-        loading: "Updating profile...",
-        success: `Profile updated successfully!`,
-        error: "Error when updating user.",
-      });
-    },
+    mutationFn: async ({ userData, id }) => await updateUser(userData, id),
     onSuccess: (_data, { userData }) => {
       if (user) {
         const updatedUser: IUser = {
