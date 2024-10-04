@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { LogOut, Menu } from "lucide-react";
+import { BadgeCheck, Menu } from "lucide-react";
 import logo from "@/src/assets/logo.png";
 import Link from "next/link";
 import Image from "next/image";
@@ -112,9 +112,30 @@ const Sidebar = ({ links, commonLinks }: SidebarProps) => {
           </div>
 
           {/* User Name */}
-          <h1 className="font-bold md:text-xl lg:text-xl text-center text-primary">
-            {user?.name}
-          </h1>
+          <div className="font-bold md:text-xl lg:text-2xl text-center text-primary">
+            {user?.isVerified ? (
+              <div className="flex items-center justify-center gap-1">
+                {user?.name}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="#1773aa"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-badge-check"
+                >
+                  <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+              </div>
+            ) : (
+              <div>{user?.name}</div>
+            )}
+          </div>
 
           <nav className="p-2 space-y-3">
             {links.map((link, index) => (

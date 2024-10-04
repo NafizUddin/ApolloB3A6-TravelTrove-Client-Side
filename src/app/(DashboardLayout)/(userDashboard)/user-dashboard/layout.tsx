@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
-import UserLayout from "./_layout/UserLayout";
+import {
+  User,
+  MessageSquareQuote,
+  Contact,
+  ContactRound,
+  BookOpenText,
+  UserPlus,
+} from "lucide-react";
+import Sidebar from "@/src/components/dashboard/Sidebar";
 
 export const metadata: Metadata = {
-  title: "Dashboard - Apollo Gears",
-  description: "Next Level Riding Sharing Service",
+  title: "User Dashboard",
+  description:
+    "Discover, share, and explore travel stories, tips, and guides from a community of travel enthusiasts. Plan your next adventure with expert advice and unique insights into destinations around the world.",
 };
 
 export default function UserDashboardLayout({
@@ -11,9 +20,49 @@ export default function UserDashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const userLinks = [
+    {
+      label: "Posts",
+      href: "/user-dashboard",
+      icon: <BookOpenText size={20} />,
+    },
+    {
+      label: "Followers",
+      href: "/admin-dashboard/followers",
+      icon: <User size={20} />,
+    },
+    {
+      label: "Following",
+      href: "/admin-dashboard/following",
+      icon: <UserPlus size={20} />,
+    },
+  ];
+
+  const commonLinks = [
+    {
+      label: "NewsFeed",
+      href: "/",
+      icon: <MessageSquareQuote size={20} />,
+    },
+    {
+      label: "About",
+      href: "/about",
+      icon: <ContactRound size={20} />,
+    },
+    {
+      label: "Contact",
+      href: "/contact",
+      icon: <Contact size={20} />,
+    },
+  ];
+
   return (
-    <div>
-      <UserLayout>{children}</UserLayout>
+    <div className="flex min-h-screen">
+      {/* Sidebar */}
+      <Sidebar links={userLinks} commonLinks={commonLinks} />
+
+      {/* Dashboard Content */}
+      <main className="flex-1 p-6">{children}</main>
     </div>
   );
 }
