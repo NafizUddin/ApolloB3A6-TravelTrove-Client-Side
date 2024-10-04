@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
-import { Home, User, Settings, LogOut } from "lucide-react";
+import {
+  Home,
+  User,
+  MessageSquareQuote,
+  Contact,
+  ContactRound,
+  BookOpenText,
+} from "lucide-react";
 import Sidebar from "@/src/components/dashboard/Sidebar";
 
 export const metadata: Metadata = {
-  title: "Dashboard - TravelTrove",
+  title: "Admin Dashboard",
   description:
     "Discover, share, and explore travel stories, tips, and guides from a community of travel enthusiasts. Plan your next adventure with expert advice and unique insights into destinations around the world.",
 };
@@ -15,27 +22,44 @@ export default function AdminDashboardLayout({
 }>) {
   const adminLinks = [
     {
-      label: "Dashboard",
-      href: "/admin/dashboard",
+      label: "Dashboard Home",
+      href: "/admin-dashboard",
       icon: <Home size={20} />,
     },
     {
       label: "User Management",
-      href: "/admin/users",
+      href: "/admin-dashboard/users",
       icon: <User size={20} />,
     },
     {
-      label: "Settings",
-      href: "/admin/settings",
-      icon: <Settings size={20} />,
+      label: "Content Management",
+      href: "/admin-dashboard/posts",
+      icon: <BookOpenText size={20} />,
     },
-    { label: "Logout", href: "/admin/logout", icon: <LogOut size={20} /> },
+  ];
+
+  const commonLinks = [
+    {
+      label: "NewsFeed",
+      href: "/",
+      icon: <MessageSquareQuote size={20} />,
+    },
+    {
+      label: "About",
+      href: "/about",
+      icon: <ContactRound size={20} />,
+    },
+    {
+      label: "Contact",
+      href: "/contact",
+      icon: <Contact size={20} />,
+    },
   ];
 
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <Sidebar links={adminLinks} />
+      <Sidebar links={adminLinks} commonLinks={commonLinks} />
 
       {/* Dashboard Content */}
       <main className="flex-1 bg-gray-100 p-6">{children}</main>

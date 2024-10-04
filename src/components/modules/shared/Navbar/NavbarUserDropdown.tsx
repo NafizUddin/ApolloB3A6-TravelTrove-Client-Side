@@ -67,11 +67,7 @@ export default function NavbarUserDropdown({ user }: IProps) {
           >
             Dashboard
           </DropdownItem>
-          <DropdownItem
-            onClick={() => handleLogout()}
-            key="logout"
-            color="danger"
-          >
+          <DropdownItem onClick={handleLogout} key="logout" color="danger">
             Log Out
           </DropdownItem>
         </DropdownMenu>
