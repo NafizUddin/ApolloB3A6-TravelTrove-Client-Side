@@ -134,7 +134,6 @@ export default function ProfileCard({ user }: { user: IUser }) {
 
         {openVerifyProfileModal && (
           <VerifyModal
-            user={user}
             openModal={openVerifyProfileModal}
             setOpenModal={setOpenVerifyProfileModal}
           />

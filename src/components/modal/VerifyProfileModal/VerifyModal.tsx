@@ -10,7 +10,7 @@ const VerifyModal = ({ user, openModal, setOpenModal }: any) => {
             openModal ? "opacity-1 visible" : "invisible opacity-0"
           } inset-0 bg-black/20 backdrop-blur-sm duration-100`}
         >
-          <VerifyProfileBody setOpenModal={setOpenModal} user={user} />
+          <VerifyProfileBody setOpenModal={setOpenModal} />
         </div>
       )}
     </div>

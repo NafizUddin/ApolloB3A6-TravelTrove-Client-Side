@@ -1,15 +1,30 @@
 "use-client";
+import { useUser } from "@/src/context/user.provider";
 import { useStartPremium } from "@/src/hooks/premium.hook";
 import { IUser } from "@/src/types";
 import { format } from "date-fns";
+import { useEffect, useState } from "react";
 
 interface IModalBodyProps {
   setOpenModal: any;
-  user: IUser;
 }
 
-const VerifyProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
-  const { mutate: handleStartPremium } = useStartPremium();
+const VerifyProfileBody = ({ setOpenModal }: IModalBodyProps) => {
+  // const [premiumData, setPremiumData] = useState(null);
+
+  const { user, setUser } = useUser();
+
+  const handleSuccess = (data: any) => {
+    // setPremiumData(data);
+
+    if (data.paymentSession.result) {
+      window.location.href = data.paymentSession.payment_url;
+    }
+
+    setUser(data.data);
+  };
+
+  const { mutate: handleStartPremium } = useStartPremium(handleSuccess);
 
   const handlePayment = () => {
     try {
@@ -28,13 +43,19 @@ const VerifyProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
 
       handleStartPremium(payload);
 
-      // Here I have to get that data from the premium service function
-
       setOpenModal(false);
     } catch (error) {
       console.error("Client Error:", error);
     }
   };
+
+  // useEffect(() => {
+  //   if (premiumData) {
+  //     console.log("Premium data updated:", premiumData); // Log when premiumData changes
+  //   }
+  // }, [premiumData]);
+
+  console.log(user);
 
   return (
     <div

@@ -2,7 +2,7 @@
 import axiosInstance from "@/src/lib/AxiosInstance";
 import { IUser } from "@/src/types";
 
-export const startPremium = async (payload: Partial<IUser>) => {
+export const startPremium = async (payload: any) => {
   try {
     const { data } = await axiosInstance.put(
       "/users/premium/start-premium",
