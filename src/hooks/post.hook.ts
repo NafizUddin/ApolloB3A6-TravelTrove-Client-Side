@@ -34,8 +34,8 @@ export const useGetAllPosts = (apiUrl: string) => {
 
 export const useGetAllPostsInDashboard = (query?: string) => {
   const { data, error, refetch, isFetching } = useQuery({
-    queryKey: query ? ["posts", query] : ["posts"], // Default to 'posts' if query is not provided
-    queryFn: async () => await getAllPostsNewsFeed(query || ""),
+    queryKey: query ? ["posts", query] : ["posts"],
+    queryFn: async () => await getAllPostsDashboard(query || ""),
   });
 
   return { data, error, refetch, isFetching };

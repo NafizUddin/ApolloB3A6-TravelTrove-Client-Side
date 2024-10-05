@@ -47,12 +47,10 @@ export const getAllPostsNewsFeed = async (apiUrl: string) => {
 };
 
 export const getAllPostsDashboard = async (query?: string) => {
-  const endpoint = query
-    ? `/posts/dashboard/users?${query}`
-    : `/posts/dashboard/users`;
+  const baseURL = `/posts/dashboard/users`;
 
+  const endpoint = query ? `${baseURL}?${query}` : baseURL;
   const { data } = await axiosInstance.get(endpoint);
-
   return data;
 };
 
