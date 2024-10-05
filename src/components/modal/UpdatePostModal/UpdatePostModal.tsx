@@ -4,7 +4,6 @@ import { ReactNode, useState } from "react";
 import { Controller, UseFormReturn } from "react-hook-form";
 import dynamic from "next/dynamic";
 import { Input } from "@nextui-org/input";
-import { Select, SelectItem } from "@nextui-org/select";
 import { Checkbox } from "@nextui-org/checkbox";
 import "react-quill/dist/quill.snow.css";
 import { useUser } from "@/src/context/user.provider";
@@ -117,7 +116,6 @@ const UpdatePostModal = ({
                 name="title"
                 control={control}
                 defaultValue={title}
-                rules={{ required: "Please provide post title" }}
                 render={({ field }) => (
                   <Input {...field} label="Post Title" variant="underlined" />
                 )}
@@ -193,7 +191,6 @@ const UpdatePostModal = ({
                 name="description"
                 control={control}
                 defaultValue={description} // Pass the description (HTML)
-                rules={{ required: "Please provide post description" }}
                 render={({ field }) => (
                   <div className="w-full space-y-3">
                     <label className="font-semibold">Post Description</label>
@@ -266,6 +263,7 @@ const UpdatePostModal = ({
               <div className="flex-1">
                 <button
                   type="submit"
+                  onClick={() => setOpenEditModal(false)}
                   className="rounded-md bg-emerald-600 w-full py-[6px] text-white hover:bg-emerald-700"
                 >
                   Submit

@@ -33,6 +33,7 @@ import { useForm } from "react-hook-form";
 import envConfig from "@/src/config/envConfig";
 import axios from "axios";
 import UpdatePostModal from "@/src/components/modal/UpdatePostModal/UpdatePostModal";
+import toast from "react-hot-toast";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -93,18 +94,6 @@ const TravelPostCard = ({ singlePost }: any) => {
   const router = useRouter();
   const params = new URLSearchParams();
   params.set("id", _id);
-
-  const modules = {
-    toolbar: {
-      container: [
-        ["bold", "italic", "underline"],
-        [{ header: [1, 2, 3, 4, 5, 6, false] }],
-        ["blockquote", "code-block"],
-        [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
-        [{ indent: "-1" }, { indent: "+1" }],
-      ],
-    },
-  };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -211,45 +200,53 @@ const TravelPostCard = ({ singlePost }: any) => {
   };
 
   const handleUpdatePost = async (data: any) => {
-    if (!data.title || !data.category || !data.description || !data.image)
+    const hasImage = !!data.image;
+    const hasTitleChanged = data.title !== title;
+    const hasDescriptionChanged = data.description !== description;
+    const hasCategoryChanged = data.category !== category;
+    const hasPostStatusChanged = (status === "PREMIUM") !== isSelected;
+
+    if (
+      !hasImage &&
+      !hasTitleChanged &&
+      !hasCategoryChanged &&
+      !hasDescriptionChanged &&
+      !hasPostStatusChanged
+    ) {
+      setOpenEditModal(false);
       return;
-    setOpenModal(false);
-
-    const formData = new FormData();
-    formData.append("file", data.image);
-    formData.append(
-      "upload_preset",
-      envConfig.cloudinary_upload_preset as string
-    );
-
-    try {
-      const response = await axios.post(
-        envConfig.cloudinary_url as string,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      const imageUrl = response.data.secure_url;
-
-      const postData = {
-        title: data.title,
-        category: data.category,
-        description: data.description,
-        image: imageUrl,
-        status: isSelected ? "PREMIUM" : "BASIC",
-      };
-
-      // handlePostCreation(postData);
-    } catch (error: any) {
-      console.error(error.message);
     }
-  };
 
-  console.log(openEditModal);
+    toast.loading("Updating Profile...");
+    // // const formData = new FormData();
+    // // formData.append("file", data.image);
+    // formData.append(
+    //   "upload_preset",
+    //   envConfig.cloudinary_upload_preset as string
+    // );
+    // try {
+    //   const response = await axios.post(
+    //     envConfig.cloudinary_url as string,
+    //     formData,
+    //     {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data",
+    //       },
+    //     }
+    //   );
+    //   const imageUrl = response.data.secure_url;
+    //   const postData = {
+    //     title: data.title,
+    //     category: data.category,
+    //     description: data.description,
+    //     image: imageUrl,
+    //     status: isSelected ? "PREMIUM" : "BASIC",
+    //   };
+    //   // handlePostCreation(postData);
+    // } catch (error: any) {
+    //   console.error(error.message);
+    // }
+  };
 
   return (
     <div className="my-5">
@@ -453,8 +450,27 @@ const TravelPostCard = ({ singlePost }: any) => {
             )}
           </div>
           <div>
-            <span className="rounded-full border border-primary px-3 py-2  text-primary font-semibold hidden md:block mb-2">
-              {category}
+            <span className="rounded-full border border-primary px-3 py-2  text-primary font-semibold hidden mb-2 md:flex justify-center items-center gap-1">
+              {status === "PREMIUM" && (
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="#fcc200"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-crown"
+                  >
+                    <path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z" />
+                    <path d="M5 21h14" />
+                  </svg>
+                </span>
+              )}
+              <span>{category}</span>
             </span>
           </div>
         </div>
