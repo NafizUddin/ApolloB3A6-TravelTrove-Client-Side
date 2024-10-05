@@ -59,10 +59,12 @@ export default function UserDashboardLayout({
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <Sidebar links={userLinks} commonLinks={commonLinks} />
+      <aside className="xl:fixed xl:top-0 xl:left-0 h-full">
+        <Sidebar links={userLinks} commonLinks={commonLinks} />
+      </aside>
 
       {/* Dashboard Content */}
-      <main className="flex-1 p-6">{children}</main>
+      <main className="flex-1 p-6 xl:ml-64">{children}</main>
     </div>
   );
 }

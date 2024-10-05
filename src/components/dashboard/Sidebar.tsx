@@ -69,11 +69,11 @@ const Sidebar = ({ links, commonLinks }: SidebarProps) => {
   }, [isOpen]);
 
   return (
-    <div>
+    <div className="relative">
       {/* Sidebar Toggle Button for small and medium screens */}
       <button
         onClick={toggleSidebar}
-        className="lg:hidden p-2 m-2 text-gray-600 hover:text-gray-800"
+        className="absolute top-0 left-0 z-10 lg:hidden p-2 m-2 text-gray-600 hover:text-gray-800"
       >
         <Menu size={28} />
       </button>
@@ -81,7 +81,7 @@ const Sidebar = ({ links, commonLinks }: SidebarProps) => {
       {/* Sidebar Drawer */}
       <div
         ref={sidebarRef}
-        className={`top-0 left-0 h-full w-52 md:w-72 bg-gray-200 z-50 transform ${
+        className={`fixed top-0 left-0 h-full w-52 md:w-72 bg-gray-200 z-50 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 lg:translate-x-0 lg:relative lg:flex p-4`}
       >

@@ -282,8 +282,6 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
     handlePostDelete({ id: _id });
   };
 
-  console.log(openDeleteModal);
-
   return (
     <div className="my-5">
       <article className="relative mb-4 break-inside p-4 md:p-6 rounded-xl bg-white flex flex-col bg-clip-border md:w-11/12 lg:w-10/12 xl:w-[75%] mx-auto border border-primary">
