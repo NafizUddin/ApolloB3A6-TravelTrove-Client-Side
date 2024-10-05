@@ -15,8 +15,6 @@ const UserDashboardHome = () => {
     isFetching,
   } = useGetAllPostsInDashboard(`postAuthor=${user?._id}`);
 
-  console.log(individualAllPosts?.data, isFetching);
-
   return (
     <div>
       <SectionTitle sub="TIPS & STORIES" heading="MY TRAVEL INSIGHTS" />

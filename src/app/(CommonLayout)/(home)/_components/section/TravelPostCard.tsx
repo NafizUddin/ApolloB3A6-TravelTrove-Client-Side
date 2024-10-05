@@ -1,6 +1,6 @@
 "use client";
 
-import { IComment, IPost } from "@/src/types";
+import { IComment } from "@/src/types";
 import { Input } from "@nextui-org/input";
 import { useState } from "react";
 import parse from "html-react-parser";
@@ -21,16 +21,29 @@ import {
   useRemoveUpvotePost,
 } from "@/src/hooks/post.hook";
 import Link from "next/link";
-import { Skeleton } from "@nextui-org/skeleton";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/dropdown";
-import { Button } from "@nextui-org/button";
-import { CircleEllipsis, Ellipsis, Trash2 } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
+import { useForm } from "react-hook-form";
+import envConfig from "@/src/config/envConfig";
+import axios from "axios";
+import UpdatePostModal from "@/src/components/modal/UpdatePostModal/UpdatePostModal";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
+export const travelCategory = [
+  { key: "Adventure", label: "Adventure" },
+  { key: "Business Travel", label: "Business Travel" },
+  { key: "Exploration", label: "Exploration" },
+  { key: "Family Travel", label: "Family Travel" },
+  { key: "Luxury Travel", label: "Luxury Travel" },
+  { key: "Budget Travel", label: "Budget Travel" },
+];
 
 const TravelPostCard = ({ singlePost }: any) => {
   const {
@@ -68,10 +81,41 @@ const TravelPostCard = ({ singlePost }: any) => {
     null
   );
   const [openModal, setOpenModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [content, setContent] = useState("");
+  const { register, handleSubmit, reset, formState, control, setValue } =
+    useForm();
+  const { errors } = formState;
+  const [fileName, setFileName] = useState<string | null>(null);
+  const [isSelected, setIsSelected] = useState(
+    status === "PREMIUM" ? true : false
+  );
   const router = useRouter();
-  const pathname = usePathname();
   const params = new URLSearchParams();
   params.set("id", _id);
+
+  const modules = {
+    toolbar: {
+      container: [
+        ["bold", "italic", "underline"],
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ["blockquote", "code-block"],
+        [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
+        [{ indent: "-1" }, { indent: "+1" }],
+      ],
+    },
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    setValue("image", file); // Set the file value in the form state
+    setFileName(file ? file.name : null);
+  };
+
+  const clearFileSelection = () => {
+    setFileName("");
+    setValue("image", null);
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
@@ -166,6 +210,47 @@ const TravelPostCard = ({ singlePost }: any) => {
     handleRemoveDownvotePost({ id });
   };
 
+  const handleUpdatePost = async (data: any) => {
+    if (!data.title || !data.category || !data.description || !data.image)
+      return;
+    setOpenModal(false);
+
+    const formData = new FormData();
+    formData.append("file", data.image);
+    formData.append(
+      "upload_preset",
+      envConfig.cloudinary_upload_preset as string
+    );
+
+    try {
+      const response = await axios.post(
+        envConfig.cloudinary_url as string,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      const imageUrl = response.data.secure_url;
+
+      const postData = {
+        title: data.title,
+        category: data.category,
+        description: data.description,
+        image: imageUrl,
+        status: isSelected ? "PREMIUM" : "BASIC",
+      };
+
+      // handlePostCreation(postData);
+    } catch (error: any) {
+      console.error(error.message);
+    }
+  };
+
+  console.log(openEditModal);
+
   return (
     <div className="my-5">
       <article className="relative mb-4 break-inside p-4 md:p-6 rounded-xl bg-white flex flex-col bg-clip-border md:w-11/12 lg:w-10/12 xl:w-[75%] mx-auto border border-primary">
@@ -220,7 +305,13 @@ const TravelPostCard = ({ singlePost }: any) => {
                 </DropdownItem>
                 <DropdownItem key="edit">
                   {" "}
-                  <span className="flex gap-2 items-center text-primary">
+                  <span
+                    onClick={(e) => {
+                      e.preventDefault(); // Prevent default behavior
+                      setOpenEditModal(true); // Open the modal
+                    }}
+                    className="flex gap-2 items-center text-primary"
+                  >
                     <span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -557,7 +648,7 @@ const TravelPostCard = ({ singlePost }: any) => {
 
         {/* Comment Section */}
         <div>
-          {allComments?.data?.result?.length > 0 ? (
+          {allComments?.data?.result?.length > 0 && (
             <div className="pt-6">
               {allComments.data.result.map((comment: any) => {
                 return (
@@ -763,19 +854,27 @@ const TravelPostCard = ({ singlePost }: any) => {
                 </a>
               </div> */}
             </div>
-          ) : (
-            <div className="max-w-[300px] w-full flex items-center gap-3">
-              <div>
-                <Skeleton className="flex rounded-full w-12 h-12" />
-              </div>
-              <div className="w-full flex flex-col gap-2">
-                <Skeleton className="h-3 w-3/5 rounded-lg" />
-                <Skeleton className="h-3 w-4/5 rounded-lg" />
-              </div>
-            </div>
           )}
         </div>
       </article>
+
+      {openEditModal && (
+        <UpdatePostModal
+          control={control}
+          errors={errors}
+          content={content}
+          setContent={setContent}
+          handleSubmit={handleSubmit(handleUpdatePost)}
+          reset={reset}
+          setOpenEditModal={setOpenEditModal}
+          isSelected={isSelected}
+          setIsSelected={setIsSelected}
+          fileName={fileName}
+          handleFileChange={handleFileChange}
+          clearFileSelection={clearFileSelection}
+          openEditModal={openEditModal}
+        />
+      )}
     </div>
   );
 };

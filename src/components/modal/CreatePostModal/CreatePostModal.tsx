@@ -56,9 +56,10 @@ export default function CreatePostModal() {
   };
 
   const handleCreatePost = async (data: any) => {
-    if (!data.title || !data.category || !data.description || !data.image)
+    if (!data.title && !data.category && !data.description && !data.image) {
+      setOpenModal(false);
       return;
-    setOpenModal(false);
+    }
 
     const formData = new FormData();
     formData.append("file", data.image);

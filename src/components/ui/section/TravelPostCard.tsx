@@ -12,7 +12,7 @@ import {
   useUpdateComment,
 } from "@/src/hooks/comment.hook";
 import { Tooltip } from "@nextui-org/tooltip";
-import { DeleteModal } from "../../../../../components/modal/DeleteCommentModal/DeleteModal";
+
 import { useFollowUser, useUnfollowUser } from "@/src/hooks/user.hook";
 import {
   useAddDownvotePost,
@@ -31,6 +31,7 @@ import {
 import { Button } from "@nextui-org/button";
 import { CircleEllipsis, Ellipsis, Trash2 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
+import { DeleteModal } from "../../modal/DeleteCommentModal/DeleteModal";
 
 const TravelPostCard = ({ singlePost }: any) => {
   const {
