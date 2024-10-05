@@ -1,4 +1,6 @@
-import { ReactNode } from "react";
+"use client";
+
+import { ReactNode, useState } from "react";
 import { Controller, UseFormReturn } from "react-hook-form";
 import dynamic from "next/dynamic";
 import { Input } from "@nextui-org/input";
@@ -32,6 +34,10 @@ interface CreatePostModalBodyProps {
   handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   clearFileSelection: () => void;
   openEditModal: any;
+  title: string;
+  description: any;
+  category: string;
+  setValue: any;
 }
 
 const UpdatePostModal = ({
@@ -48,8 +54,16 @@ const UpdatePostModal = ({
   handleFileChange,
   clearFileSelection,
   openEditModal,
+  title,
+  description,
+  category,
+  setValue,
 }: CreatePostModalBodyProps) => {
   const { user } = useUser();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(
+    category || "Choose One"
+  );
 
   const modules = {
     toolbar: {
@@ -72,7 +86,7 @@ const UpdatePostModal = ({
     >
       <div
         onClick={(e_) => e_.stopPropagation()}
-        className={`absolute w-11/12 mx-auto md:max-w-3xl xl:max-w-4xl rounded-lg bg-white p-6 drop-shadow-lg overflow-y-auto h-fit max-h-[90vh] ${
+        className={`absolute w-11/12 mx-auto md:max-w-3xl rounded-lg bg-white p-6 drop-shadow-lg overflow-y-auto h-fit max-h-[90vh] ${
           openEditModal
             ? "opacity-1 duration-300"
             : "scale-110 opacity-0 duration-150"
@@ -102,6 +116,7 @@ const UpdatePostModal = ({
               <Controller
                 name="title"
                 control={control}
+                defaultValue={title}
                 rules={{ required: "Please provide post title" }}
                 render={({ field }) => (
                   <Input {...field} label="Post Title" variant="underlined" />
@@ -115,38 +130,75 @@ const UpdatePostModal = ({
             </div>
 
             <div>
-              <Controller
-                name="category"
-                control={control}
-                rules={{ required: "Please select a category" }}
-                render={({ field }) => (
-                  <Select {...field} label="Select a category">
-                    {travelCategory.map((category) => (
-                      <SelectItem key={category.key}>
-                        {category.label}
-                      </SelectItem>
-                    ))}
-                  </Select>
+              <label className="font-semibold">Select a Category</label>
+              <div className="relative w-full">
+                {" "}
+                {/* Changed to relative positioning */}
+                <div
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="flex w-full items-center justify-between rounded-xl bg-white px-6 py-2 border cursor-pointer"
+                >
+                  <h1 className="font-medium text-gray-600">
+                    {selectedCategory}
+                  </h1>
+                  <svg
+                    className={`${
+                      isOpen ? "-rotate-180" : "rotate-0"
+                    } duration-300`}
+                    width={25}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7 10L12 15L17 10"
+                      stroke="#4B5563"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>
+                  </svg>
+                </div>
+                <div
+                  className={`${
+                    isOpen
+                      ? "absolute left-0 right-0 z-10 mt-1 rounded-xl border bg-white shadow-lg transition-opacity duration-300"
+                      : "hidden"
+                  }`}
+                >
+                  {travelCategory.map((cat) => (
+                    <div
+                      key={cat.key}
+                      onClick={(e) => {
+                        setSelectedCategory(cat.label);
+                        setIsOpen(false);
+                        setValue("category", cat.key);
+                      }}
+                      className="px-6 py-2 text-gray-500 hover:bg-gray-100 cursor-pointer"
+                    >
+                      {cat.label}
+                    </div>
+                  ))}
+                </div>
+                {errors.category && (
+                  <p className="text-red-500">
+                    {errors.category.message as ReactNode}
+                  </p>
                 )}
-              />
-              {errors.category && (
-                <p className="text-red-500">
-                  {errors.category.message as ReactNode}
-                </p>
-              )}
+              </div>
             </div>
 
             <div>
               <Controller
                 name="description"
                 control={control}
+                defaultValue={description} // Pass the description (HTML)
                 rules={{ required: "Please provide post description" }}
                 render={({ field }) => (
                   <div className="w-full space-y-3">
                     <label className="font-semibold">Post Description</label>
                     <ReactQuill
-                      {...field}
-                      value={content}
+                      value={field.value}
                       onChange={(value) => {
                         setContent(value);
                         field.onChange(value);

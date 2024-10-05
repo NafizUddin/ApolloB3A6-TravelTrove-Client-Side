@@ -873,6 +873,10 @@ const TravelPostCard = ({ singlePost }: any) => {
           handleFileChange={handleFileChange}
           clearFileSelection={clearFileSelection}
           openEditModal={openEditModal}
+          title={title}
+          description={description}
+          category={category}
+          setValue={setValue}
         />
       )}
     </div>
