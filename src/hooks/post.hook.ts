@@ -3,6 +3,7 @@ import {
   addDownvote,
   addUpvote,
   createPost,
+  getAllPostsDashboard,
   getAllPostsNewsFeed,
   getSinglePost,
   removeDownvote,
@@ -29,6 +30,15 @@ export const useGetAllPosts = (apiUrl: string) => {
     queryKey: [apiUrl],
     queryFn: async () => await getAllPostsNewsFeed(apiUrl),
   });
+};
+
+export const useGetAllPostsInDashboard = (query?: string) => {
+  const { data, error, refetch, isFetching } = useQuery({
+    queryKey: query ? ["posts", query] : ["posts"], // Default to 'posts' if query is not provided
+    queryFn: async () => await getAllPostsNewsFeed(query || ""),
+  });
+
+  return { data, error, refetch, isFetching };
 };
 
 export const useGetSinglePost = (id: string) => {

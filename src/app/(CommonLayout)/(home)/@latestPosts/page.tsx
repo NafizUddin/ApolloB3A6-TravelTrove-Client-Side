@@ -50,8 +50,7 @@ const NewsFeed = () => {
     ...(sort && { sort }),
   }).toString()}`;
 
-  const { data: filteredPosts, isLoading: postLoading } =
-    useGetAllPosts(apiUrl);
+  const { data: filteredPosts } = useGetAllPosts(apiUrl);
 
   const handleCategorySelect = (key: Key) => {
     setCategory(String(key));
@@ -60,8 +59,6 @@ const NewsFeed = () => {
   const handleSortSelect = (key: Key) => {
     setSort(String(key));
   };
-
-  //   console.log(allPosts);
 
   return (
     <div>

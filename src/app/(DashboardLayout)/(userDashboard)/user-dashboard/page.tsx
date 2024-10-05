@@ -1,9 +1,24 @@
+"use client";
+import SectionTitle from "@/src/components/ui/section/SectionTitle";
+import envConfig from "@/src/config/envConfig";
+import { useUser } from "@/src/context/user.provider";
+import {
+  useGetAllPosts,
+  useGetAllPostsInDashboard,
+} from "@/src/hooks/post.hook";
+
 const UserDashboardHome = () => {
+  const { user } = useUser();
+
+  const { data: individualAllPosts, refetch } = useGetAllPostsInDashboard(
+    `postAuthor=${user?._id}`
+  );
+
+  console.log(individualAllPosts.data);
+
   return (
     <div>
-      {" "}
-      <h1 className="text-2xl font-bold">Welcome to your Dashboard</h1>
-      <p className="mt-4">Here is your dashboard content...</p>
+      <SectionTitle sub="TIPS & STORIES" heading="MY TRAVEL INSIGHTS" />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { BadgeCheck, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import logo from "@/src/assets/logo.png";
 import Link from "next/link";
 import Image from "next/image";

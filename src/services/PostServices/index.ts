@@ -1,6 +1,7 @@
 "use server";
 import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
+import nexiosInstance from "@/src/lib/NexiosInstance";
 import { ICreatePostData } from "@/src/types";
 import { revalidateTag } from "next/cache";
 import { cache } from "react";
@@ -41,6 +42,16 @@ export const getAllPostsNewsFeed = async (apiUrl: string) => {
     },
   });
   const data = await res.json();
+
+  return data;
+};
+
+export const getAllPostsDashboard = async (query?: string) => {
+  const endpoint = query
+    ? `/posts/dashboard/users?${query}`
+    : `/posts/dashboard/users`;
+
+  const { data } = await axiosInstance.get(endpoint);
 
   return data;
 };
