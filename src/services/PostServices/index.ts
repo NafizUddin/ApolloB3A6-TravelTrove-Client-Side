@@ -140,6 +140,25 @@ export const updatePost = async (payload: Partial<IPost>, id: string) => {
   try {
     const { data } = await axiosInstance.put(`/posts/${id}`, payload);
 
+    revalidateTag("posts");
+
+    return data;
+  } catch (error: any) {
+    const errorMessage =
+      error?.response?.data?.message ||
+      error?.message ||
+      "Unknown error occurred";
+    console.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+};
+
+export const deletePost = async (id: string): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.delete(`/posts/${id}`);
+
+    revalidateTag("posts");
+
     return data;
   } catch (error: any) {
     const errorMessage =

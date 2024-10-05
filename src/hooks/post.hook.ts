@@ -3,6 +3,7 @@ import {
   addDownvote,
   addUpvote,
   createPost,
+  deletePost,
   getAllPostsDashboard,
   getAllPostsNewsFeed,
   getSinglePost,
@@ -104,7 +105,20 @@ export const useRemoveDownvotePost = () => {
 
 export const useUpdatePost = () => {
   return useMutation<any, Error, { postData: Partial<IPost>; id: string }>({
-    mutationKey: ["UPDATE_USER"],
+    mutationKey: ["UPDATE_POST"],
     mutationFn: async ({ postData, id }) => await updatePost(postData, id),
+  });
+};
+
+export const useDeletePost = () => {
+  return useMutation<any, Error, { id: string }>({
+    mutationKey: ["DELETE_POST"],
+    mutationFn: async ({ id }) => {
+      return toast.promise(deletePost(id), {
+        loading: "Deleting Post...",
+        success: "Post deleted successfully!",
+        error: "Error when deleting comment.",
+      });
+    },
   });
 };

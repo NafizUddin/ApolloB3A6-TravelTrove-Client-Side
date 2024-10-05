@@ -17,6 +17,7 @@ import { useFollowUser, useUnfollowUser } from "@/src/hooks/user.hook";
 import {
   useAddDownvotePost,
   useAddUpvotePost,
+  useDeletePost,
   useRemoveDownvotePost,
   useRemoveUpvotePost,
   useUpdatePost,
@@ -35,6 +36,7 @@ import envConfig from "@/src/config/envConfig";
 import axios from "axios";
 import UpdatePostModal from "@/src/components/modal/UpdatePostModal/UpdatePostModal";
 import toast from "react-hot-toast";
+import { DeletePostModal } from "@/src/components/modal/DeletePostModal/DeletePostModal";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -78,6 +80,7 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
   const { mutate: handleAddDownvotePost } = useAddDownvotePost();
   const { mutate: handleRemoveDownvotePost } = useRemoveDownvotePost();
   const { mutate: handlePostUpdate } = useUpdatePost();
+  const { mutate: handlePostDelete } = useDeletePost();
   const { data: allComments } = useGetPostAllComments(_id);
 
   const [isEditing, setIsEditing] = useState<string | null>("");
@@ -89,9 +92,9 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
   );
   const [openModal, setOpenModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [content, setContent] = useState("");
-  const { register, handleSubmit, reset, formState, control, setValue } =
-    useForm();
+  const { handleSubmit, reset, formState, control, setValue } = useForm();
   const { errors } = formState;
   const [fileName, setFileName] = useState<string | null>(null);
   const [isSelected, setIsSelected] = useState(
@@ -275,6 +278,12 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
     }
   };
 
+  const handleDeletePost = async () => {
+    handlePostDelete({ id: _id });
+  };
+
+  console.log(openDeleteModal);
+
   return (
     <div className="my-5">
       <article className="relative mb-4 break-inside p-4 md:p-6 rounded-xl bg-white flex flex-col bg-clip-border md:w-11/12 lg:w-10/12 xl:w-[75%] mx-auto border border-primary">
@@ -331,8 +340,8 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
                   {" "}
                   <span
                     onClick={(e) => {
-                      e.preventDefault(); // Prevent default behavior
-                      setOpenEditModal(true); // Open the modal
+                      e.preventDefault();
+                      setOpenEditModal(true);
                     }}
                     className="flex gap-2 items-center text-primary"
                   >
@@ -361,7 +370,13 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
                   className="text-danger"
                   color="danger"
                 >
-                  <span className="flex gap-2 items-center">
+                  <span
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpenDeleteModal(true);
+                    }}
+                    className="flex gap-2 items-center"
+                  >
                     <span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -920,6 +935,14 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
           description={description}
           category={category}
           setValue={setValue}
+        />
+      )}
+
+      {openDeleteModal && (
+        <DeletePostModal
+          handleDeletePost={handleDeletePost}
+          openDeleteModal={openDeleteModal}
+          setOpenDeleteModal={setOpenDeleteModal}
         />
       )}
     </div>
