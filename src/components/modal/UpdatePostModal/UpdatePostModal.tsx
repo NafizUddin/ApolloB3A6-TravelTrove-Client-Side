@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Controller, UseFormReturn } from "react-hook-form";
 import dynamic from "next/dynamic";
 import { Input } from "@nextui-org/input";
@@ -75,6 +75,11 @@ const UpdatePostModal = ({
       ],
     },
   };
+
+  useEffect(() => {
+    setSelectedCategory(category || "Select a Category");
+    setValue("category", category);
+  }, [category, setValue]);
 
   return (
     <div
@@ -263,7 +268,6 @@ const UpdatePostModal = ({
               <div className="flex-1">
                 <button
                   type="submit"
-                  onClick={() => setOpenEditModal(false)}
                   className="rounded-md bg-emerald-600 w-full py-[6px] text-white hover:bg-emerald-700"
                 >
                   Submit

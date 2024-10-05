@@ -217,23 +217,57 @@ const TravelPostCard = ({ singlePost }: any) => {
       return;
     }
 
+    console.log(
+      hasImage,
+      hasTitleChanged,
+      hasCategoryChanged,
+      hasDescriptionChanged,
+      hasPostStatusChanged
+    );
+
     toast.loading("Updating Profile...");
-    // // const formData = new FormData();
-    // // formData.append("file", data.image);
-    // formData.append(
-    //   "upload_preset",
-    //   envConfig.cloudinary_upload_preset as string
-    // );
-    // try {
-    //   const response = await axios.post(
-    //     envConfig.cloudinary_url as string,
-    //     formData,
-    //     {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //       },
-    //     }
-    //   );
+
+    let imageUrl = image;
+
+    if (hasImage) {
+      const formData = new FormData();
+      formData.append("file", data.image);
+      formData.append(
+        "upload_preset",
+        envConfig.cloudinary_upload_preset as string
+      );
+
+      try {
+        const response = await axios.post(
+          envConfig.cloudinary_url as string,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        imageUrl = response.data.secure_url;
+        console.log(imageUrl);
+      } catch (error: any) {
+        console.error(error.message);
+        toast.error("Failed to upload image");
+        return;
+      }
+    }
+
+    const postData = {
+      title: hasTitleChanged ? data.title : title,
+      category: hasCategoryChanged ? data.category : category,
+      description: hasDescriptionChanged ? data.description : description,
+      image: imageUrl,
+      status: isSelected ? "PREMIUM" : "BASIC",
+    };
+
+    console.log(postData);
+    toast.dismiss();
+
     //   const imageUrl = response.data.secure_url;
     //   const postData = {
     //     title: data.title,
