@@ -2,7 +2,7 @@
 import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
 import nexiosInstance from "@/src/lib/NexiosInstance";
-import { ICreatePostData } from "@/src/types";
+import { ICreatePostData, IPost } from "@/src/types";
 import { revalidateTag } from "next/cache";
 import { cache } from "react";
 
@@ -47,11 +47,15 @@ export const getAllPostsNewsFeed = async (apiUrl: string) => {
 };
 
 export const getAllPostsDashboard = async (query?: string) => {
-  const baseURL = `/posts/dashboard/users`;
-
-  const endpoint = query ? `${baseURL}?${query}` : baseURL;
-  const { data } = await axiosInstance.get(endpoint);
-  return data;
+  try {
+    const baseURL = `/posts/dashboard/users`;
+    const endpoint = query ? `${baseURL}?${query}` : baseURL;
+    const { data } = await axiosInstance.get(endpoint);
+    return data;
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    throw error; // Rethrow the error to handle it in the calling component
+  }
 };
 
 export const addUpvote = async (postId: string): Promise<any> => {
@@ -129,5 +133,20 @@ export const getSinglePost = async (id: string) => {
   } catch (error) {
     console.error("Error fetching post:", error);
     throw error; // Rethrow the error for React Query to catch
+  }
+};
+
+export const updatePost = async (payload: Partial<IPost>, id: string) => {
+  try {
+    const { data } = await axiosInstance.put(`/posts/${id}`, payload);
+
+    return data;
+  } catch (error: any) {
+    const errorMessage =
+      error?.response?.data?.message ||
+      error?.message ||
+      "Unknown error occurred";
+    console.error(errorMessage);
+    throw new Error(errorMessage);
   }
 };

@@ -9,11 +9,9 @@ import { IPost } from "@/src/types";
 const UserDashboardHome = () => {
   const { user } = useUser();
 
-  const {
-    data: individualAllPosts,
-    refetch,
-    isFetching,
-  } = useGetAllPostsInDashboard(`postAuthor=${user?._id}`);
+  const { data: individualAllPosts, refetch } = useGetAllPostsInDashboard(
+    user?._id ? `postAuthor=${user?._id}` : undefined
+  );
 
   return (
     <div>
@@ -25,7 +23,7 @@ const UserDashboardHome = () => {
             individualAllPosts?.data?.map(
               (singlePost: IPost, index: number) => (
                 <div key={index}>
-                  <TravelPostCard singlePost={singlePost} />
+                  <TravelPostCard singlePost={singlePost} refetch={refetch} />
                 </div>
               )
             )

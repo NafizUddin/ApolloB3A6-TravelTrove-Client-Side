@@ -8,9 +8,10 @@ import {
   getSinglePost,
   removeDownvote,
   removeUpvote,
+  updatePost,
 } from "../services/PostServices";
 import toast from "react-hot-toast";
-import { ICreatePostData } from "../types";
+import { ICreatePostData, IPost } from "../types";
 
 export const useCreatePost = () => {
   return useMutation<ICreatePostData, Error, ICreatePostData>({
@@ -98,5 +99,12 @@ export const useRemoveDownvotePost = () => {
         error: "Error when downvoting post.",
       });
     },
+  });
+};
+
+export const useUpdatePost = () => {
+  return useMutation<any, Error, { postData: Partial<IPost>; id: string }>({
+    mutationKey: ["UPDATE_USER"],
+    mutationFn: async ({ postData, id }) => await updatePost(postData, id),
   });
 };

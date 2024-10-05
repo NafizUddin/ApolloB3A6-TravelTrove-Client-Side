@@ -1,6 +1,6 @@
 "use client";
 
-import { IComment } from "@/src/types";
+import { IComment, IPost } from "@/src/types";
 import { Input } from "@nextui-org/input";
 import { useState } from "react";
 import parse from "html-react-parser";
@@ -19,6 +19,7 @@ import {
   useAddUpvotePost,
   useRemoveDownvotePost,
   useRemoveUpvotePost,
+  useUpdatePost,
 } from "@/src/hooks/post.hook";
 import Link from "next/link";
 import {
@@ -46,7 +47,12 @@ export const travelCategory = [
   { key: "Budget Travel", label: "Budget Travel" },
 ];
 
-const TravelPostCard = ({ singlePost }: any) => {
+interface ITravelPostCardProps {
+  singlePost: any;
+  refetch?: () => void;
+}
+
+const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
   const {
     title,
     category,
@@ -71,8 +77,8 @@ const TravelPostCard = ({ singlePost }: any) => {
   const { mutate: handleRemoveUpvotePost } = useRemoveUpvotePost();
   const { mutate: handleAddDownvotePost } = useAddDownvotePost();
   const { mutate: handleRemoveDownvotePost } = useRemoveDownvotePost();
-  const { data: allComments, isLoading: commentLoading } =
-    useGetPostAllComments(_id);
+  const { mutate: handlePostUpdate } = useUpdatePost();
+  const { data: allComments } = useGetPostAllComments(_id);
 
   const [isEditing, setIsEditing] = useState<string | null>("");
   const [editedComments, setEditedComments] = useState<{
@@ -217,14 +223,6 @@ const TravelPostCard = ({ singlePost }: any) => {
       return;
     }
 
-    console.log(
-      hasImage,
-      hasTitleChanged,
-      hasCategoryChanged,
-      hasDescriptionChanged,
-      hasPostStatusChanged
-    );
-
     toast.loading("Updating Profile...");
 
     let imageUrl = image;
@@ -257,29 +255,24 @@ const TravelPostCard = ({ singlePost }: any) => {
       }
     }
 
-    const postData = {
-      title: hasTitleChanged ? data.title : title,
-      category: hasCategoryChanged ? data.category : category,
-      description: hasDescriptionChanged ? data.description : description,
-      image: imageUrl,
-      status: isSelected ? "PREMIUM" : "BASIC",
-    };
+    try {
+      const postData: Partial<IPost> = {
+        title: hasTitleChanged ? data.title : title,
+        category: hasCategoryChanged ? data.category : category,
+        description: hasDescriptionChanged ? data.description : description,
+        image: imageUrl,
+        status: isSelected ? "PREMIUM" : "BASIC",
+      };
 
-    console.log(postData);
-    toast.dismiss();
+      toast.dismiss();
 
-    //   const imageUrl = response.data.secure_url;
-    //   const postData = {
-    //     title: data.title,
-    //     category: data.category,
-    //     description: data.description,
-    //     image: imageUrl,
-    //     status: isSelected ? "PREMIUM" : "BASIC",
-    //   };
-    //   // handlePostCreation(postData);
-    // } catch (error: any) {
-    //   console.error(error.message);
-    // }
+      handlePostUpdate({ postData, id: _id });
+      setOpenEditModal(false);
+      toast.success("Post updated successfully!");
+      refetch?.();
+    } catch (error: any) {
+      console.error(error.message);
+    }
   };
 
   return (
