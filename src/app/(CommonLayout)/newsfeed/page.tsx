@@ -1,5 +1,5 @@
 "use client";
-import TravelPostCard from "@/src/components/ui/section/TravelPostCard";
+import TravelPostCard from "@/src/app/(CommonLayout)/(home)/_components/section/TravelPostCard";
 import envConfig from "@/src/config/envConfig";
 import { useGetAllPosts } from "@/src/hooks/post.hook";
 import { IPost } from "@/src/types";

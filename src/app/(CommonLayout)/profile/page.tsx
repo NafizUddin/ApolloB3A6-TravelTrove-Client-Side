@@ -2,7 +2,7 @@
 
 import { useUser } from "@/src/context/user.provider";
 import ProfileCard from "./_profileCard/ProfileCard";
-import ProfileLoadingCard from "@/src/components/ui/section/ProfileLoadingCard";
+import ProfileLoadingCard from "@/src/app/(CommonLayout)/(home)/_components/section/ProfileLoadingCard";
 
 const Profile = () => {
   const { user } = useUser();

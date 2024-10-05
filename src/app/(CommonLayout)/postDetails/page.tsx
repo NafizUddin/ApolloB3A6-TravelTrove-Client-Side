@@ -1,8 +1,8 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useGetSinglePost } from "../../../hooks/post.hook";
-import TravelPostCard from "@/src/components/ui/section/TravelPostCard";
-import LoadingCard from "@/src/components/ui/section/LoadingCard";
+import TravelPostCard from "@/src/app/(CommonLayout)/(home)/_components/section/TravelPostCard";
+import LoadingCard from "@/src/app/(CommonLayout)/(home)/_components/section/LoadingCard";
 
 const PostDetails = () => {
   const searchParams = useSearchParams();

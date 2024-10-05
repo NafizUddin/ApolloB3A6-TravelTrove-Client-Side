@@ -14,8 +14,8 @@ import { Key, useEffect, useState } from "react";
 import { BiFilterAlt } from "react-icons/bi";
 import { ImCross } from "react-icons/im";
 import CreatePost from "../_homeSections/CreatePost/CreatePost";
-import LoadingCardWithoutComment from "@/src/components/ui/section/LoadingCardWithoutComment";
-import TravelPostCardWithoutComment from "@/src/components/ui/section/TravelPostCardWithoutComment";
+import LoadingCardWithoutComment from "@/src/app/(CommonLayout)/(home)/_components/section/LoadingCardWithoutComment";
+import TravelPostCardWithoutComment from "@/src/app/(CommonLayout)/(home)/_components/section/TravelPostCardWithoutComment";
 
 const NewsFeed = () => {
   const [filterApplied, setFilterApplied] = useState(false);

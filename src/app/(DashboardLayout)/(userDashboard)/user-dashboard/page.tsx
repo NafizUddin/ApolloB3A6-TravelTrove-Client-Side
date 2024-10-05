@@ -1,7 +1,7 @@
 "use client";
-import LoadingCard from "@/src/components/ui/section/LoadingCard";
-import SectionTitle from "@/src/components/ui/section/SectionTitle";
-import TravelPostCard from "@/src/components/ui/section/TravelPostCard";
+import LoadingCard from "@/src/app/(CommonLayout)/(home)/_components/section/LoadingCard";
+import SectionTitle from "@/src/app/(CommonLayout)/(home)/_components/section/SectionTitle";
+import TravelPostCard from "@/src/app/(CommonLayout)/(home)/_components/section/TravelPostCard";
 import { useUser } from "@/src/context/user.provider";
 import { useGetAllPostsInDashboard } from "@/src/hooks/post.hook";
 import { IPost } from "@/src/types";

@@ -1,6 +1,6 @@
 import { FaThumbsUp } from "react-icons/fa";
 import { GiPathDistance } from "react-icons/gi";
-import SectionTitle from "../../../../components/ui/section/SectionTitle";
+import SectionTitle from "../../(home)/_components/section/SectionTitle";
 import {
   MdFlightTakeoff,
   MdGroups,

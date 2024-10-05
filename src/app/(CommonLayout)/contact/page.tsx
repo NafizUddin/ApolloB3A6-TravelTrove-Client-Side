@@ -1,4 +1,4 @@
-import PageSectionTitle from "@/src/components/ui/section/PageSectionTitle";
+import PageSectionTitle from "@/src/app/(CommonLayout)/(home)/_components/section/PageSectionTitle";
 import ContactCard from "./_sections/ContactCard";
 import Faq from "./_sections/Faq";
 import CallToAction from "./_sections/CallToAction";
