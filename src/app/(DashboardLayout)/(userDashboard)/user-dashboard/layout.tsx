@@ -64,7 +64,7 @@ export default function UserDashboardLayout({
       </aside>
 
       {/* Dashboard Content */}
-      <main className="flex-1 p-6 xl:ml-64">{children}</main>
+      <main className="flex-1 p-6 xl:ml-72">{children}</main>
     </div>
   );
 }
