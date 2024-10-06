@@ -28,12 +28,12 @@ export default function UserDashboardLayout({
     },
     {
       label: "Followers",
-      href: "/admin-dashboard/followers",
+      href: "/user-dashboard/followers",
       icon: <User size={20} />,
     },
     {
       label: "Following",
-      href: "/admin-dashboard/following",
+      href: "/user-dashboard/following",
       icon: <UserPlus size={20} />,
     },
   ];

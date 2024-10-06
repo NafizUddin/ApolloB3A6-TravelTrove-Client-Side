@@ -11,6 +11,7 @@ import { Checkbox } from "@nextui-org/checkbox";
 import envConfig from "@/src/config/envConfig";
 import toast from "react-hot-toast";
 import { useUser } from "@/src/context/user.provider";
+import AuthenticationModal from "../AuthenticationModal/AuthenticationModal";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -25,6 +26,7 @@ export const travelCategory = [
 
 export default function CreatePostModal() {
   const [openModal, setOpenModal] = useState(false);
+  const [openAuthModal, setOpenAuthModal] = useState(false);
   const [content, setContent] = useState("");
   const { register, handleSubmit, reset, formState, control, setValue } =
     useForm();
@@ -98,6 +100,7 @@ export default function CreatePostModal() {
 
       handlePostCreation(postData);
       toast.success("Post created successfully!");
+      setOpenModal(false);
     } catch (error: any) {
       console.error(error.message);
     }
@@ -107,22 +110,28 @@ export default function CreatePostModal() {
     <div className="mx-auto w-fit">
       <div
         className="flex items-start border border-primary rounded-lg p-2 hover:shadow-md transition-shadow duration-200 cursor-pointer"
-        onClick={() => setOpenModal(true)}
+        onClick={() => (user ? setOpenModal(true) : setOpenAuthModal(true))}
       >
-        <div className="flex items-start">
-          {isLoading ? (
-            <div className="animate-pulse w-10 h-10 rounded-full bg-gray-400 mr-5"></div>
-          ) : (
-            <img
-              src={user?.profilePhoto}
-              alt="User Avatar"
-              className="w-10 h-10 rounded-full mr-5 object-cover"
-            />
-          )}
-        </div>
+        {user && (
+          <div className="flex items-start">
+            {isLoading ? (
+              <div className="animate-pulse w-10 h-10 rounded-full bg-gray-400 mr-5"></div>
+            ) : (
+              <img
+                src={user?.profilePhoto}
+                alt="User Avatar"
+                className="w-10 h-10 rounded-full mr-5 object-cover"
+              />
+            )}
+          </div>
+        )}
         <textarea
           placeholder="Tell us your story or share a tip! 🌍"
-          className="flex-grow border-none outline-none text-zinc-700 resize-none text-xl md:text-3xl xl:text-4xl placeholder-zinc-400 w-[330px] md:w-[580px] lg:w-[770px] xl:w-[930px] h-20"
+          className={`flex-grow border-none outline-none text-zinc-700 resize-none text-xl md:text-3xl xl:text-4xl placeholder-zinc-400  h-20 ${
+            user
+              ? "w-[330px] md:w-[580px] lg:w-[770px] xl:w-[930px]"
+              : "w-[355px] md:w-[640px] lg:w-[830px] xl:w-[990px]"
+          }`}
         />
       </div>
 
@@ -300,6 +309,13 @@ export default function CreatePostModal() {
           </div>
         </div>
       </div>
+
+      {openAuthModal && (
+        <AuthenticationModal
+          openAuthModal={openAuthModal}
+          setOpenAuthModal={setOpenAuthModal}
+        />
+      )}
     </div>
   );
 }

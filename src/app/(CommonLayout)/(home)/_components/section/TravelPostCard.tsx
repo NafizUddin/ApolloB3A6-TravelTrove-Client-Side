@@ -490,29 +490,31 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
               </div>
             )}
           </div>
-          <div>
-            <span className="rounded-full border border-primary px-3 py-2  text-primary font-semibold hidden mb-2 md:flex justify-center items-center gap-1">
-              {status === "PREMIUM" && (
-                <span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="#fcc200"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-crown"
-                  >
-                    <path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z" />
-                    <path d="M5 21h14" />
-                  </svg>
-                </span>
-              )}
-              <span>{category}</span>
-            </span>
+          <div className="mt-2 mb-6 md:mb-0 md:mt-0">
+            <div className="inline-flex rounded-full border border-primary px-3 py-2 text-primary font-semibold md:hidden mb-2 gap-1 w-auto">
+              <div className="flex items-center">
+                {status === "PREMIUM" && (
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="#fcc200"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-crown"
+                    >
+                      <path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z" />
+                      <path d="M5 21h14" />
+                    </svg>
+                  </span>
+                )}
+                <span>{category}</span>
+              </div>
+            </div>
           </div>
         </div>
 

@@ -21,7 +21,7 @@ const NewsFeed = () => {
   const [filterApplied, setFilterApplied] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [category, setCategory] = useState("");
-  const [sort, setSort] = useState(""); // 'upvote' or 'downvote'
+  const [sort, setSort] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
 
   // Debounce implementation using setTimeout for search
