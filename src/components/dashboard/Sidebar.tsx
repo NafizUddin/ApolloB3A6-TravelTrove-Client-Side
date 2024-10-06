@@ -82,7 +82,7 @@ const Sidebar = ({ links, commonLinks }: SidebarProps) => {
       {/* Sidebar Drawer */}
       <div
         ref={sidebarRef}
-        className={`fixed top-0 left-0 h-full w-52 md:w-72 bg-gray-200 z-50 transform ${
+        className={`fixed top-0 left-0 h-full md:max-h-screen md:overflow-y-scroll w-52 md:w-72 bg-gray-200 z-50 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 lg:translate-x-0 lg:relative lg:flex p-4`}
       >
