@@ -38,17 +38,6 @@ import UpdatePostModal from "@/src/components/modal/UpdatePostModal/UpdatePostMo
 import toast from "react-hot-toast";
 import { DeletePostModal } from "@/src/components/modal/DeletePostModal/DeletePostModal";
 
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-
-export const travelCategory = [
-  { key: "Adventure", label: "Adventure" },
-  { key: "Business Travel", label: "Business Travel" },
-  { key: "Exploration", label: "Exploration" },
-  { key: "Family Travel", label: "Family Travel" },
-  { key: "Luxury Travel", label: "Luxury Travel" },
-  { key: "Budget Travel", label: "Budget Travel" },
-];
-
 interface ITravelPostCardProps {
   singlePost: any;
   refetch?: () => void;

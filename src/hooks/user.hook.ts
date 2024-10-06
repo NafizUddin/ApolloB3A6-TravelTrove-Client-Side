@@ -1,9 +1,23 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { followUser, unFollowUser, updateUser } from "../services/UserServices";
-import { IUpdateUser, IUser } from "../types";
+import {
+  followUser,
+  getAllUsers,
+  unFollowUser,
+  updateUser,
+} from "../services/UserServices";
+import { IUser } from "../types";
 import { useUser } from "../context/user.provider";
 import { updateAccessTokenInCookies } from "../utils/updateAccessTokenInCookies";
+
+export const useGetAllUsers = (query?: string) => {
+  const { data, refetch, isLoading } = useQuery({
+    queryKey: query ? ["users", query] : ["users"],
+    queryFn: async () => await getAllUsers(query || ""),
+  });
+
+  return { data, refetch, isLoading };
+};
 
 export const useFollowUser = () => {
   const { user, updateProfile } = useUser();

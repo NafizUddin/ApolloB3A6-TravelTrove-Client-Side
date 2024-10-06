@@ -4,6 +4,17 @@ import axiosInstance from "@/src/lib/AxiosInstance";
 import { IUser } from "@/src/types";
 import { revalidateTag } from "next/cache";
 
+export const getAllUsers = async (query?: string) => {
+  try {
+    const { data } = await axiosInstance.get(`/users?${query}`);
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    throw error;
+  }
+};
+
 export const followUser = async (followedId: string): Promise<any> => {
   try {
     const { data } = await axiosInstance.post(`/users/${followedId}/follow`);

@@ -97,10 +97,10 @@ export default function CreatePostModal() {
       };
 
       toast.dismiss();
-
       handlePostCreation(postData);
       toast.success("Post created successfully!");
       setOpenModal(false);
+      reset();
     } catch (error: any) {
       console.error(error.message);
     }

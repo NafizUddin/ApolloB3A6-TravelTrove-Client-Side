@@ -1,10 +1,8 @@
 "use server";
-import envConfig from "@/src/config/envConfig";
+
 import axiosInstance from "@/src/lib/AxiosInstance";
-import nexiosInstance from "@/src/lib/NexiosInstance";
 import { ICreatePostData, IPost } from "@/src/types";
 import { revalidateTag } from "next/cache";
-import { cache } from "react";
 
 export const createPost = async (formData: ICreatePostData): Promise<any> => {
   try {
@@ -17,23 +15,6 @@ export const createPost = async (formData: ICreatePostData): Promise<any> => {
     console.log(error.response ? error.response.data : error.message);
   }
 };
-
-// export const getAllPostsHomePage = async () => {
-//   const fetchOption = {
-//     next: {
-//       tags: ["posts"],
-//     },
-//   };
-
-//   const secondFetchOption = {
-//     cache: "no-store",
-//   };
-
-//   const res = await fetch(`${envConfig.baseApi}/posts`, fetchOption);
-//   const data = await res.json();
-
-//   return data;
-// };
 
 export const getAllPostsNewsFeed = async (apiUrl: string) => {
   const res = await fetch(apiUrl, {
