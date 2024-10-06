@@ -143,7 +143,7 @@ export default function CreatePostModal() {
       >
         <div
           onClick={(e_) => e_.stopPropagation()}
-          className={`absolute w-11/12 mx-auto md:max-w-3xl rounded-lg bg-white p-6 drop-shadow-lg overflow-y-auto h-fit max-h-[90vh] ${
+          className={`absolute w-11/12 mx-auto md:max-w-3xl rounded-lg bg-white p-6 drop-shadow-lg overflow-y-auto h-fit max-h-[95vh] ${
             openModal
               ? "opacity-1 duration-300"
               : "scale-110 opacity-0 duration-150"

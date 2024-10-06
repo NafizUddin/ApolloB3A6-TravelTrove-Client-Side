@@ -17,10 +17,11 @@ import Image from "next/image";
 import logo from "@/src/assets/logo.png";
 import { useUser } from "@/src/context/user.provider";
 import NavbarUserDropdown from "./NavbarUserDropdown";
+import { getAccessToken } from "@/src/utils/getAccessToken";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
 
   return (
     <NextUINavbar
@@ -85,10 +86,12 @@ export default function Navbar() {
 
       <NavbarContent justify="end">
         <NavbarItem className="flex">
-          {user ? (
+          {isLoading ? (
+            <div className="animate-pulse w-10 h-10 rounded-full bg-gray-400 "></div>
+          ) : user ? (
             <NavbarUserDropdown user={user} />
           ) : (
-            <Link href={"/login"}>
+            <Link href="/login">
               <Button btnText="Login" width="100px" height="45px" />
             </Link>
           )}

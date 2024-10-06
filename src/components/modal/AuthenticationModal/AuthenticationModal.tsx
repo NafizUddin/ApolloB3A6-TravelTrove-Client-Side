@@ -61,7 +61,7 @@ const AuthenticationModal = ({
                 </Link>
                 <button
                   onClick={() => setOpenAuthModal(false)}
-                  className="rounded-md border border-gray-600 px-6 py-2 text-sm text-gray-600 hover:bg-gray-600 hover:text-white"
+                  className="rounded-md border border-gray-600 px-6 py-2 text-sm text-gray-600 hover:bg-rose-600 hover:text-white"
                 >
                   Cancel
                 </button>
