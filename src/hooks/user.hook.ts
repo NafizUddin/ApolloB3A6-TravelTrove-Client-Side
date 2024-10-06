@@ -107,3 +107,10 @@ export const useUpdateUser = () => {
     },
   });
 };
+
+export const useUpdateRole = () => {
+  return useMutation<any, Error, { userData: Partial<IUser>; id: string }>({
+    mutationKey: ["UPDATE_USER"],
+    mutationFn: async ({ userData, id }) => await updateUser(userData, id),
+  });
+};

@@ -50,6 +50,8 @@ export const unFollowUser = async (followedId: string): Promise<any> => {
 };
 
 export const updateUser = async (payload: Partial<IUser>, id: string) => {
+  console.log(payload);
+
   try {
     const { data } = await axiosInstance.put(`/users/${id}`, payload);
 

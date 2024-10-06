@@ -42,7 +42,6 @@ interface CreatePostModalBodyProps {
 const UpdatePostModal = ({
   control,
   errors,
-  content,
   setContent,
   handleSubmit,
   reset,

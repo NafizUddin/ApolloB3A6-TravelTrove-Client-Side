@@ -1,7 +1,11 @@
 "use client";
 
 import SectionTitle from "@/src/app/(CommonLayout)/(home)/_components/section/SectionTitle";
-import { useGetAllUsers } from "@/src/hooks/user.hook";
+import {
+  useGetAllUsers,
+  useUpdateRole,
+  useUpdateUser,
+} from "@/src/hooks/user.hook";
 import { useCallback, useState } from "react";
 import { IUser } from "@/src/types";
 import { useUser } from "@/src/context/user.provider";
@@ -16,17 +20,19 @@ import {
 
 import { User } from "@nextui-org/user";
 import { Chip } from "@nextui-org/chip";
-import { Tooltip } from "@nextui-org/tooltip";
-import { DeleteIcon, EditIcon, EyeIcon } from "lucide-react";
 import { Pagination } from "@nextui-org/pagination";
 import { Button } from "@nextui-org/button";
+import toast from "react-hot-toast";
 
 const UsersManagement = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const dataPerPage = 5;
   const { user } = useUser();
+  const { mutate: handleUpdateRole } = useUpdateRole();
 
-  const { data } = useGetAllUsers(`page=${currentPage}&limit=${dataPerPage}`);
+  const { data, refetch } = useGetAllUsers(
+    `page=${currentPage}&limit=${dataPerPage}`
+  );
 
   const users = data?.data?.result ?? []; // users Array
 
@@ -41,9 +47,41 @@ const UsersManagement = () => {
     setCurrentPage(page);
   };
 
-  const handleMakeUser = async (id: string) => {};
+  const handleMakeUser = async (id: string) => {
+    toast.loading("Reverting to User...");
 
-  const handleMakeAdmin = async (id: string) => {};
+    const userData: Partial<IUser> = {
+      role: "USER",
+    };
+
+    toast.dismiss();
+
+    try {
+      handleUpdateRole({ userData, id });
+      toast.success("Reverted to User successfully!");
+      refetch();
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
+
+  const handleMakeAdmin = async (id: string) => {
+    toast.loading("Promoting to Admin...");
+
+    const userData: Partial<IUser> = {
+      role: "ADMIN",
+    };
+
+    toast.dismiss();
+
+    try {
+      handleUpdateRole({ userData, id });
+      toast.success("Promoted to Admin successfully!");
+      refetch();
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
 
   const columns = [
     { name: "NAME", uid: "name" },
@@ -52,11 +90,6 @@ const UsersManagement = () => {
     { name: "STATUS", uid: "status" },
     { name: "ACTIONS", uid: "actions" },
   ];
-
-  const statusColorMap = {
-    BASIC: "success",
-    PREMIUM: "warning",
-  };
 
   const renderCell = useCallback((singleUser: IUser, columnKey: React.Key) => {
     const cellValue = singleUser[columnKey as keyof IUser];
