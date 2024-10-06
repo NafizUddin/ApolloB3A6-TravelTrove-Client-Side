@@ -280,6 +280,7 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
 
   const handleDeletePost = async () => {
     handlePostDelete({ id: _id });
+    refetch?.();
   };
 
   return (

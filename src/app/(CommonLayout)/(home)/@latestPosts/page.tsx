@@ -64,7 +64,7 @@ const NewsFeed = () => {
     <div>
       <CreatePost />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-5 p-4 border rounded-md shadow md:w-11/12 lg:w-10/12 xl:w-[75%] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-5 p-4 border rounded-md border-primary shadow md:w-11/12 lg:w-10/12 xl:w-[75%] mx-auto">
         <input
           type="text"
           name="name"

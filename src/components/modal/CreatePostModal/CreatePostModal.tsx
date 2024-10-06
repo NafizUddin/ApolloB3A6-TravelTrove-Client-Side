@@ -9,6 +9,8 @@ import axios from "axios";
 import { useCreatePost } from "@/src/hooks/post.hook";
 import { Checkbox } from "@nextui-org/checkbox";
 import envConfig from "@/src/config/envConfig";
+import toast from "react-hot-toast";
+import { useUser } from "@/src/context/user.provider";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -29,6 +31,7 @@ export default function CreatePostModal() {
   const { errors } = formState;
   const [fileName, setFileName] = useState<string | null>(null);
   const [isSelected, setIsSelected] = useState(false);
+  const { user, isLoading } = useUser();
 
   const { mutate: handlePostCreation } = useCreatePost();
 
@@ -61,6 +64,8 @@ export default function CreatePostModal() {
       return;
     }
 
+    toast.loading("Creating Post...");
+
     const formData = new FormData();
     formData.append("file", data.image);
     formData.append(
@@ -89,7 +94,10 @@ export default function CreatePostModal() {
         status: isSelected ? "PREMIUM" : "BASIC",
       };
 
+      toast.dismiss();
+
       handlePostCreation(postData);
+      toast.success("Post created successfully!");
     } catch (error: any) {
       console.error(error.message);
     }
@@ -97,11 +105,26 @@ export default function CreatePostModal() {
 
   return (
     <div className="mx-auto w-fit">
-      <textarea
-        placeholder="Tell us your story or share a tip! 🌍"
+      <div
+        className="flex items-start border border-primary rounded-lg p-2 hover:shadow-md transition-shadow duration-200 cursor-pointer"
         onClick={() => setOpenModal(true)}
-        className="rounded-md border border-zinc-500 px-3 py-2 text-zinc-500 hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400 w-[350px] md:w-[600px] h-20 resize-none"
-      />
+      >
+        <div className="flex items-start">
+          {isLoading ? (
+            <div className="animate-pulse w-10 h-10 rounded-full bg-gray-400 mr-5"></div>
+          ) : (
+            <img
+              src={user?.profilePhoto}
+              alt="User Avatar"
+              className="w-10 h-10 rounded-full mr-5 object-cover"
+            />
+          )}
+        </div>
+        <textarea
+          placeholder="Tell us your story or share a tip! 🌍"
+          className="flex-grow border-none outline-none text-zinc-700 resize-none text-xl md:text-3xl xl:text-4xl placeholder-zinc-400 w-[330px] md:w-[580px] lg:w-[770px] xl:w-[930px] h-20"
+        />
+      </div>
 
       <div
         onClick={() => setOpenModal(false)}
@@ -111,7 +134,7 @@ export default function CreatePostModal() {
       >
         <div
           onClick={(e_) => e_.stopPropagation()}
-          className={`absolute w-11/12 mx-auto md:max-w-3xl xl:max-w-4xl rounded-lg bg-white p-6 drop-shadow-lg overflow-y-auto h-fit max-h-[90vh] ${
+          className={`absolute w-11/12 mx-auto md:max-w-3xl rounded-lg bg-white p-6 drop-shadow-lg overflow-y-auto h-fit max-h-[90vh] ${
             openModal
               ? "opacity-1 duration-300"
               : "scale-110 opacity-0 duration-150"

@@ -17,12 +17,9 @@ import { ICreatePostData, IPost } from "../types";
 export const useCreatePost = () => {
   return useMutation<ICreatePostData, Error, ICreatePostData>({
     mutationKey: ["CREATE_POST"],
-    mutationFn: async (postData) => {
-      return toast.promise(createPost(postData), {
-        loading: "Loading...",
-        success: "Post created successfully!",
-        error: "Error when creating post.",
-      });
+    mutationFn: async (postData) => await createPost(postData),
+    onError: (error) => {
+      toast.error(`Error: ${error.message}`);
     },
   });
 };
