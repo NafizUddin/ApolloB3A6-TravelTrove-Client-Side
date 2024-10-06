@@ -23,8 +23,6 @@ const FollowersCard = ({
     handleUnfollowUser({ id, name });
   };
 
-  console.log(allFollowings);
-
   return (
     <div className="relative xl:w-[320px] mx-auto mt-24 break-words bg-white mb-6 shadow-lg rounded-xl border">
       <div className="px-6">

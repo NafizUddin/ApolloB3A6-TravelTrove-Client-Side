@@ -6,6 +6,8 @@ import { useUser } from "../context/user.provider";
 import { updateAccessTokenInCookies } from "../utils/updateAccessTokenInCookies";
 
 export const useFollowUser = () => {
+  const { user, updateProfile } = useUser();
+
   return useMutation<any, Error, { id: string; name: string }>({
     mutationKey: ["FOLLOW_USER"],
     mutationFn: async ({ id, name }) => {
@@ -15,10 +17,24 @@ export const useFollowUser = () => {
         error: "Error when following user.",
       });
     },
+    onSuccess: (data) => {
+      if (user) {
+        const updatedUser: IUser = {
+          ...user,
+          following: data?.following || user.following,
+        };
+
+        updateProfile(updatedUser);
+
+        updateAccessTokenInCookies(updatedUser);
+      }
+    },
   });
 };
 
 export const useUnfollowUser = () => {
+  const { user, updateProfile } = useUser();
+
   return useMutation<any, Error, { id: string; name: string }>({
     mutationKey: ["UNFOLLOW_USER"],
     mutationFn: async ({ id, name }) => {
@@ -27,6 +43,18 @@ export const useUnfollowUser = () => {
         success: `You unfollowed ${name}!`,
         error: "Error when following user.",
       });
+    },
+    onSuccess: (data) => {
+      if (user) {
+        const updatedUser: IUser = {
+          ...user,
+          following: data?.following || user.following,
+        };
+
+        updateProfile(updatedUser);
+
+        updateAccessTokenInCookies(updatedUser);
+      }
     },
   });
 };

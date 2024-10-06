@@ -1,7 +1,7 @@
 "use server";
 
 import axiosInstance from "@/src/lib/AxiosInstance";
-import { IUpdateComment, IUpdateUser, IUser } from "@/src/types";
+import { IUser } from "@/src/types";
 import { revalidateTag } from "next/cache";
 
 export const followUser = async (followedId: string): Promise<any> => {
@@ -10,7 +10,7 @@ export const followUser = async (followedId: string): Promise<any> => {
 
     revalidateTag("follow");
 
-    return data;
+    return data.data;
   } catch (error: any) {
     const errorMessage =
       error?.response?.data?.message ||
@@ -27,7 +27,7 @@ export const unFollowUser = async (followedId: string): Promise<any> => {
 
     revalidateTag("follow");
 
-    return data;
+    return data.data;
   } catch (error: any) {
     const errorMessage =
       error?.response?.data?.message ||

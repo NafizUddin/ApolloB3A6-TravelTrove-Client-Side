@@ -6,8 +6,6 @@ import { IUser } from "@/src/types";
 const Followers = () => {
   const { user } = useUser();
 
-  console.log(user?.following);
-
   return (
     <div className="py-5">
       <div className="space-y-3">

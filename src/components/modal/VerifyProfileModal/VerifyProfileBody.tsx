@@ -1,10 +1,8 @@
 "use-client";
 import { useUser } from "@/src/context/user.provider";
 import { useStartPremium } from "@/src/hooks/premium.hook";
-import { IUser } from "@/src/types";
 import { updateAccessTokenInCookies } from "@/src/utils/updateAccessTokenInCookies";
 import { format } from "date-fns";
-import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 interface IModalBodyProps {
