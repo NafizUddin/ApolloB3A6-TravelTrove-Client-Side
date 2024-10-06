@@ -6,7 +6,7 @@ import { IUser } from "@/src/types";
 const Followers = () => {
   const { user } = useUser();
 
-  console.log(user?.followers);
+  console.log(user?.following);
 
   return (
     <div className="py-5">
@@ -25,7 +25,7 @@ const Followers = () => {
               <FollowersCard
                 key={index}
                 singleUser={singleUser}
-                allFollowers={user.followers}
+                allFollowings={user.following}
               />
             ))}
           </div>
