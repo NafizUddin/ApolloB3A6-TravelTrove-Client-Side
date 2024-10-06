@@ -32,12 +32,12 @@ export const useGetAllPosts = (apiUrl: string) => {
 };
 
 export const useGetAllPostsInDashboard = (query?: string) => {
-  const { data, error, refetch, isFetching } = useQuery({
+  const { data, error, refetch, isLoading } = useQuery({
     queryKey: query ? ["posts", query] : ["posts"],
     queryFn: async () => await getAllPostsDashboard(query || ""),
   });
 
-  return { data, error, refetch, isFetching };
+  return { data, error, refetch, isLoading };
 };
 
 export const useGetSinglePost = (id: string) => {

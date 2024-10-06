@@ -9,9 +9,11 @@ import { IPost } from "@/src/types";
 const UserDashboardHome = () => {
   const { user } = useUser();
 
-  const { data: individualAllPosts, refetch } = useGetAllPostsInDashboard(
-    user?._id ? `postAuthor=${user?._id}` : undefined
-  );
+  const {
+    data: individualAllPosts,
+    refetch,
+    isLoading: postLoading,
+  } = useGetAllPostsInDashboard(`postAuthor=${user?._id}`);
 
   return (
     <div>
@@ -20,15 +22,29 @@ const UserDashboardHome = () => {
       <div className="mt-8">
         <div>
           {individualAllPosts?.data?.length > 0 ? (
-            individualAllPosts?.data?.map(
-              (singlePost: IPost, index: number) => (
-                <div key={index}>
-                  <TravelPostCard singlePost={singlePost} refetch={refetch} />
-                </div>
+            postLoading ? (
+              <LoadingCard />
+            ) : (
+              individualAllPosts?.data?.map(
+                (singlePost: IPost, index: number) => (
+                  <div key={index}>
+                    <TravelPostCard singlePost={singlePost} refetch={refetch} />
+                  </div>
+                )
               )
             )
           ) : (
-            <LoadingCard />
+            <div className="flex justify-center items-center flex-col">
+              <div className="pt-14 lg:pt-24">
+                <img
+                  src="https://i.postimg.cc/MTdMr9TP/post.png"
+                  className="w-52"
+                />
+              </div>
+              <p className="max-w-lg text-center text-3xl font-bold mt-6">
+                You have not posted any post yet.
+              </p>
+            </div>
           )}
         </div>
       </div>
