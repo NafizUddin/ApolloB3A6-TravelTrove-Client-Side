@@ -17,7 +17,6 @@ import Image from "next/image";
 import logo from "@/src/assets/logo.png";
 import { useUser } from "@/src/context/user.provider";
 import NavbarUserDropdown from "./NavbarUserDropdown";
-import { getAccessToken } from "@/src/utils/getAccessToken";
 
 export default function Navbar() {
   const pathname = usePathname();

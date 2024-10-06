@@ -41,8 +41,6 @@ export const updateAccessTokenInCookies = (updatedUser: IUser) => {
       { expiresIn: expiresIn } // Ensure `expiresIn` is valid here
     );
 
-    console.log("New Access Token: ", newAccessToken);
-
     const oldAccessToken = cookies().get("accessToken")?.value;
 
     if (oldAccessToken) {

@@ -13,7 +13,7 @@ const FollowingCard = ({ singleUser }: { singleUser: IUser }) => {
   };
 
   return (
-    <div className="relative max-w-xs mx-auto mt-24 break-words bg-white mb-6 shadow-lg rounded-xl border border-primary-400">
+    <div className="relative max-w-xs mx-auto mt-24 break-words bg-white mb-6 shadow-lg rounded-xl border">
       <div className="px-6">
         <div className="flex flex-wrap justify-center">
           <div className="w-full flex justify-center">
