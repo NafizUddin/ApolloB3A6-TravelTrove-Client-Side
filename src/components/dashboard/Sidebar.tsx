@@ -143,7 +143,7 @@ const Sidebar = ({ links, commonLinks }: SidebarProps) => {
               <a
                 key={index}
                 href={link.href}
-                className="flex items-center space-x-2 py-1 px-2 text-lg hover:bg-primary hover:text-white rounded font-bold"
+                className="flex items-start md:items-center space-x-2 py-1 px-2 text-lg hover:bg-primary hover:text-white rounded font-bold"
               >
                 {link.icon}
                 <span>{link.label}</span>
@@ -169,7 +169,7 @@ const Sidebar = ({ links, commonLinks }: SidebarProps) => {
           <Divider className="" />
 
           <div onClick={handleLogout} className="px-2 cursor-pointer">
-            <div className="flex items-center space-x-2 py-1 px-2 text-lg hover:bg-primary hover:text-white rounded font-bold">
+            <div className="flex items-start md:items-center space-x-2 py-1 px-2 text-lg hover:bg-primary hover:text-white rounded font-bold">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
