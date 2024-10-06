@@ -19,6 +19,7 @@ import { Chip } from "@nextui-org/chip";
 import { Tooltip } from "@nextui-org/tooltip";
 import { DeleteIcon, EditIcon, EyeIcon } from "lucide-react";
 import { Pagination } from "@nextui-org/pagination";
+import { Button } from "@nextui-org/button";
 
 const UsersManagement = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,8 +47,9 @@ const UsersManagement = () => {
 
   const columns = [
     { name: "NAME", uid: "name" },
+    { name: "EMAIL", uid: "email" },
     { name: "ROLE", uid: "role" },
-    { name: "PLAN", uid: "plan" },
+    { name: "STATUS", uid: "status" },
     { name: "ACTIONS", uid: "actions" },
   ];
 
@@ -56,20 +58,25 @@ const UsersManagement = () => {
     PREMIUM: "warning",
   };
 
-  const renderCell = useCallback((user: IUser, columnKey: React.Key) => {
-    const cellValue = user[columnKey as keyof IUser];
+  const renderCell = useCallback((singleUser: IUser, columnKey: React.Key) => {
+    const cellValue = singleUser[columnKey as keyof IUser];
 
     switch (columnKey) {
       case "name":
         return (
           <User
-            avatarProps={{ radius: "lg", src: user.profilePhoto }}
-            description={user.email}
+            avatarProps={{ radius: "lg", src: singleUser.profilePhoto }}
             name={cellValue}
             className="font-bold text-xl"
           >
-            {user.email}
+            <span className="text-lg">{singleUser.name}</span>
           </User>
+        );
+      case "email":
+        return (
+          <div className="flex flex-col">
+            <p className="font-bold text-sm">{cellValue}</p>
+          </div>
         );
       case "role":
         return (
@@ -79,30 +86,43 @@ const UsersManagement = () => {
         );
       case "status":
         return (
-          <Chip className="capitalize" size="sm" variant="flat">
-            {cellValue}
+          <Chip
+            className="capitalize"
+            size="sm"
+            variant="flat"
+            color={cellValue === "PREMIUM" ? "success" : "warning"}
+          >
+            <span className="font-bold">{cellValue}</span>
           </Chip>
         );
       case "actions":
         return (
-          <div className="relative flex items-center gap-2">
-            <Tooltip content="Details">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EyeIcon />
-              </span>
-            </Tooltip>
-            <Tooltip content="Edit user">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EditIcon />
-              </span>
-            </Tooltip>
-            <Tooltip color="danger" content="Delete user">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                <DeleteIcon />
-              </span>
-            </Tooltip>
+          <div className="relative flex justify-center items-center gap-2">
+            {/* Conditional Button */}
+            {singleUser?.email === user?.email ? (
+              <button className="bg-green-300 hover:bg-green-400 py-1 px-3 rounded-lg cursor-pointer">
+                Admin
+              </button>
+            ) : singleUser?.role === "ADMIN" ? (
+              <Button
+                size="sm"
+                onClick={() => handleMakeUser(singleUser?._id)}
+                className="bg-backup hover:bg-[#ad5d07] rounded-lg cursor-pointer text-white font-bold"
+              >
+                Set User
+              </Button>
+            ) : (
+              <Button
+                size="sm"
+                onClick={() => handleMakeAdmin(singleUser?._id)}
+                className="bg-primary hover:bg-primary-800 rounded-lg cursor-pointer text-white font-bold"
+              >
+                Set Admin
+              </Button>
+            )}
           </div>
         );
+
       default:
         return cellValue;
     }
