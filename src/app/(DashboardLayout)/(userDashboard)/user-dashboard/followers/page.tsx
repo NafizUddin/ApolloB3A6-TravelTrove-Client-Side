@@ -22,7 +22,11 @@ const Followers = () => {
         {user?.followers.length !== undefined && user?.followers.length > 0 && (
           <div className="grid grid-cols-3 gap-5">
             {user.followers.map((singleUser: IUser, index: number) => (
-              <FollowersCard key={index} singleUser={singleUser} />
+              <FollowersCard
+                key={index}
+                singleUser={singleUser}
+                allFollowers={user.followers}
+              />
             ))}
           </div>
         )}

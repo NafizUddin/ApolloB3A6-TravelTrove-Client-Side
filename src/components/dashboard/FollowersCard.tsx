@@ -1,11 +1,30 @@
+import { useFollowUser, useUnfollowUser } from "@/src/hooks/user.hook";
 import { IUser } from "@/src/types";
 import { Avatar } from "@nextui-org/avatar";
 
-const FollowersCard = ({ singleUser }: { singleUser: IUser }) => {
-  const { name, profilePhoto, postCount, followers, following } = singleUser;
+const FollowersCard = ({
+  singleUser,
+  allFollowers,
+}: {
+  singleUser: IUser;
+  allFollowers: any[];
+}) => {
+  const { _id, name, profilePhoto, postCount, followers, following } =
+    singleUser;
+
+  const { mutate: handleFollowUser } = useFollowUser();
+  const { mutate: handleUnfollowUser } = useUnfollowUser();
+
+  const handleAddFollow = (id: string, name: string) => {
+    handleFollowUser({ id, name });
+  };
+
+  const handleRemoveFollow = (id: string, name: string) => {
+    handleUnfollowUser({ id, name });
+  };
 
   return (
-    <div className="relative max-w-xs mx-auto mt-24 break-words bg-white mb-6 shadow-lg rounded-xl border border-primary-400">
+    <div className="relative max-w-sm mx-auto mt-24 break-words bg-white mb-6 shadow-lg rounded-xl border border-primary-400">
       <div className="px-6">
         <div className="flex flex-wrap justify-center">
           <div className="w-full flex justify-center">
@@ -48,28 +67,59 @@ const FollowersCard = ({ singleUser }: { singleUser: IUser }) => {
         <div className="py-6 border-t border-slate-200 text-center">
           <div className="flex flex-wrap justify-center">
             <div className="px-4">
-              <span className="rounded-full bg-primary px-3 py-1 text-white text-sm flex gap-2 items-center cursor-pointer hover:bg-primary-700">
-                <span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-user-x"
-                  >
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <line x1="17" x2="22" y1="8" y2="13" />
-                    <line x1="22" x2="17" y1="8" y2="13" />
-                  </svg>
+              {allFollowers?.includes(_id) ? (
+                <span
+                  onClick={() => handleRemoveFollow(_id, name)}
+                  className="rounded-full bg-primary px-3 py-1 text-white text-sm flex gap-2 items-center cursor-pointer hover:bg-primary-700"
+                >
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-user-x"
+                    >
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <line x1="17" x2="22" y1="8" y2="13" />
+                      <line x1="22" x2="17" y1="8" y2="13" />
+                    </svg>
+                  </span>
+                  <span className="md:block">Unfollow</span>
                 </span>
-                <span className="md:block">Unfollow</span>
-              </span>
+              ) : (
+                <span
+                  onClick={() => handleAddFollow(_id, name)}
+                  className="rounded-full bg-primary px-3 py-1 text-white text-sm flex gap-2 items-center cursor-pointer hover:bg-primary-700"
+                >
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-user-plus"
+                    >
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <line x1="19" x2="19" y1="8" y2="14" />
+                      <line x1="22" x2="16" y1="11" y2="11" />
+                    </svg>
+                  </span>
+                  <span className="md:block">Follow</span>
+                </span>
+              )}
             </div>
           </div>
         </div>
