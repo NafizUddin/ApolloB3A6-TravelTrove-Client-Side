@@ -21,6 +21,7 @@ interface IProps {
     | "warning"
     | "danger"
     | undefined;
+  pathname?: string;
 }
 
 export default function TRInput({
@@ -31,6 +32,7 @@ export default function TRInput({
   label,
   name,
   color = "primary",
+  pathname,
 }: IProps) {
   const {
     register,
@@ -52,6 +54,9 @@ export default function TRInput({
       type={type === "password" && isVisible ? "text" : type}
       label={label}
       color={color}
+      readOnly={
+        name === "email" && pathname !== "/login" && pathname !== "/register"
+      }
       className="focus:border-primary-500 border-red-300"
       endContent={
         type === "password" && (

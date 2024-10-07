@@ -19,7 +19,7 @@ const EditProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
   const { mutate: handleUpdateUser } = useUpdateUser();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const hasImage = !!data.image;
+    const hasImage = !!data.image && data.image instanceof File;
     const hasNameChanged = data.name !== user.name;
     const hasEmailChanged = data.email !== user.email;
 
@@ -66,6 +66,8 @@ const EditProfileBody = ({ setOpenModal, user }: IModalBodyProps) => {
       };
 
       toast.dismiss();
+
+      console.log(userData);
 
       handleUpdateUser({ userData, id: user._id });
       toast.success("Profile updated successfully!");

@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import { useUser } from "../context/user.provider";
 import { IUser } from "../types";
 import { startPremium } from "../services/PaymentService";
 import toast from "react-hot-toast";

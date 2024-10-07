@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -21,29 +21,61 @@ export type TLogin = {
   password: string;
 };
 
+interface SignInResponse {
+  success: boolean;
+  message?: string;
+}
+
 const LoginPage = () => {
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
-  const id = searchParams.get("id");
   const router = useRouter();
   const { setIsLoading: userLoading } = useUser();
-  const { mutate: handleUserLogin, isLoading, isSuccess } = useUserLogin();
+  const [signInResponse, setSignInResponse] = useState<
+    SignInResponse | undefined
+  >(undefined);
+
+  const handleSuccess = (data: any) => {
+    toast.dismiss();
+    setSignInResponse(data);
+
+    if (data.success) {
+      toast.success("Logged in successfully!");
+    } else {
+      toast.error(data.message || "Login failed");
+    }
+  };
+
+  const {
+    mutate: handleUserLogin,
+    isLoading,
+    isSuccess,
+  } = useUserLogin(handleSuccess);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    handleUserLogin(data);
-    userLoading(true);
+    toast.loading("Loading...");
+
+    try {
+      handleUserLogin(data);
+      userLoading(true);
+    } catch (error: any) {
+      toast.dismiss();
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
-    if (!isLoading && isSuccess) {
-      if (redirect) {
-        // const redirectUrl = id ? `${redirect}?id=${id}` : redirect;
-        router.push(redirect);
-      } else {
-        router.push("/");
+    if (signInResponse?.success) {
+      if (!isLoading && isSuccess) {
+        if (redirect) {
+          // const redirectUrl = id ? `${redirect}?id=${id}` : redirect;
+          router.push(redirect);
+        } else {
+          router.push("/");
+        }
       }
     }
-  }, [isLoading, isSuccess]);
+  }, [isLoading, isSuccess, signInResponse]);
 
   const handleGoogleLogin = async () => {
     try {
@@ -76,6 +108,8 @@ const LoginPage = () => {
       });
     }
   };
+
+  console.log("sign in response", signInResponse);
 
   return (
     <div>
@@ -144,18 +178,25 @@ const LoginPage = () => {
                 resolver={zodResolver(loginValidationSchema)}
               >
                 <div className="py-3">
-                  <TRInput name="email" label="Email" type="email" />
+                  <TRInput
+                    name="email"
+                    label="Email"
+                    type="email"
+                    pathname="/login"
+                  />
                 </div>
                 <div className="py-3">
                   <TRInput name="password" label="Password" type="password" />
                 </div>
 
                 <div className="flex items-center justify-end">
-                  <button type="reset" className="-mr-3 w-max p-3">
-                    <span className="text-sm tracking-wide text-primary-600 ">
-                      Forgot password ?
-                    </span>
-                  </button>
+                  <Link href={"/forgot-password"}>
+                    <button type="reset" className="-mr-3 w-max p-3">
+                      <span className="text-sm tracking-wide text-primary-600 ">
+                        Forgot password ?
+                      </span>
+                    </button>
+                  </Link>
                 </div>
 
                 <button
