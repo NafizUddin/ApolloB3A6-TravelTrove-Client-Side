@@ -40,10 +40,9 @@ const Sidebar = ({ links, commonLinks }: SidebarProps) => {
     setUser(null);
     userLoading(true);
 
-    // if (protectedRoutes.some((route) => pathname.match(route))) {
-    //   router.push("/");
-    // }
-    router.push("/");
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      router.push("/");
+    }
 
     toast.success("Logged out successfully");
   };

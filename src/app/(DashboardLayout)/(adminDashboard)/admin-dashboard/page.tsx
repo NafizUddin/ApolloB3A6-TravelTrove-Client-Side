@@ -1,8 +1,11 @@
 "use client";
+import DashboardActivityCard from "@/src/app/(CommonLayout)/(home)/_components/section/DashboardActivityCard";
+import LoadingDashboardActivityCard from "@/src/app/(CommonLayout)/(home)/_components/section/LoadingDashboardActivityCard";
 import SectionTitle from "@/src/app/(CommonLayout)/(home)/_components/section/SectionTitle";
 import StatCardLoading from "@/src/app/(CommonLayout)/(home)/_components/section/StatCardLoading";
 import { useGetAllPostsInDashboard } from "@/src/hooks/post.hook";
 import { useGetAllUsers } from "@/src/hooks/user.hook";
+import { processLineChartData } from "@/src/utils/processLineChartData";
 
 const AdminDashboardHome = () => {
   const { data: AllUsers, isLoading: allUsersLoading } = useGetAllUsers();
@@ -14,7 +17,14 @@ const AdminDashboardHome = () => {
 
   const allUsersCount = AllUsers?.data?.meta?.total;
   const premiumUsersCount = PremiumUsers?.data?.meta?.total;
-  const allPostsCount = AllPosts?.meta?.totalPage;
+  const allPostsCount = AllPosts?.meta?.total;
+
+  const chartData = processLineChartData(
+    AllUsers?.data?.result || [],
+    AllPosts?.data || []
+  );
+
+  console.log(AllPosts);
 
   return (
     <div>
@@ -39,7 +49,7 @@ const AdminDashboardHome = () => {
                       </div>
                       <div className="mt-1">
                         <div className="flex space-x-2 items-center">
-                          <div className="text-2xl">35</div>
+                          <div className="text-2xl">{allUsersCount}</div>
                         </div>
                       </div>
                     </div>
@@ -72,7 +82,7 @@ const AdminDashboardHome = () => {
                       </div>
                       <div className="mt-1">
                         <div className="flex space-x-2 items-center">
-                          <div className="text-2xl">30,000</div>
+                          <div className="text-2xl">{allPostsCount}</div>
                         </div>
                       </div>
                     </div>
@@ -120,7 +130,7 @@ const AdminDashboardHome = () => {
                       </div>
                       <div className="mt-1">
                         <div className="flex space-x-2 items-center">
-                          <div className="text-2xl">30,000</div>
+                          <div className="text-2xl">{premiumUsersCount}</div>
                         </div>
                       </div>
                     </div>
@@ -145,6 +155,15 @@ const AdminDashboardHome = () => {
               </div>
             </div>
           </div>
+        )}
+      </div>
+
+      {/* graph */}
+      <div className="my-5">
+        {allUsersLoading || allPostsLoading || premiumUsersLoading ? (
+          <LoadingDashboardActivityCard />
+        ) : (
+          <DashboardActivityCard chartData={chartData} />
         )}
       </div>
     </div>

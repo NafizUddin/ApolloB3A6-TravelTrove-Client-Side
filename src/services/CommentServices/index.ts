@@ -8,6 +8,7 @@ export const createComment = async (commentData: IComment): Promise<any> => {
   try {
     const { data } = await axiosInstance.post("/comments", commentData);
 
+    revalidateTag("posts");
     revalidateTag("comments");
 
     return data;
@@ -24,7 +25,7 @@ export const createComment = async (commentData: IComment): Promise<any> => {
 export const getPostAllComments = async (postId: string) => {
   const fetchOption = {
     next: {
-      tags: ["comments"],
+      tags: ["comments", "posts"],
     },
   };
 
@@ -45,6 +46,7 @@ export const updateComment = async (
   try {
     const { data } = await axiosInstance.put(`/comments/${id}`, updatedComment);
 
+    revalidateTag("posts");
     revalidateTag("comments");
 
     return data;

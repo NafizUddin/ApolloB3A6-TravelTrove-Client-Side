@@ -31,8 +31,8 @@ export interface IUser {
   premiumStart?: string;
   premiumEnd?: string;
   premiumCharge?: number;
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt?: Date | undefined;
+  updatedAt?: Date | undefined;
 }
 
 export interface IPost {
@@ -50,7 +50,7 @@ export interface IPost {
   upvote: number;
   downvote: number;
   status: keyof typeof POST_STATUS;
-  createdAt?: Date;
+  createdAt?: Date | undefined;
 }
 
 export interface ICreatePostData {

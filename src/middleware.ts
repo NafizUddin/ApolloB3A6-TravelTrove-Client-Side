@@ -27,7 +27,7 @@ export async function middleware(request: NextRequest) {
 
   if (pathname === "/postDetails" || pathname === "/profile") {
     return NextResponse.next();
-  }
+  }p
 
   if (user?.role && roleBasedRoutes[user?.role as Role]) {
     const routes = roleBasedRoutes[user?.role as Role];

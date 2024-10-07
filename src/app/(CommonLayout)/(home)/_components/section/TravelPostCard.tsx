@@ -785,7 +785,11 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
                         </div>
                         <div>
                           {comment?.user?._id === user?._id && (
-                            <div className="hidden md:flex gap-3 mr-2">
+                            <div
+                              className={`hidden md:flex gap-3 mr-2 ${
+                                isEditing && "md:hidden"
+                              }`}
+                            >
                               <Tooltip showArrow={true} content="Edit Comment">
                                 <div
                                   onClick={() =>
@@ -848,59 +852,69 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
                       </div>
                     </div>
 
-                    <div className="flex md:hidden gap-3 mt-4 ml-16">
-                      <Tooltip showArrow={true} content="Edit Comment">
+                    <>
+                      {comment?.user?._id === user?._id && (
                         <div
-                          onClick={() => handleEdit(comment._id, comment.text)}
-                          className="bg-blue-500 p-1 rounded-full w-8 h-8 flex items-center justify-center"
+                          className={`flex md:hidden gap-3 mt-4 ml-16 ${
+                            isEditing && "hidden"
+                          }`}
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="white"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="lucide lucide-pencil"
-                          >
-                            <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
-                            <path d="m15 5 4 4" />
-                          </svg>
-                        </div>
-                      </Tooltip>
+                          <Tooltip showArrow={true} content="Edit Comment">
+                            <div
+                              onClick={() =>
+                                handleEdit(comment._id, comment.text)
+                              }
+                              className="bg-blue-500 p-1 rounded-full w-8 h-8 flex items-center justify-center"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="white"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="lucide lucide-pencil"
+                              >
+                                <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+                                <path d="m15 5 4 4" />
+                              </svg>
+                            </div>
+                          </Tooltip>
 
-                      <Tooltip showArrow={true} content="Delete Comment">
-                        <div
-                          onClick={() => {
-                            setCommentIdToDelete(comment._id);
-                            setOpenModal(true);
-                          }}
-                          className="bg-blue-500 p-1 rounded-full w-8 h-8 flex items-center justify-center cursor-pointer"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="white"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="lucide lucide-trash-2"
-                          >
-                            <path d="M3 6h18" />
-                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                            <line x1="10" x2="10" y1="11" y2="17" />
-                            <line x1="14" x2="14" y1="11" y2="17" />
-                          </svg>
+                          <Tooltip showArrow={true} content="Delete Comment">
+                            <div
+                              onClick={() => {
+                                setCommentIdToDelete(comment._id);
+                                setOpenModal(true);
+                              }}
+                              className="bg-blue-500 p-1 rounded-full w-8 h-8 flex items-center justify-center cursor-pointer"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="white"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="lucide lucide-trash-2"
+                              >
+                                <path d="M3 6h18" />
+                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                                <line x1="10" x2="10" y1="11" y2="17" />
+                                <line x1="14" x2="14" y1="11" y2="17" />
+                              </svg>
+                            </div>
+                          </Tooltip>
                         </div>
-                      </Tooltip>
-                    </div>
+                      )}
+                    </>
                   </div>
                 );
               })}
