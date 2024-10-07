@@ -117,7 +117,12 @@ const RegisterPage = () => {
                   <TRInput name="name" label="Full Name" type="text" />
                 </div>
                 <div className="py-3">
-                  <TRInput name="email" label="Email" type="email" />
+                  <TRInput
+                    name="email"
+                    label="Email"
+                    type="email"
+                    pathname="/register"
+                  />
                 </div>
                 <div className="py-3">
                   <TRInput name="password" label="Password" type="password" />
