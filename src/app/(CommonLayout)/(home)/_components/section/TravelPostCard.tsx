@@ -30,7 +30,6 @@ import {
   DropdownTrigger,
 } from "@nextui-org/dropdown";
 import { useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
 import envConfig from "@/src/config/envConfig";
 import axios from "axios";
@@ -215,7 +214,7 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
       return;
     }
 
-    toast.loading("Updating Profile...");
+    toast.loading("Updating Post...");
 
     let imageUrl = image;
 

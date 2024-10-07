@@ -331,6 +331,21 @@
     "@react-types/button" "3.9.4"
     "@react-types/shared" "3.23.1"
 
+"@nextui-org/card@^2.0.34":
+  version "2.0.34"
+  resolved "https://registry.yarnpkg.com/@nextui-org/card/-/card-2.0.34.tgz#d9c7f68f84f86dcb4965a365a59e122e75e252b4"
+  integrity sha512-2RYNPsQkM0FOifGCKmRBR3AuYgYCNmPV7dyA5M3D9Lf0APsHHtsXRA/GeIJ/AuPnglZrYBX8wpM5kLt3dnlQjQ==
+  dependencies:
+    "@nextui-org/react-utils" "2.0.17"
+    "@nextui-org/ripple" "2.0.33"
+    "@nextui-org/shared-utils" "2.0.8"
+    "@nextui-org/use-aria-button" "2.0.10"
+    "@react-aria/button" "3.9.5"
+    "@react-aria/focus" "3.17.1"
+    "@react-aria/interactions" "3.21.3"
+    "@react-aria/utils" "3.24.1"
+    "@react-types/shared" "3.23.1"
+
 "@nextui-org/checkbox@2.1.5", "@nextui-org/checkbox@^2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nextui-org/checkbox/-/checkbox-2.1.5.tgz#6b3083b7b53cf8a6e3c20e6063ca21a66866432e"
@@ -406,6 +421,15 @@
     "@nextui-org/shared-utils" "2.0.8"
     "@nextui-org/system" "2.2.6"
     "@nextui-org/use-measure" "2.0.2"
+
+"@nextui-org/image@^2.0.32":
+  version "2.0.32"
+  resolved "https://registry.yarnpkg.com/@nextui-org/image/-/image-2.0.32.tgz#4011ca965f691a615fcc396aaf09542ebcc47927"
+  integrity sha512-JpE0O8qAeJpQA61ZnXNLH76to+dbx93PR5tTOxSvmTxtnuqVg4wl5ar/SBY3czibJPr0sj33k8Mv2EfULjoH7Q==
+  dependencies:
+    "@nextui-org/react-utils" "2.0.17"
+    "@nextui-org/shared-utils" "2.0.8"
+    "@nextui-org/use-image" "2.0.6"
 
 "@nextui-org/input@2.2.5":
   version "2.2.5"

@@ -160,11 +160,13 @@ export default function CreatePostModal() {
           </svg>
           <h1 className="mb-2 text-3xl font-semibold">Create Travel Post</h1>
           <div>
-            <div className="mt-7">
-              <Checkbox isSelected={isSelected} onValueChange={setIsSelected}>
-                Mark as Premium
-              </Checkbox>
-            </div>
+            {user?.isVerified && (
+              <div className="mt-7">
+                <Checkbox isSelected={isSelected} onValueChange={setIsSelected}>
+                  Mark as Premium
+                </Checkbox>
+              </div>
+            )}
             <form
               onSubmit={handleSubmit(handleCreatePost)}
               className="space-y-3"

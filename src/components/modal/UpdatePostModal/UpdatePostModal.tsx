@@ -134,8 +134,6 @@ const UpdatePostModal = ({
             <div>
               <label className="font-semibold">Select a Category</label>
               <div className="relative w-full">
-                {" "}
-                {/* Changed to relative positioning */}
                 <div
                   onClick={() => setIsOpen(!isOpen)}
                   className="flex w-full items-center justify-between rounded-xl bg-white px-6 py-2 border cursor-pointer"
