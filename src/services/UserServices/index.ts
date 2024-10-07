@@ -20,6 +20,7 @@ export const followUser = async (followedId: string): Promise<any> => {
     const { data } = await axiosInstance.post(`/users/${followedId}/follow`);
 
     revalidateTag("follow");
+    revalidateTag("posts");
 
     return data.data;
   } catch (error: any) {
@@ -37,6 +38,7 @@ export const unFollowUser = async (followedId: string): Promise<any> => {
     const { data } = await axiosInstance.delete(`/users/${followedId}/follow`);
 
     revalidateTag("follow");
+    revalidateTag("posts");
 
     return data.data;
   } catch (error: any) {

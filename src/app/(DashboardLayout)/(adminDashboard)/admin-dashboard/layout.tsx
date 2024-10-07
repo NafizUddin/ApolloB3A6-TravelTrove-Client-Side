@@ -6,6 +6,7 @@ import {
   Contact,
   ContactRound,
   BookOpenText,
+  BadgeDollarSign,
 } from "lucide-react";
 import Sidebar from "@/src/components/dashboard/Sidebar";
 
@@ -35,6 +36,11 @@ export default function AdminDashboardLayout({
       label: "Content Management",
       href: "/admin-dashboard/posts",
       icon: <BookOpenText size={20} />,
+    },
+    {
+      label: "Payment Management",
+      href: "/admin-dashboard/payments",
+      icon: <BadgeDollarSign size={20} />,
     },
   ];
 

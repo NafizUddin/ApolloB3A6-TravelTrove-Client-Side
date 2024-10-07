@@ -39,7 +39,7 @@ import { DeletePostModal } from "@/src/components/modal/DeletePostModal/DeletePo
 
 interface ITravelPostCardProps {
   singlePost: any;
-  refetch?: () => void;
+  refetch: any;
 }
 
 const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
@@ -142,6 +142,7 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
 
     try {
       handleCreateComment(commentData);
+      refetch();
     } catch (error: any) {
       console.log(error.message);
     }
@@ -160,6 +161,7 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
 
     try {
       handleCommentUpdate({ id: commentId, updatedComment: newComment });
+      refetch();
       setIsEditing(null);
     } catch (error: any) {
       console.log(error.message);
@@ -169,31 +171,38 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
   const handleDeleteComment = () => {
     if (commentIdToDelete) {
       handleCommentDelete({ id: commentIdToDelete });
+      refetch();
     }
   };
 
   const handleAddFollow = (id: string, name: string) => {
     handleFollowUser({ id, name });
+    refetch();
   };
 
   const handleRemoveFollow = (id: string, name: string) => {
     handleUnfollowUser({ id, name });
+    refetch();
   };
 
   const handleAddUpvote = (id: string) => {
     handleAddUpvotePost({ id });
+    refetch();
   };
 
   const handleRemoveUpvote = (id: string) => {
     handleRemoveUpvotePost({ id });
+    refetch();
   };
 
   const handleAddDownvote = (id: string) => {
     handleAddDownvotePost({ id });
+    refetch();
   };
 
   const handleRemoveDownvote = (id: string) => {
     handleRemoveDownvotePost({ id });
+    refetch();
   };
 
   const handleUpdatePost = async (data: any) => {
@@ -260,7 +269,7 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
       handlePostUpdate({ postData, id: _id });
       setOpenEditModal(false);
       toast.success("Post updated successfully!");
-      refetch?.();
+      refetch();
     } catch (error: any) {
       console.error(error.message);
     }
@@ -268,7 +277,7 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
 
   const handleDeletePost = async () => {
     handlePostDelete({ id: _id });
-    refetch?.();
+    refetch();
   };
 
   return (

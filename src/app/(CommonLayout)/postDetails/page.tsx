@@ -8,7 +8,11 @@ const PostDetails = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
-  const { data: singlePost, isLoading: postLoading } = id
+  const {
+    data: singlePost,
+    isLoading: postLoading,
+    refetch,
+  } = id
     ? useGetSinglePost(id) // TypeScript will infer the type
     : { data: null, isLoading: false };
 
@@ -17,7 +21,7 @@ const PostDetails = () => {
       {postLoading ? (
         <LoadingCard />
       ) : (
-        <TravelPostCard singlePost={singlePost?.data} />
+        <TravelPostCard singlePost={singlePost?.data} refetch={refetch} />
       )}
     </div>
   );

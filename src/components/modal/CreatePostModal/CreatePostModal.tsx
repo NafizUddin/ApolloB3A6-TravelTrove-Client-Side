@@ -24,12 +24,19 @@ export const travelCategory = [
   { key: "Budget Travel", label: "Budget Travel" },
 ];
 
-export default function CreatePostModal() {
+export default function CreatePostModal({ refetch }: { refetch: any }) {
   const [openModal, setOpenModal] = useState(false);
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const [content, setContent] = useState("");
-  const { register, handleSubmit, reset, formState, control, setValue } =
-    useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState,
+    control,
+    setValue,
+    setError,
+  } = useForm();
   const { errors } = formState;
   const [fileName, setFileName] = useState<string | null>(null);
   const [isSelected, setIsSelected] = useState(false);
@@ -61,8 +68,13 @@ export default function CreatePostModal() {
   };
 
   const handleCreatePost = async (data: any) => {
-    if (!data.title && !data.category && !data.description && !data.image) {
-      setOpenModal(false);
+    console.log(data.image.length);
+    if (data.image.length === 0) {
+      setError("image", {
+        type: "manual",
+        message: "Post image is required",
+      });
+      toast.error("Please upload a post image");
       return;
     }
 
@@ -100,6 +112,7 @@ export default function CreatePostModal() {
       handlePostCreation(postData);
       toast.success("Post created successfully!");
       setOpenModal(false);
+      refetch();
       reset();
     } catch (error: any) {
       console.error(error.message);

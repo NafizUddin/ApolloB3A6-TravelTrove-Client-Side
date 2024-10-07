@@ -25,10 +25,12 @@ export const useCreatePost = () => {
 };
 
 export const useGetAllPosts = (apiUrl: string) => {
-  return useQuery({
+  const { data, refetch } = useQuery({
     queryKey: [apiUrl],
     queryFn: async () => await getAllPostsNewsFeed(apiUrl),
   });
+
+  return { data, refetch };
 };
 
 export const useGetAllPostsInDashboard = (query?: string) => {
@@ -41,11 +43,13 @@ export const useGetAllPostsInDashboard = (query?: string) => {
 };
 
 export const useGetSinglePost = (id: string) => {
-  return useQuery({
+  const { data, refetch, isLoading } = useQuery({
     queryKey: ["singlePost", id],
     queryFn: async () => await getSinglePost(id),
     enabled: !!id, // Only fetch if id is truthy
   });
+
+  return { data, refetch, isLoading };
 };
 
 export const useAddUpvotePost = () => {

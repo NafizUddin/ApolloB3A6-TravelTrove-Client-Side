@@ -50,7 +50,7 @@ const NewsFeed = () => {
     ...(sort && { sort }),
   }).toString()}`;
 
-  const { data: filteredPosts } = useGetAllPosts(apiUrl);
+  const { data: filteredPosts, refetch } = useGetAllPosts(apiUrl);
 
   const handleCategorySelect = (key: Key) => {
     setCategory(String(key));
@@ -62,7 +62,7 @@ const NewsFeed = () => {
 
   return (
     <div>
-      <CreatePost />
+      <CreatePost refetch={refetch}/>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-5 p-4 border rounded-md border-primary shadow md:w-11/12 lg:w-10/12 xl:w-[75%] mx-auto">
         <input
