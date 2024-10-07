@@ -122,25 +122,27 @@ export default function CreatePostModal({ refetch }: { refetch: any }) {
   return (
     <div className="mx-auto w-fit">
       <div
-        className="flex items-start border border-primary rounded-lg p-2 hover:shadow-md transition-shadow duration-200 cursor-pointer"
+        className="flex items-center justify-center rounded-lg p-2  transition-shadow duration-200 cursor-pointer"
         onClick={() => (user ? setOpenModal(true) : setOpenAuthModal(true))}
       >
         {user && (
           <div className="flex items-start">
             {isLoading ? (
-              <div className="animate-pulse w-10 h-10 rounded-full bg-gray-400 mr-5"></div>
+              <div className="animate-pulse w-10 h-10 rounded-full bg-custom mr-2" />
             ) : (
               <img
                 src={user?.profilePhoto}
                 alt="User Avatar"
-                className="w-10 h-10 rounded-full mr-5 object-cover"
+                className="size-14 rounded-full mr-2 object-cover"
               />
             )}
           </div>
         )}
         <textarea
-          placeholder="Tell us your story or share a tip! 🌍"
-          className={`flex-grow border-none outline-none text-zinc-700 resize-none text-xl md:text-3xl xl:text-4xl placeholder-zinc-400  h-20 ${
+          placeholder={`Tell us your story or share a tip! 🌍 ${
+            user ? user?.name : ""
+          }`}
+          className={`flex-grow border-2 border-primary resize-none text-sm md:text-xl h-14 rounded-full pl-2 md:pl-5 py-4 md:py-3 ${
             user
               ? "w-[330px] md:w-[580px] lg:w-[770px] xl:w-[930px]"
               : "w-[355px] md:w-[640px] lg:w-[830px] xl:w-[990px]"
@@ -190,7 +192,7 @@ export default function CreatePostModal({ refetch }: { refetch: any }) {
                   control={control}
                   rules={{ required: "Please provide post title" }}
                   render={({ field }) => (
-                    <Input {...field} label="Post Title" variant="underlined" />
+                    <Input {...field} label="Post Title" variant="bordered" />
                   )}
                 />
                 {errors.title && (
@@ -206,7 +208,11 @@ export default function CreatePostModal({ refetch }: { refetch: any }) {
                   control={control}
                   rules={{ required: "Please select a category" }}
                   render={({ field }) => (
-                    <Select {...field} label="Select a category">
+                    <Select
+                      {...field}
+                      label="Select a category"
+                      variant="bordered"
+                    >
                       {travelCategory.map((category) => (
                         <SelectItem key={category.key}>
                           {category.label}

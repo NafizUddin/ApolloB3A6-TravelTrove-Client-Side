@@ -121,7 +121,7 @@ const UpdatePostModal = ({
                 control={control}
                 defaultValue={title}
                 render={({ field }) => (
-                  <Input {...field} label="Post Title" variant="underlined" />
+                  <Input {...field} label="Post Title" variant="bordered" />
                 )}
               />
               {errors.title && (
