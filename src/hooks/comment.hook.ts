@@ -13,9 +13,9 @@ export const useCreateComment = () => {
     mutationKey: ["CREATE_POST"],
     mutationFn: async (commentData) => {
       return toast.promise(createComment(commentData), {
-        loading: "Loading...",
+        loading: "Creating comment...",
         success: "You added a new comment!",
-        error: "Please login first!",
+        error: "Something went wrong!",
       });
     },
   });

@@ -488,7 +488,7 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
             )}
           </div>
           <div className="mt-2 mb-6 md:mb-0 md:mt-0">
-            <div className="inline-flex rounded-full border border-primary px-3 py-2 text-primary font-semibold md:hidden mb-2 gap-1 w-auto">
+            <div className="hidden rounded-full border border-primary px-3 py-2 text-primary font-semibold md:inline-flex mb-2 gap-1 w-auto">
               <div className="flex items-center">
                 {status === "PREMIUM" && (
                   <span>

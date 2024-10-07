@@ -1,11 +1,7 @@
 "use client";
 
 import SectionTitle from "@/src/app/(CommonLayout)/(home)/_components/section/SectionTitle";
-import {
-  useGetAllUsers,
-  useUpdateRole,
-  useUpdateUser,
-} from "@/src/hooks/user.hook";
+import { useGetAllUsers, useUpdateRole } from "@/src/hooks/user.hook";
 import { useCallback, useState } from "react";
 import { IUser } from "@/src/types";
 import { useUser } from "@/src/context/user.provider";
