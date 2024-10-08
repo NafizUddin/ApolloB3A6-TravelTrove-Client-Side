@@ -445,18 +445,19 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
 
         <div className="flex pb-6 items-center justify-between">
           <div className="flex">
-            <a className="inline-block mr-4">
+            <div className="inline-block mr-4">
               <img
                 className="rounded-full max-w-none w-12 h-12 object-cover"
                 src={postAuthor?.profilePhoto}
+                alt="man"
               />
-            </a>
+            </div>
             <div className="flex flex-col">
               <Link href={`/postDetails?id=${_id}`}>
                 <div>
-                  <a className="inline-block text-lg font-bold">
+                  <div className="inline-block text-lg font-bold">
                     {postAuthor?.name}
-                  </a>
+                  </div>
                 </div>
               </Link>
               <div className="text-slate-500">
@@ -571,7 +572,7 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
           {/* image part */}
           <div className="py-4">
             <div className="flex justify-between gap-1">
-              <a className="flex w-full">
+              <div className="flex w-full">
                 <div className="overflow-hidden rounded-br-lg w-full h-[450px]">
                   <img
                     className="object-cover w-full h-full transition-transform duration-300 hover:scale-105 rounded-md"
@@ -579,7 +580,7 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
                     alt="Description"
                   />
                 </div>
-              </a>
+              </div>
             </div>
           </div>
 
@@ -642,7 +643,7 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
 
             <span className="text-lg font-bold">{upvote?.length || 0}</span>
           </div>
-          <a className="inline-flex items-center">
+          <div className="inline-flex items-center">
             {downvote?.includes(user?._id) ? (
               <span
                 onClick={() =>
@@ -691,8 +692,8 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
               </span>
             )}
             <span className="text-lg font-bold">{downvote?.length || 0}</span>
-          </a>
-          <a className="inline-flex items-center">
+          </div>
+          <div className="inline-flex items-center">
             <span className="mr-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -712,7 +713,7 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
             <span className="text-lg font-bold">
               {allComments?.data?.result?.length || 0}
             </span>
-          </a>
+          </div>
         </div>
 
         {/* Write comment part */}
@@ -754,20 +755,20 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
                 return (
                   <div key={comment._id} className="pb-4">
                     <div className="flex ">
-                      <a className="mr-4">
+                      <div className="mr-4">
                         <img
                           className="rounded-full max-w-none w-12 h-12 object-cover"
                           src={comment.user?.profilePhoto}
                           alt={comment.user?.name}
                         />
-                      </a>
+                      </div>
                       <div className="flex justify-between items-center gap-7 w-full">
                         <div className="w-full">
                           {/* increase the width of this div */}
                           <div className="w-full">
-                            <a className="inline-block font-bold mr-2">
+                            <div className="inline-block font-bold mr-2">
                               {comment.user?.name}
-                            </a>
+                            </div>
                             <span className="text-xs md:text-sm text-slate-500">
                               {new Date(comment.createdAt).toLocaleString(
                                 "en-US",
@@ -962,11 +963,6 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
                   </div>
                 );
               })}
-              {/* <div className="w-full">
-                <a className="py-3 px-4 w-full block bg-slate-100 dark:bg-slate-700 text-center rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition ease-in-out delay-75">
-                  Show more comments
-                </a>
-              </div> */}
             </div>
           )}
         </div>

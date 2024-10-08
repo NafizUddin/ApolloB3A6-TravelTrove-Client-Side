@@ -1,53 +1,62 @@
-# Next.js & NextUI Template
+# :ledger: Project: TravelTrove FrontEnd Design
 
-This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
+**Project Name:** TravelTrove FrontEnd
 
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
+**Project Task:** The primary objective of this project is to develop a comprehensive full-stack web application that seamlessly integrates both frontend and backend functionalities. The platform emphasizes secure user authentication through JWT, facilitating safe login and session management. Utilizing MongoDB for data storage, the application efficiently handles user profiles, travel posts, and related content. The user interface is designed to be responsive, ensuring an optimal experience across devices. The inclusion of a rich text editor empowers users to create detailed and visually engaging travel guides. Furthermore, the project integrates payment gateways like Aamarpay or Stripe for premium content access, along with advanced search and filtering features to enhance content discoverability. The platform also fosters social interaction through upvoting, commenting, and following systems.
 
-## Technologies Used
+**Project Motive:** The **Travel Tips & Destination Guides** platform is designed to create an engaging community of travel enthusiasts, enabling users to share personal travel stories, exchange valuable tips, and interact with fellow travelers. The platform provides user authentication and registration, allowing users to personalize their profiles, follow others, and contribute their travel content. Additionally, it offers premium content access via payment integration for exclusive features. By combining informative travel content with social interactions, this project aims to empower users to make informed travel decisions, discover new destinations, and create memorable travel experiences.
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [NextUI v2](https://nextui.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+## [ Live Server Link](https://powerfit-apollob3a4.netlify.app/)
 
-## How to Use
+Click here to see the live server: [https://powerfit-apollob3a4.netlify.app/](https://powerfit-apollob3a4.netlify.app/)
 
-### Use the template with create-next-app
+## [ Server Side Repository](https://github.com/NafizUddin/ApolloB3A6-TravelTrove-Server-Side)
 
-To create a new project based on this template using `create-next-app`, run the following command:
+Click here to see the Server Side Repository: [https://github.com/NafizUddin/ApolloB3A6-TravelTrove-Server-Side](https://github.com/NafizUddin/ApolloB3A6-TravelTrove-Server-Side)
 
-```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
-```
+## :computer: Project Overview Video
 
-### Install dependencies
+Click here to see the project overview video: [https://drive.google.com/file/d/1aUGjENTvx3Jj0CTOiLMeWwJiXbVLmGZ2/view?usp=sharing](https://drive.google.com/file/d/1aUGjENTvx3Jj0CTOiLMeWwJiXbVLmGZ2/view?usp=sharing)
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+## :keyboard: Technologies
 
-```bash
-npm install
-```
+- TypeScript
+- Next Js
+- Next UI
+- Next Auth
+- Tanstack Query
+- cloudinary
+- axios
+- React Quill
+- React to Print
+- Recharts
+- React Infinite Scroll Component
+- Framer Motion
+- Date Fns
+- JWT Decode
+- React Hook Form
+- React Hot Toast
 
-### Run the development server
+## [Some Project Features](https://github.com/NafizUddin/ApolloB3A4-PowerFit-Client-Side)
 
-```bash
-npm run dev
-```
+There are some features in this project. Here I have provided some of them:
 
-### Setup pnpm (optional)
+## Features Implemented
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+- **User Authentication**: Secure registration and login with JWT, including password recovery options.
 
-```bash
-public-hoist-pattern[]=*@nextui-org/*
-```
+- **User Profile Management**: Users can update profile information, upload pictures, and manage follower relationships. Profile verification is available for verified users, unlocking premium content access.
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+- **Post Creation & Sharing**: Users can create and share travel tips and stories using a rich text editor, including image uploads. Posts can be categorized for easier navigation.
 
-## License
+- **Upvote & Downvote System**: A voting mechanism for users to engage with posts, promoting quality content.
 
-Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
+- **Commenting System**: Users can comment on posts with options to edit or delete their own comments, fostering discussions.
+
+- **Payment Integration**: Implemented payment gateways for premium content access.
+
+- **News Feed**: A dynamic feed displaying community posts with infinite scrolling and filtering options.
+
+- **Following System**: Users can follow other travelers to stay updated with their activities.
+
+- **Responsive Design**: Ensured a mobile-friendly experience with smooth transitions and micro animations.

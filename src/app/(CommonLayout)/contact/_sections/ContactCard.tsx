@@ -25,7 +25,7 @@ const ContactCard = () => {
         </div>
 
         {/* Text */}
-        <h3 className="text-lg font-semibold mb-2">Let's Talk</h3>
+        <h3 className="text-lg font-semibold mb-2">Let&apos;s Talk</h3>
         <p className="text-gray-600">
           Phone:+6221.2002.2012
           <br />

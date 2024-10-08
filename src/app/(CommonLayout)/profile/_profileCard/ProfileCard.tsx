@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 "use client";
 
 import { ProfileEditModal } from "@/src/components/modal/ProfileEditModal/ProfileEditModal";

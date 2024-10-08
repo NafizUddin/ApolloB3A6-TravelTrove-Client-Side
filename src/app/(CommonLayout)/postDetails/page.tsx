@@ -8,13 +8,12 @@ const PostDetails = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
+  // Always call the hook, even if id is null
   const {
     data: singlePost,
     isLoading: postLoading,
     refetch,
-  } = id
-    ? useGetSinglePost(id) // TypeScript will infer the type
-    : { data: null, isLoading: false };
+  } = useGetSinglePost(id || "");
 
   return (
     <div className="mt-5">

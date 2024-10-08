@@ -1,9 +1,8 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 "use client";
-import LoadingCard from "@/src/app/(CommonLayout)/(home)/_components/section/LoadingCard";
 import LoadingCardDashboard from "@/src/app/(CommonLayout)/(home)/_components/section/LoadingCardDashboard";
 import SectionTitle from "@/src/app/(CommonLayout)/(home)/_components/section/SectionTitle";
 import TravelCardDashboard from "@/src/app/(CommonLayout)/(home)/_components/section/TravelCardDashboard";
-import TravelPostCard from "@/src/app/(CommonLayout)/(home)/_components/section/TravelPostCard";
 import { useUser } from "@/src/context/user.provider";
 import { useGetAllPostsInDashboard } from "@/src/hooks/post.hook";
 import { IPost } from "@/src/types";
@@ -48,6 +47,7 @@ const UserDashboardHome = () => {
                 <img
                   src="https://i.postimg.cc/MTdMr9TP/post.png"
                   className="w-52"
+                  alt="profile image"
                 />
               </div>
               <p className="max-w-lg text-center text-3xl font-bold mt-6">

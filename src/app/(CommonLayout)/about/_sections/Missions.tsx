@@ -56,9 +56,9 @@ const Missions = () => {
           <div className="space-y-2">
             <p className="text-center font-bold">Community-Driven Insights</p>
             <p className="text-center text-sm max-w-xs px-5 lg:px-0">
-              To prioritize our users' voices by facilitating an open exchange
-              of travel advice, tips, and experiences, ensuring everyone feels
-              heard and valued within our community.
+              To prioritize our users&apos; voices by facilitating an open
+              exchange of travel advice, tips, and experiences, ensuring
+              everyone feels heard and valued within our community.
             </p>
           </div>
         </div>

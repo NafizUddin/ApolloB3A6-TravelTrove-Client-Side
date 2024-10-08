@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-redundant-roles */
 "use-client";
 import { useUser } from "@/src/context/user.provider";
 import { useStartPremium } from "@/src/hooks/premium.hook";

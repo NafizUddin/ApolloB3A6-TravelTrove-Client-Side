@@ -15,7 +15,7 @@ const Headers = () => {
       <p className="text-sm xl:text-lg text-justify">
         TravelTrove is your ultimate platform for exploring the world through
         insightful travel tips and comprehensive destination guides. Whether
-        you're planning a relaxing getaway, an adventurous exploration, or
+        you&apos;re planning a relaxing getaway, an adventurous exploration, or
         seeking local insights for your next trip, TravelTrove offers a wealth
         of information tailored to travelers of all levels. Our resources
         include expert advice, must-visit attractions, cultural highlights, and

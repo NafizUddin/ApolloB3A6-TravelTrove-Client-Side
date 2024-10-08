@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 "use client";
 
 import LoadingCard from "@/src/app/(CommonLayout)/(home)/_components/section/LoadingCard";
@@ -64,6 +65,7 @@ const PostManagement = () => {
                 <img
                   src="https://i.postimg.cc/MTdMr9TP/post.png"
                   className="w-52"
+                  alt="post image"
                 />
               </div>
               <p className="max-w-lg text-center text-3xl font-bold mt-6">

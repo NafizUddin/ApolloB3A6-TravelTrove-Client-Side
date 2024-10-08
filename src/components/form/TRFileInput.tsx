@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 interface TRFileInputProps {
@@ -66,9 +66,9 @@ export default function TRFileInput({ name, label }: TRFileInputProps) {
         </div>
       )}
 
-      {!fileName && errors[name] && (
+      {!fileName && errors?.[name] && errors?.[name]?.message && (
         <p className="mt-1 text-sm text-red-600 text-center">
-          {errors[name].message as ReactNode}
+          {errors?.[name]?.message as React.ReactNode}
         </p>
       )}
     </div>

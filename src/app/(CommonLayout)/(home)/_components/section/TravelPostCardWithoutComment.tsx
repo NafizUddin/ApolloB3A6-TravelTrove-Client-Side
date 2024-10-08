@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 "use client";
 
 import parse from "html-react-parser";
@@ -45,6 +46,7 @@ const TravelPostCardWithoutComment = ({ singlePost }: any) => {
               <img
                 className="rounded-full max-w-none w-12 h-12 object-cover"
                 src={postAuthor?.profilePhoto}
+                alt="man image"
               />
             </div>
             <div className="flex flex-col">

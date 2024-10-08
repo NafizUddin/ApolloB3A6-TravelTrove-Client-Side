@@ -35,10 +35,11 @@ const FollowingPage = () => {
               <img
                 src="https://i.postimg.cc/dt4RfL85/follow.png"
                 className="w-52"
+                alt="profile card"
               />
             </div>
             <p className="max-w-lg text-center text-3xl font-bold">
-              You haven't followed anyone yet.
+              You haven&apos;t followed anyone yet.
             </p>
           </div>
         )}

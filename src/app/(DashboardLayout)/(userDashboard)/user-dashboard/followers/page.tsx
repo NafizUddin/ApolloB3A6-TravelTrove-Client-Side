@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 "use client";
 import FollowersLoadingCard from "@/src/app/(CommonLayout)/(home)/_components/section/FollowersLoadingCard";
 import FollowersCard from "@/src/components/dashboard/FollowersCard";
@@ -54,6 +55,7 @@ const Followers = () => {
               <img
                 src="https://i.postimg.cc/B6D7T1nn/social-media.png"
                 className="w-52"
+                alt="profile image"
               />
             </div>
             <p className="max-w-lg text-center text-3xl font-bold mt-6">

@@ -46,8 +46,8 @@ export default function TRInput({
   return (
     <Input
       {...register(name)}
-      errorMessage={errors[name] ? (errors[name].message as string) : ""}
-      isInvalid={!!errors[name]}
+      errorMessage={errors?.[name] ? (errors?.[name]?.message as string) : ""}
+      isInvalid={!!errors?.[name]}
       variant={variant}
       size={size}
       required={required}
