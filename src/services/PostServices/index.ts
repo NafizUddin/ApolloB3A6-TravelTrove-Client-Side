@@ -24,8 +24,6 @@ export const getAllPostsNewsFeed = async (apiUrl: string) => {
   });
   const data = await res.json();
 
-  console.log(data); // Log the entire response for debugging
-
   return data; // Return the full response
 };
 
@@ -141,6 +139,8 @@ export const deletePost = async (id: string): Promise<any> => {
     const { data } = await axiosInstance.delete(`/posts/${id}`);
 
     revalidateTag("posts");
+
+    console.log(data);
 
     return data;
   } catch (error: any) {

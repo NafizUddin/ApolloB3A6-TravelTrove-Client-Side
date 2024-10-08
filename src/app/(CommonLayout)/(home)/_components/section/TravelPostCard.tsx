@@ -36,6 +36,8 @@ import axios from "axios";
 import UpdatePostModal from "@/src/components/modal/UpdatePostModal/UpdatePostModal";
 import toast from "react-hot-toast";
 import { DeletePostModal } from "@/src/components/modal/DeletePostModal/DeletePostModal";
+import { deletePost } from "@/src/services/PostServices";
+import { updateAccessTokenInCookies } from "@/src/utils/updateAccessTokenInCookies";
 
 interface ITravelPostCardProps {
   singlePost: any;
@@ -57,7 +59,7 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
   } = singlePost;
 
   const [comment, setComment] = useState<string>("");
-  const { user } = useUser();
+  const { user, updateProfile } = useUser();
   const { mutate: handleCreateComment } = useCreateComment();
   const { mutate: handleCommentUpdate } = useUpdateComment();
   const { mutate: handleCommentDelete } = useDeleteComment();
@@ -68,7 +70,6 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
   const { mutate: handleAddDownvotePost } = useAddDownvotePost();
   const { mutate: handleRemoveDownvotePost } = useRemoveDownvotePost();
   const { mutate: handlePostUpdate } = useUpdatePost();
-  const { mutate: handlePostDelete } = useDeletePost();
   const { data: allComments } = useGetPostAllComments(_id);
 
   const [isEditing, setIsEditing] = useState<string | null>("");
@@ -276,8 +277,32 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
   };
 
   const handleDeletePost = async () => {
-    handlePostDelete({ id: _id });
-    refetch();
+    toast.loading("Deleting post...");
+    try {
+      const result = await deletePost(_id);
+      console.log(result);
+
+      if (result.success) {
+        toast.dismiss();
+
+        if (user) {
+          const updatedUser = {
+            ...user,
+            postCount: user.postCount - 1,
+          };
+
+          updateProfile(updatedUser);
+
+          updateAccessTokenInCookies(updatedUser);
+
+          toast.success("Post deleted successfully");
+          router.push("/");
+        }
+      }
+    } catch (error: any) {
+      console.log(error);
+      throw new error(error);
+    }
   };
 
   return (
