@@ -2,7 +2,7 @@
 
 import { IComment, IPost } from "@/src/types";
 import { Input } from "@nextui-org/input";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import parse from "html-react-parser";
 import { useUser } from "@/src/context/user.provider";
 import {
@@ -17,7 +17,6 @@ import { useFollowUser, useUnfollowUser } from "@/src/hooks/user.hook";
 import {
   useAddDownvotePost,
   useAddUpvotePost,
-  useDeletePost,
   useRemoveDownvotePost,
   useRemoveUpvotePost,
   useUpdatePost,
@@ -38,6 +37,8 @@ import toast from "react-hot-toast";
 import { DeletePostModal } from "@/src/components/modal/DeletePostModal/DeletePostModal";
 import { deletePost } from "@/src/services/PostServices";
 import { updateAccessTokenInCookies } from "@/src/utils/updateAccessTokenInCookies";
+import { FileText } from "lucide-react";
+import { useReactToPrint } from "react-to-print";
 
 interface ITravelPostCardProps {
   singlePost: any;
@@ -92,6 +93,8 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
   const router = useRouter();
   const params = new URLSearchParams();
   params.set("id", _id);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const reactToPrintFn = useReactToPrint({ contentRef });
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -357,6 +360,7 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
                     <span>View Post</span>
                   </span>
                 </DropdownItem>
+
                 <DropdownItem key="edit">
                   {" "}
                   <span
@@ -386,6 +390,19 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
                     <span>Edit Post</span>
                   </span>
                 </DropdownItem>
+
+                <DropdownItem key="pdf">
+                  <span
+                    onClick={() => reactToPrintFn()}
+                    className="flex items-center gap-2 cursor-pointer text-primary"
+                  >
+                    <span>
+                      <FileText size={20} />
+                    </span>
+                    <span>Generate PDF</span>
+                  </span>
+                </DropdownItem>
+
                 <DropdownItem
                   key="delete"
                   className="text-danger"
@@ -547,26 +564,28 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
           </span>
         </div>
 
-        {/* title part */}
-        <h2 className="text-3xl font-extrabold">{title}</h2>
+        <div ref={contentRef}>
+          {/* title part */}
+          <h2 className="text-3xl font-extrabold">{title}</h2>
 
-        {/* image part */}
-        <div className="py-4">
-          <div className="flex justify-between gap-1">
-            <a className="flex w-full">
-              <div className="overflow-hidden rounded-br-lg w-full h-[450px]">
-                <img
-                  className="object-cover w-full h-full transition-transform duration-300 hover:scale-105 rounded-md"
-                  src={image}
-                  alt="Description"
-                />
-              </div>
-            </a>
+          {/* image part */}
+          <div className="py-4">
+            <div className="flex justify-between gap-1">
+              <a className="flex w-full">
+                <div className="overflow-hidden rounded-br-lg w-full h-[450px]">
+                  <img
+                    className="object-cover w-full h-full transition-transform duration-300 hover:scale-105 rounded-md"
+                    src={image}
+                    alt="Description"
+                  />
+                </div>
+              </a>
+            </div>
           </div>
-        </div>
 
-        {/* description */}
-        <div className="">{parse(description)}</div>
+          {/* description */}
+          <div className="">{parse(description)}</div>
+        </div>
 
         {/* upvote,downvote & comment count */}
         <div className="py-4 flex gap-5">

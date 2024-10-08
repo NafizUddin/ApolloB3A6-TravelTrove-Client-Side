@@ -17,6 +17,8 @@ export const createPost = async (formData: ICreatePostData): Promise<any> => {
 };
 
 export const getAllPostsNewsFeed = async (apiUrl: string) => {
+  console.log(apiUrl);
+
   const res = await fetch(apiUrl, {
     next: {
       tags: ["posts"],

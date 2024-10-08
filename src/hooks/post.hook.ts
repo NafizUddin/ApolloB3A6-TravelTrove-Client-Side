@@ -49,10 +49,10 @@ export const useGetAllPosts = (apiUrl: string) => {
         throw new Error("Failed to fetch posts");
       }
       return response.data;
-    },
-    {
-      refetchInterval: 2000,
     }
+    // {
+    //   refetchInterval: 2000,
+    // }
   );
 };
 
