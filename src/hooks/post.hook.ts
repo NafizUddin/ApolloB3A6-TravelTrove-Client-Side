@@ -41,6 +41,11 @@ export const useCreatePost = () => {
 };
 
 export const useGetAllPosts = (apiUrl: string) => {
+  const hasSearchParams =
+    apiUrl.includes("searchTerm") ||
+    apiUrl.includes("category") ||
+    apiUrl.includes("sort");
+
   return useQuery(
     ["posts", apiUrl],
     async () => {
@@ -49,10 +54,10 @@ export const useGetAllPosts = (apiUrl: string) => {
         throw new Error("Failed to fetch posts");
       }
       return response.data;
+    },
+    {
+      refetchInterval: hasSearchParams ? undefined : 2000,
     }
-    // {
-    //   refetchInterval: 2000,
-    // }
   );
 };
 

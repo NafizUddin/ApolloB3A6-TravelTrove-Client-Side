@@ -60,7 +60,6 @@ const NewsFeed = () => {
 
   useEffect(() => {
     if (data?.result) {
-      console.log("API Response:", data);
       if (page === 1) {
         setPosts(data.result);
       } else {
@@ -206,7 +205,7 @@ const NewsFeed = () => {
           dataLength={posts.length}
           next={() => setPage((prev) => prev + 1)}
           hasMore={hasMore}
-          loader={<LoadingCardWithoutComment />}
+          loader={hasMore && <LoadingCardWithoutComment />}
           endMessage={
             !hasMore && (
               <p
