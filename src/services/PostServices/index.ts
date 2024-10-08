@@ -24,7 +24,9 @@ export const getAllPostsNewsFeed = async (apiUrl: string) => {
   });
   const data = await res.json();
 
-  return data;
+  console.log(data); // Log the entire response for debugging
+
+  return data; // Return the full response
 };
 
 export const getAllPostsDashboard = async (query?: string) => {

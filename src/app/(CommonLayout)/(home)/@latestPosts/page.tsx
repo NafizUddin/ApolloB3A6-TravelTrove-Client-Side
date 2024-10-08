@@ -49,32 +49,31 @@ const NewsFeed = () => {
     }
   }, [searchInput, category, sort]);
 
-  const fetchPosts = async (currentPage: number) => {
-    const apiUrl = `${envConfig.baseApi}/posts?${new URLSearchParams({
+  const { data, isLoading } = useGetAllPosts(
+    `${envConfig.baseApi}/posts?${new URLSearchParams({
       ...(debouncedSearchTerm && { searchTerm: debouncedSearchTerm }),
       ...(category && { category }),
       ...(sort && { sort }),
-      page: currentPage.toString(), // Add the current page to the API call
-    }).toString()}`;
+      page: page.toString(),
+    }).toString()}`
+  );
 
-    const { data } = await getAllPostsNewsFeed(apiUrl);
-    if (data?.result?.length > 0) {
-      setPosts((prev) => [...prev, ...data.result]);
-      setHasMore(data.result.length > 0); // Check if more posts are available
-    } else {
-      setHasMore(false); // No more posts to fetch
-    }
-  };
-
-  // Load initial posts
   useEffect(() => {
-    fetchPosts(page);
-  }, [page, debouncedSearchTerm, category, sort]);
+    if (data?.result) {
+      console.log("API Response:", data);
+      if (page === 1) {
+        setPosts(data.result);
+      } else {
+        setPosts((prev) => [...prev, ...data.result]);
+      }
+      setHasMore(data.result.length > 0);
+    }
+  }, [data, page]);
 
   const handleCategorySelect = (key: Key) => {
     setCategory(String(key));
-    setPage(1); // Reset page to 1 when category changes
-    setPosts([]); // Clear posts when filter changes
+    setPage(1);
+    setPosts([]);
   };
 
   const handleSortSelect = (key: Key) => {
@@ -85,7 +84,7 @@ const NewsFeed = () => {
 
   return (
     <div>
-      <CreatePost refetch={() => fetchPosts(page)} />
+      <CreatePost refetch={() => setPage(1)} />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-5 p-4 border rounded-md border-primary shadow md:w-11/12 lg:w-10/12 xl:w-[75%] mx-auto">
         <input
@@ -205,16 +204,18 @@ const NewsFeed = () => {
       <div className="my-10">
         <InfiniteScroll
           dataLength={posts.length}
-          next={() => setPage((prev) => prev + 1)} // Load more posts
-          hasMore={hasMore} // Check if more posts are available
-          loader={<LoadingCardWithoutComment />} // Loader while fetching posts
+          next={() => setPage((prev) => prev + 1)}
+          hasMore={hasMore}
+          loader={<LoadingCardWithoutComment />}
           endMessage={
-            <p
-              className="text-2xl font-bold capitalize"
-              style={{ textAlign: "center" }}
-            >
-              <b>No more posts to load</b>
-            </p>
+            !hasMore && (
+              <p
+                className="text-2xl font-bold capitalize"
+                style={{ textAlign: "center" }}
+              >
+                <b>No more posts to load</b>
+              </p>
+            )
           }
         >
           {posts.length > 0 ? (
@@ -227,7 +228,7 @@ const NewsFeed = () => {
               ))}
             </div>
           ) : (
-            <LoadingCardWithoutComment />
+            !hasMore && <p className="text-center">No posts available</p>
           )}
         </InfiniteScroll>
       </div>

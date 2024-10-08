@@ -41,19 +41,26 @@ export const useCreatePost = () => {
 };
 
 export const useGetAllPosts = (apiUrl: string) => {
-  const { data, refetch } = useQuery({
-    queryKey: [apiUrl],
-    queryFn: async () => await getAllPostsNewsFeed(apiUrl),
-    refetchInterval: 1000,
-  });
-
-  return { data, refetch };
+  return useQuery(
+    ["posts", apiUrl],
+    async () => {
+      const response = await getAllPostsNewsFeed(apiUrl);
+      if (!response || !response.data) {
+        throw new Error("Failed to fetch posts");
+      }
+      return response.data;
+    },
+    {
+      refetchInterval: 2000,
+    }
+  );
 };
 
 export const useGetAllPostsInDashboard = (query?: string) => {
   const { data, error, refetch, isLoading } = useQuery({
     queryKey: query ? ["posts", query] : ["posts"],
     queryFn: async () => await getAllPostsDashboard(query || ""),
+    refetchInterval: 1000,
   });
 
   return { data, error, refetch, isLoading };

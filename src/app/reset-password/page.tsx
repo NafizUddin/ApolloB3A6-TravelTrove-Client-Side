@@ -9,7 +9,6 @@ import { useState } from "react";
 import { EyeSlashFilledIcon } from "@/src/components/ui/elements/EyeSlashFilledIcon";
 import { EyeFilledIcon } from "@/src/components/ui/elements/EyeFilledIcon";
 import { ImSpinner6 } from "react-icons/im";
-import { useResetPassword } from "@/src/hooks/auth.hook";
 import toast from "react-hot-toast";
 import { resetPassword } from "@/src/services/AuthServices";
 
