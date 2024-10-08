@@ -13,7 +13,12 @@ import { Image } from "@nextui-org/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const TravelCardDashboard = ({ singlePost }: { singlePost: any }) => {
+interface ITravelPostCardProps {
+  singlePost: any;
+  refetch: any;
+}
+
+const TravelCardDashboard = ({ singlePost, refetch }: ITravelPostCardProps) => {
   const { _id, title, image, postAuthor, createdAt } = singlePost;
 
   const router = useRouter();
@@ -28,6 +33,7 @@ const TravelCardDashboard = ({ singlePost }: { singlePost: any }) => {
 
   const handleDeletePost = async () => {
     handlePostDelete({ id: _id });
+    refetch();
   };
 
   return (

@@ -1,5 +1,6 @@
 "use client";
 import logo from "@/src/assets/logo.png";
+import { useForgotPassword } from "@/src/hooks/auth.hook";
 import { Input } from "@nextui-org/input";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,8 +8,8 @@ import { useMemo, useState } from "react";
 import { ImSpinner6 } from "react-icons/im";
 
 const ForgotPassword = () => {
-  const isLoading = false;
   const [value, setValue] = useState("");
+  const { mutate: handleForgotPasswordSubmit, isLoading } = useForgotPassword();
 
   const validateEmail = (value: string) =>
     value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
@@ -19,9 +20,13 @@ const ForgotPassword = () => {
     return validateEmail(value) ? false : true;
   }, [value]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Email submitted:", value);
+
+    const userData = { email: value };
+
+    // Ensure this is awaited correctly
+    handleForgotPasswordSubmit(userData);
   };
 
   return (
@@ -47,7 +52,7 @@ const ForgotPassword = () => {
             Forgot your password?
           </h1>
           <p className="font-light text-gray-500">
-            Don't fret! Just type in your email and we will send you a code to
+            Don't fret! Just type in your email and we will send you a URL to
             reset your password!
           </p>
           <form

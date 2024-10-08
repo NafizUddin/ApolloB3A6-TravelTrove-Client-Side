@@ -45,7 +45,10 @@ const PostManagement = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
                 {AllPosts?.data?.map((singlePost: IPost, index: number) => (
                   <div key={index}>
-                    <TravelCardDashboard singlePost={singlePost} />
+                    <TravelCardDashboard
+                      singlePost={singlePost}
+                      refetch={refetch}
+                    />
                   </div>
                 ))}
               </div>

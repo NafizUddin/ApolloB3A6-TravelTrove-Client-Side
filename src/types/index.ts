@@ -31,8 +31,8 @@ export interface IUser {
   premiumStart?: string;
   premiumEnd?: string;
   premiumCharge?: number;
-  createdAt?: Date | undefined;
-  updatedAt?: Date | undefined;
+  createdAt?: string | undefined;
+  updatedAt?: string | undefined;
 }
 
 export interface IPost {

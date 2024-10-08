@@ -1,6 +1,7 @@
 "use client";
 import LoadingCard from "@/src/app/(CommonLayout)/(home)/_components/section/LoadingCard";
 import SectionTitle from "@/src/app/(CommonLayout)/(home)/_components/section/SectionTitle";
+import TravelCardDashboard from "@/src/app/(CommonLayout)/(home)/_components/section/TravelCardDashboard";
 import TravelPostCard from "@/src/app/(CommonLayout)/(home)/_components/section/TravelPostCard";
 import { useUser } from "@/src/context/user.provider";
 import { useGetAllPostsInDashboard } from "@/src/hooks/post.hook";
@@ -20,7 +21,7 @@ const UserDashboardHome = () => {
       <SectionTitle sub="TIPS & STORIES" heading="MY TRAVEL INSIGHTS" />
 
       <div className="mt-8">
-        <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
           {individualAllPosts?.data?.length > 0 ? (
             postLoading ? (
               <LoadingCard />
@@ -28,7 +29,10 @@ const UserDashboardHome = () => {
               individualAllPosts?.data?.map(
                 (singlePost: IPost, index: number) => (
                   <div key={index}>
-                    <TravelPostCard singlePost={singlePost} refetch={refetch} />
+                    <TravelCardDashboard
+                      singlePost={singlePost}
+                      refetch={refetch}
+                    />
                   </div>
                 )
               )

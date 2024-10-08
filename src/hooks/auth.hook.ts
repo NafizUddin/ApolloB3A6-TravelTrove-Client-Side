@@ -1,6 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { FieldValues } from "react-hook-form";
-import { loginUser, registerUser } from "../services/AuthServices";
+import {
+  forgotPassword,
+  loginUser,
+  registerUser,
+} from "../services/AuthServices";
 import toast from "react-hot-toast";
 import { IRegister } from "../types";
 
@@ -30,5 +34,18 @@ export const useUserRegistration = () => {
         error: "Error when creating post.",
       });
     },
+  });
+};
+
+export const useForgotPassword = () => {
+  return useMutation<any, Error, { email: string }>(async (userData) => {
+    try {
+      const response = await forgotPassword(userData);
+      console.log("Response from forgotPassword:", response);
+      return response;
+    } catch (error) {
+      console.error("Error in mutation:", error);
+      throw error;
+    }
   });
 };
