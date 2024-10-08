@@ -25,7 +25,6 @@ const ForgotPassword = () => {
 
     const userData = { email: value };
 
-    // Ensure this is awaited correctly
     handleForgotPasswordSubmit(userData);
   };
 

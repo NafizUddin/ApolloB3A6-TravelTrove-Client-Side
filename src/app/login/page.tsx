@@ -109,8 +109,6 @@ const LoginPage = () => {
     }
   };
 
-  console.log("sign in response", signInResponse);
-
   return (
     <div>
       <div className="m-auto xl:container px-12 sm:px-0 mx-auto">

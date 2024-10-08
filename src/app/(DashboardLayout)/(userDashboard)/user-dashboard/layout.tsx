@@ -32,7 +32,7 @@ export default function UserDashboardLayout({
       icon: <User size={20} />,
     },
     {
-      label: "Following",
+      label: "Followings",
       href: "/user-dashboard/following",
       icon: <UserPlus size={20} />,
     },

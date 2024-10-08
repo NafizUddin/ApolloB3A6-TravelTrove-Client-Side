@@ -38,7 +38,10 @@ export const useUserRegistration = () => {
 };
 
 export const useForgotPassword = () => {
+  console.log("useForgotPassword hook called");
+
   return useMutation<any, Error, { email: string }>(async (userData) => {
+    console.log("Forgot password mutation triggered");
     try {
       const response = await forgotPassword(userData);
       console.log("Response from forgotPassword:", response);

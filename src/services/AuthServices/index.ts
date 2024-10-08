@@ -1,7 +1,9 @@
 "use server";
+import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
 import nexiosInstance from "@/src/lib/NexiosInstance";
 import { IRegister } from "@/src/types";
+import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
@@ -73,6 +75,15 @@ export const getCurrentUser = async () => {
 };
 
 export const forgotPassword = async (userEmail: { email: string }) => {
-  const result = await axiosInstance.post("/auth/forget-password", userEmail);
-  return result;
+  try {
+    const result = await axios.post(
+      `${envConfig.baseApi}/auth/forget-password`,
+      userEmail
+    );
+    console.log("Response received:", result.data);
+    return result;
+  } catch (error: any) {
+    console.error("Error in forgotPassword:", error);
+    throw error;
+  }
 };

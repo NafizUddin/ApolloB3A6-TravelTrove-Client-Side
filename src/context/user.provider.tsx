@@ -22,20 +22,20 @@ interface IUserProviderValues {
 const UserContext = createContext<IUserProviderValues | undefined>(undefined);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<IUser | null>(null); // State for storing user
-  const [isLoading, setIsLoading] = useState<boolean>(true); // Loading state
+  const [user, setUser] = useState<IUser | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Fetch the current user and update state
   const handleUser = async () => {
     try {
-      const user = await getCurrentUser(); // Fetch user from your service
+      const user = await getCurrentUser();
       setUser(user);
-      setIsLoading(false); // Set user state
+      setIsLoading(false);
     } catch (error) {
       console.error("Failed to fetch user:", error);
-      setUser(null); // Reset user if fetching fails
+      setUser(null);
     } finally {
-      setIsLoading(false); // Stop loading once done
+      setIsLoading(false);
     }
   };
 
