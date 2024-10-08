@@ -169,7 +169,7 @@ const UsersManagement = () => {
       />
 
       <div className="mt-10">
-        {users.length > 0 ? (
+        {users.length > 0 && user ? (
           <Table aria-label="Users table with custom cells">
             <TableHeader columns={columns}>
               {(column) => (
@@ -205,7 +205,7 @@ const UsersManagement = () => {
       </div>
 
       <div>
-        {users?.length > 0 && user && (
+        {users?.length > 0 && (
           <div className="flex justify-center items-center mt-4">
             <Pagination
               total={totalPages}

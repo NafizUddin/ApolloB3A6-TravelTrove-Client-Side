@@ -26,6 +26,7 @@ export const useGetPostAllComments = (postId: string) => {
     queryKey: [postId],
     queryFn: async () => await getPostAllComments(postId),
     enabled: !!postId, // Only run the query if postId is provided
+    refetchInterval: 1000,
   });
 };
 

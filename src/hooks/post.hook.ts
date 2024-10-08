@@ -12,12 +12,28 @@ import {
   updatePost,
 } from "../services/PostServices";
 import toast from "react-hot-toast";
-import { ICreatePostData, IPost } from "../types";
+import { ICreatePostData, IPost, IUser } from "../types";
+import { useUser } from "../context/user.provider";
+import { updateAccessTokenInCookies } from "../utils/updateAccessTokenInCookies";
 
 export const useCreatePost = () => {
+  const { user, updateProfile } = useUser();
+
   return useMutation<ICreatePostData, Error, ICreatePostData>({
     mutationKey: ["CREATE_POST"],
     mutationFn: async (postData) => await createPost(postData),
+    onSuccess: (_data) => {
+      if (user) {
+        const updatedUser: IUser = {
+          ...user,
+          postCount: user.postCount + 1,
+        };
+
+        updateProfile(updatedUser);
+
+        updateAccessTokenInCookies(updatedUser);
+      }
+    },
     onError: (error) => {
       toast.error(`Error: ${error.message}`);
     },
@@ -28,6 +44,7 @@ export const useGetAllPosts = (apiUrl: string) => {
   const { data, refetch } = useQuery({
     queryKey: [apiUrl],
     queryFn: async () => await getAllPostsNewsFeed(apiUrl),
+    refetchInterval: 1000,
   });
 
   return { data, refetch };
@@ -47,6 +64,7 @@ export const useGetSinglePost = (id: string) => {
     queryKey: ["singlePost", id],
     queryFn: async () => await getSinglePost(id),
     enabled: !!id, // Only fetch if id is truthy
+    refetchInterval: 1000,
   });
 
   return { data, refetch, isLoading };
@@ -112,6 +130,8 @@ export const useUpdatePost = () => {
 };
 
 export const useDeletePost = () => {
+  const { user, updateProfile } = useUser();
+
   return useMutation<any, Error, { id: string }>({
     mutationKey: ["DELETE_POST"],
     mutationFn: async ({ id }) => {
@@ -120,6 +140,18 @@ export const useDeletePost = () => {
         success: "Post deleted successfully!",
         error: "Error when deleting comment.",
       });
+    },
+    onSuccess: (_data) => {
+      if (user) {
+        const updatedUser: IUser = {
+          ...user,
+          postCount: user.postCount - 1,
+        };
+
+        updateProfile(updatedUser);
+
+        updateAccessTokenInCookies(updatedUser);
+      }
     },
   });
 };

@@ -1,7 +1,6 @@
 "use client";
 
 import envConfig from "@/src/config/envConfig";
-import { useGetAllPosts } from "@/src/hooks/post.hook";
 import { IPost } from "@/src/types";
 import { Button } from "@nextui-org/button";
 import {
@@ -16,6 +15,9 @@ import { ImCross } from "react-icons/im";
 import CreatePost from "../_homeSections/CreatePost/CreatePost";
 import LoadingCardWithoutComment from "@/src/app/(CommonLayout)/(home)/_components/section/LoadingCardWithoutComment";
 import TravelPostCardWithoutComment from "@/src/app/(CommonLayout)/(home)/_components/section/TravelPostCardWithoutComment";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { getAllPostsNewsFeed } from "@/src/services/PostServices";
+import { useGetAllPosts } from "@/src/hooks/post.hook";
 
 const NewsFeed = () => {
   const [filterApplied, setFilterApplied] = useState(false);
@@ -23,6 +25,9 @@ const NewsFeed = () => {
   const [category, setCategory] = useState("");
   const [sort, setSort] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+  const [posts, setPosts] = useState<IPost[]>([]); // To store all fetched posts
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
 
   // Debounce implementation using setTimeout for search
   useEffect(() => {
@@ -44,25 +49,43 @@ const NewsFeed = () => {
     }
   }, [searchInput, category, sort]);
 
-  const apiUrl = `${envConfig.baseApi}/posts?${new URLSearchParams({
-    ...(debouncedSearchTerm && { searchTerm: debouncedSearchTerm }),
-    ...(category && { category }),
-    ...(sort && { sort }),
-  }).toString()}`;
+  const fetchPosts = async (currentPage: number) => {
+    const apiUrl = `${envConfig.baseApi}/posts?${new URLSearchParams({
+      ...(debouncedSearchTerm && { searchTerm: debouncedSearchTerm }),
+      ...(category && { category }),
+      ...(sort && { sort }),
+      page: currentPage.toString(), // Add the current page to the API call
+    }).toString()}`;
 
-  const { data: filteredPosts, refetch } = useGetAllPosts(apiUrl);
+    const { data } = await getAllPostsNewsFeed(apiUrl);
+    if (data?.result?.length > 0) {
+      setPosts((prev) => [...prev, ...data.result]);
+      setHasMore(data.result.length > 0); // Check if more posts are available
+    } else {
+      setHasMore(false); // No more posts to fetch
+    }
+  };
+
+  // Load initial posts
+  useEffect(() => {
+    fetchPosts(page);
+  }, [page, debouncedSearchTerm, category, sort]);
 
   const handleCategorySelect = (key: Key) => {
     setCategory(String(key));
+    setPage(1); // Reset page to 1 when category changes
+    setPosts([]); // Clear posts when filter changes
   };
 
   const handleSortSelect = (key: Key) => {
     setSort(String(key));
+    setPage(1); // Reset page to 1 when sort changes
+    setPosts([]); // Clear posts when filter changes
   };
 
   return (
     <div>
-      <CreatePost refetch={refetch}/>
+      <CreatePost refetch={() => fetchPosts(page)} />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-5 p-4 border rounded-md border-primary shadow md:w-11/12 lg:w-10/12 xl:w-[75%] mx-auto">
         <input
@@ -72,7 +95,7 @@ const NewsFeed = () => {
           placeholder="Search"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          className="w-full rounded-xl border-2 border-primary bg-white py-[6px] px-6 text-base font-medium  outline-none focus:border-primary focus:ring-1 focus:ring-primary-300"
+          className="w-full rounded-xl border-2 border-primary bg-white py-[6px] px-6 text-base font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary-300"
         />
 
         {/* Category filter part */}
@@ -166,6 +189,8 @@ const NewsFeed = () => {
                 setCategory("");
                 setSort("");
                 setFilterApplied(false);
+                setPage(1); // Reset page to 1 when clearing filters
+                setPosts([]); // Clear posts when filters are cleared
               }}
             >
               <span>
@@ -178,20 +203,33 @@ const NewsFeed = () => {
       )}
 
       <div className="my-10">
-        {filteredPosts?.data?.result ? (
-          <div>
-            {filteredPosts?.data?.result?.map(
-              (singlePost: IPost, index: number) => (
+        <InfiniteScroll
+          dataLength={posts.length}
+          next={() => setPage((prev) => prev + 1)} // Load more posts
+          hasMore={hasMore} // Check if more posts are available
+          loader={<LoadingCardWithoutComment />} // Loader while fetching posts
+          endMessage={
+            <p
+              className="text-2xl font-bold capitalize"
+              style={{ textAlign: "center" }}
+            >
+              <b>No more posts to load</b>
+            </p>
+          }
+        >
+          {posts.length > 0 ? (
+            <div>
+              {posts.map((singlePost: IPost, index: number) => (
                 <TravelPostCardWithoutComment
                   key={index}
                   singlePost={singlePost}
                 />
-              )
-            )}
-          </div>
-        ) : (
-          <LoadingCardWithoutComment />
-        )}
+              ))}
+            </div>
+          ) : (
+            <LoadingCardWithoutComment />
+          )}
+        </InfiniteScroll>
       </div>
     </div>
   );
