@@ -11,6 +11,7 @@ import { EyeFilledIcon } from "@/src/components/ui/elements/EyeFilledIcon";
 import { ImSpinner6 } from "react-icons/im";
 import { useResetPassword } from "@/src/hooks/auth.hook";
 import toast from "react-hot-toast";
+import { resetPassword } from "@/src/services/AuthServices";
 
 const ResetPassword = () => {
   const searchParams = useSearchParams();
@@ -20,27 +21,27 @@ const ResetPassword = () => {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
   const router = useRouter();
-
-  const handleSuccess = (data: any) => {
-    toast.dismiss();
-
-    if (data.success) {
-      toast.success("Password reset successful!");
-      router.push("/login");
-    } else {
-      toast.error(data.message || "Login failed");
-    }
-  };
-
-  const { mutate: handleResetPassword, isLoading } =
-    useResetPassword(handleSuccess);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setLoading(true);
     toast.loading("Resetting Password...");
 
-    handleResetPassword({ email, newPassword: value, token: resetToken });
+    const userData = { email: email, newPassword: value };
+
+    const response = await resetPassword(userData, resetToken);
+    toast.dismiss();
+
+    if (response?.success) {
+      setLoading(false);
+      setValue("");
+      toast.success("Password reset successful!", {
+        duration: 6000,
+      });
+      router.push("/login");
+    }
   };
 
   return (
@@ -112,9 +113,9 @@ const ResetPassword = () => {
               <span className="absolute -inset-24 origin-left rotate-12 scale-x-0 transform bg-sky-700 transition-transform duration-500 group-hover:scale-x-100 group-hover:duration-700"></span>
               <span className="absolute -inset-24 origin-left rotate-12 scale-x-0 transform bg-sky-900 transition-transform duration-300 group-hover:scale-x-50 group-hover:duration-500"></span>
               <span className="absolute z-10 text-center text-white opacity-0 duration-100 ease-out group-hover:opacity-100 group-hover:duration-700">
-                {isLoading ? "" : "Reset Password"}
+                {loading ? "" : "Reset Password"}
               </span>
-              {isLoading ? (
+              {loading ? (
                 <ImSpinner6 className="animate-spin m-auto text-xl" />
               ) : (
                 "Reset Password"

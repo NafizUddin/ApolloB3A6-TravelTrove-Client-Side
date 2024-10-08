@@ -38,43 +38,6 @@ export const useUserRegistration = () => {
   });
 };
 
-export const useForgotPassword = () => {
-  console.log("useForgotPassword hook called");
-
-  return useMutation<any, Error, { email: string }>(async (userData) => {
-    console.log("Forgot password mutation triggered");
-    try {
-      const response = await forgotPassword(userData);
-      console.log("Response from forgotPassword:", response);
-      return response;
-    } catch (error) {
-      console.error("Error in mutation:", error);
-      throw error;
-    }
-  });
-};
-
-// export const useResetPassword = (onSuccessCallback: any) => {
-//   console.log("useResetPassword hook called");
-
-//   return useMutation<
-//     any,
-//     Error,
-//     { email: string; newPassword: string; token: string }
-//   >(async ({ email, newPassword, token }) => {
-//     console.log("Reset password mutation triggered");
-
-//     try {
-//       const response = await resetPassword({ email, newPassword }, token);
-//       console.log("Response from resetPassword:", response);
-//       return response;
-//     } catch (error) {
-//       console.error("Error in mutation:", error);
-//       throw error;
-//     }
-//   });
-// };
-
 export const useResetPassword = (onSuccessCallback: any) => {
   console.log("useResetPassword hook called");
 

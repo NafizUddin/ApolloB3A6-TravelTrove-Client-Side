@@ -11,6 +11,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "@nextui-org/dropdown";
+import { LayoutDashboard, LogOut, User } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -56,7 +57,12 @@ export default function NavbarUserDropdown({ user }: IProps) {
             <p className="font-semibold">{user.email}</p>
           </DropdownItem>
           <DropdownItem onClick={() => handleNavigation("/profile")}>
-            My Profile
+            <span className="flex items-center gap-2">
+              <span>
+                <User size={16} />
+              </span>
+              <span>My Profile</span>
+            </span>
           </DropdownItem>
           <DropdownItem
             onClick={() =>
@@ -65,10 +71,20 @@ export default function NavbarUserDropdown({ user }: IProps) {
               )
             }
           >
-            Dashboard
+            <span className="flex items-center gap-2">
+              <span>
+                <LayoutDashboard size={16} />
+              </span>
+              <span>Dashboard</span>
+            </span>
           </DropdownItem>
           <DropdownItem onClick={handleLogout} key="logout" color="danger">
-            Log Out
+            <span className="flex items-center gap-2">
+              <span>
+                <LogOut size={16} />
+              </span>
+              <span>Logout</span>
+            </span>
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>

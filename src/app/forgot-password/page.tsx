@@ -1,15 +1,16 @@
 "use client";
 import logo from "@/src/assets/logo.png";
-import { useForgotPassword } from "@/src/hooks/auth.hook";
+import { forgotPassword } from "@/src/services/AuthServices";
 import { Input } from "@nextui-org/input";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import toast from "react-hot-toast";
 import { ImSpinner6 } from "react-icons/im";
 
 const ForgotPassword = () => {
   const [value, setValue] = useState("");
-  const { mutate: handleForgotPasswordSubmit, isLoading } = useForgotPassword();
+  const [loading, setLoading] = useState(false);
 
   const validateEmail = (value: string) =>
     value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
@@ -23,9 +24,21 @@ const ForgotPassword = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setLoading(true);
+    toast.loading("Loading...");
+
     const userData = { email: value };
 
-    handleForgotPasswordSubmit(userData);
+    const response = await forgotPassword(userData);
+    toast.dismiss();
+
+    if (response?.success) {
+      setLoading(false);
+      setValue("");
+      return toast.success("Password reset URL has been sent to your email", {
+        duration: 6000,
+      });
+    }
   };
 
   return (
@@ -79,9 +92,9 @@ const ForgotPassword = () => {
               <span className="absolute -inset-24 origin-left rotate-12 scale-x-0 transform bg-sky-700 transition-transform duration-500 group-hover:scale-x-100 group-hover:duration-700"></span>
               <span className="absolute -inset-24 origin-left rotate-12 scale-x-0 transform bg-sky-900 transition-transform duration-300 group-hover:scale-x-50 group-hover:duration-500"></span>
               <span className="absolute z-10 text-center text-white opacity-0 duration-100 ease-out group-hover:opacity-100 group-hover:duration-700">
-                {isLoading ? "" : "Reset Password"}
+                {loading ? "" : "Reset Password"}
               </span>
-              {isLoading ? (
+              {loading ? (
                 <ImSpinner6 className="animate-spin m-auto text-xl" />
               ) : (
                 "Reset Password"

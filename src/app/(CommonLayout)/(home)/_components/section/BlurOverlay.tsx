@@ -18,10 +18,10 @@ const BlurOverlay = () => {
       {user ? (
         <Link href={"/profile"}>
           <Button color="primary" className="text-white">
-            <span>Go for Premium</span>
             <span>
-              <MdWorkspacePremium />
+              <MdWorkspacePremium className="text-2xl" />
             </span>
+            <span>Go for Premium</span>
           </Button>
         </Link>
       ) : (

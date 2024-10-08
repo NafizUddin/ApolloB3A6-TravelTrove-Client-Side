@@ -89,6 +89,7 @@ const UsersManagement = () => {
 
   const renderCell = useCallback((singleUser: IUser, columnKey: React.Key) => {
     const cellValue = singleUser[columnKey as keyof IUser];
+    console.log(singleUser?.email, user?.email);
 
     switch (columnKey) {
       case "name":
@@ -127,27 +128,30 @@ const UsersManagement = () => {
       case "actions":
         return (
           <div className="relative flex justify-center items-center gap-2">
-            {/* Conditional Button */}
             {singleUser?.email === user?.email ? (
               <button className="bg-green-300 hover:bg-green-400 py-1 px-3 rounded-lg cursor-pointer">
                 Admin
               </button>
-            ) : singleUser?.role === "ADMIN" ? (
-              <Button
-                size="sm"
-                onClick={() => handleMakeUser(singleUser?._id)}
-                className="bg-backup hover:bg-[#ad5d07] rounded-lg cursor-pointer text-white font-bold"
-              >
-                Set User
-              </Button>
             ) : (
-              <Button
-                size="sm"
-                onClick={() => handleMakeAdmin(singleUser?._id)}
-                className="bg-primary hover:bg-primary-800 rounded-lg cursor-pointer text-white font-bold"
-              >
-                Set Admin
-              </Button>
+              <>
+                {singleUser?.role === "ADMIN" ? (
+                  <Button
+                    size="sm"
+                    onClick={() => handleMakeUser(singleUser?._id)}
+                    className="bg-backup hover:bg-[#ad5d07] rounded-lg cursor-pointer text-white font-bold"
+                  >
+                    Set User
+                  </Button>
+                ) : (
+                  <Button
+                    size="sm"
+                    onClick={() => handleMakeAdmin(singleUser?._id)}
+                    className="bg-primary hover:bg-primary-800 rounded-lg cursor-pointer text-white font-bold"
+                  >
+                    Set Admin
+                  </Button>
+                )}
+              </>
             )}
           </div>
         );
@@ -201,7 +205,7 @@ const UsersManagement = () => {
       </div>
 
       <div>
-        {users?.length > 0 && (
+        {users?.length > 0 && user && (
           <div className="flex justify-center items-center mt-4">
             <Pagination
               total={totalPages}

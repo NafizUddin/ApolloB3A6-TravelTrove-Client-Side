@@ -76,11 +76,21 @@ export const getCurrentUser = async () => {
 
 export const forgotPassword = async (userEmail: { email: string }) => {
   try {
-    const result = await axios.post(
-      `${envConfig.baseApi}/auth/forget-password`,
-      userEmail
-    );
-    console.log("Response received:", result.data);
+    const response = await fetch(`${envConfig.baseApi}/auth/forget-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userEmail),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to send reset link");
+    }
+
+    const result = await response.json();
+    console.log("Response received:", result);
     return result;
   } catch (error: any) {
     console.error("Error in forgotPassword:", error);
@@ -96,17 +106,23 @@ export const resetPassword = async (
   token: string
 ) => {
   try {
-    const result = await axios.post(
-      `${envConfig.baseApi}/auth/reset-password`,
-      userData,
-      {
-        headers: {
-          Authorization: `${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log("Response received:", result.data);
+    const response = await fetch(`${envConfig.baseApi}/auth/reset-password`, {
+      method: "POST",
+      headers: {
+        Authorization: `${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Error response:", errorData);
+      throw new Error(errorData.message || "Failed to reset password");
+    }
+
+    const result = await response.json();
+    console.log("Response received:", result);
     return result;
   } catch (error: any) {
     console.error("Error in resetPassword:", error);
