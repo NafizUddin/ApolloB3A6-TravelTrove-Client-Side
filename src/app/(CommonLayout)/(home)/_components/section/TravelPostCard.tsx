@@ -1,3 +1,4 @@
+/* eslint-disable react/self-closing-comp */
 "use client";
 
 import { IComment, IPost } from "@/src/types";
