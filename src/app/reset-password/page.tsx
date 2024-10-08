@@ -2,31 +2,45 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import logo from "@/src/assets/logo.png";
 import { Input } from "@nextui-org/input";
 import { useState } from "react";
 import { EyeSlashFilledIcon } from "@/src/components/ui/elements/EyeSlashFilledIcon";
 import { EyeFilledIcon } from "@/src/components/ui/elements/EyeFilledIcon";
 import { ImSpinner6 } from "react-icons/im";
+import { useResetPassword } from "@/src/hooks/auth.hook";
+import toast from "react-hot-toast";
 
 const ResetPassword = () => {
   const searchParams = useSearchParams();
-  const email = searchParams.get("email");
-  const resetToken = searchParams.get("token");
+  const email = searchParams.get("email")!;
+  const resetToken = searchParams.get("token")!;
   const [value, setValue] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
-  const isLoading = false;
+  const router = useRouter();
+
+  const handleSuccess = (data: any) => {
+    toast.dismiss();
+
+    if (data.success) {
+      toast.success("Password reset successful!");
+      router.push("/login");
+    } else {
+      toast.error(data.message || "Login failed");
+    }
+  };
+
+  const { mutate: handleResetPassword, isLoading } =
+    useResetPassword(handleSuccess);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log("Submitted new password", value);
+    toast.loading("Resetting Password...");
 
-    // const userData = { email: value };
-
-    // handleForgotPasswordSubmit(userData);
+    handleResetPassword({ email, newPassword: value, token: resetToken });
   };
 
   return (

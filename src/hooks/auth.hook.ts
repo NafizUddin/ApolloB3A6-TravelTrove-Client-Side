@@ -4,6 +4,7 @@ import {
   forgotPassword,
   loginUser,
   registerUser,
+  resetPassword,
 } from "../services/AuthServices";
 import toast from "react-hot-toast";
 import { IRegister } from "../types";
@@ -19,7 +20,7 @@ export const useUserLogin = (onSuccessCallback: any) => {
       onSuccessCallback(data); // Call the provided callback with the response data
     },
     onError: (error) => {
-      toast.error("Error when giving payment: " + error.message);
+      toast.error("Error when signing in: " + error.message);
     },
   });
 };
@@ -50,5 +51,45 @@ export const useForgotPassword = () => {
       console.error("Error in mutation:", error);
       throw error;
     }
+  });
+};
+
+// export const useResetPassword = (onSuccessCallback: any) => {
+//   console.log("useResetPassword hook called");
+
+//   return useMutation<
+//     any,
+//     Error,
+//     { email: string; newPassword: string; token: string }
+//   >(async ({ email, newPassword, token }) => {
+//     console.log("Reset password mutation triggered");
+
+//     try {
+//       const response = await resetPassword({ email, newPassword }, token);
+//       console.log("Response from resetPassword:", response);
+//       return response;
+//     } catch (error) {
+//       console.error("Error in mutation:", error);
+//       throw error;
+//     }
+//   });
+// };
+
+export const useResetPassword = (onSuccessCallback: any) => {
+  console.log("useResetPassword hook called");
+
+  return useMutation<
+    any,
+    Error,
+    { email: string; newPassword: string; token: string }
+  >({
+    mutationKey: ["RESET_PASSWORD"],
+    mutationFn: async ({ email, newPassword, token }) => {
+      const response = await resetPassword({ email, newPassword }, token);
+      return response;
+    },
+    onSuccess: (data) => {
+      onSuccessCallback(data); // Call the provided callback with the response data
+    },
   });
 };

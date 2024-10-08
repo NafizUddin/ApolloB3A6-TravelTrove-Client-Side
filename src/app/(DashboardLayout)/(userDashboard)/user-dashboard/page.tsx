@@ -1,5 +1,6 @@
 "use client";
 import LoadingCard from "@/src/app/(CommonLayout)/(home)/_components/section/LoadingCard";
+import LoadingCardDashboard from "@/src/app/(CommonLayout)/(home)/_components/section/LoadingCardDashboard";
 import SectionTitle from "@/src/app/(CommonLayout)/(home)/_components/section/SectionTitle";
 import TravelCardDashboard from "@/src/app/(CommonLayout)/(home)/_components/section/TravelCardDashboard";
 import TravelPostCard from "@/src/app/(CommonLayout)/(home)/_components/section/TravelPostCard";
@@ -24,7 +25,11 @@ const UserDashboardHome = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
           {individualAllPosts?.data?.length > 0 ? (
             postLoading ? (
-              <LoadingCard />
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+                {Array.from({ length: 3 }).map((_, index) => (
+                  <LoadingCardDashboard key={index} />
+                ))}
+              </div>
             ) : (
               individualAllPosts?.data?.map(
                 (singlePost: IPost, index: number) => (

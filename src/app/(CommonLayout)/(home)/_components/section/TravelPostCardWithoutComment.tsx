@@ -4,6 +4,7 @@ import parse from "html-react-parser";
 import { useUser } from "@/src/context/user.provider";
 import { useFollowUser, useUnfollowUser } from "@/src/hooks/user.hook";
 import Link from "next/link";
+import BlurOverlay from "./BlurOverlay";
 
 const TravelPostCardWithoutComment = ({ singlePost }: any) => {
   const {
@@ -32,8 +33,11 @@ const TravelPostCardWithoutComment = ({ singlePost }: any) => {
     handleUnfollowUser({ id, name });
   };
 
+  const isUserNotAvailableOrBasic =
+    status === "PREMIUM" && (!user || (user && user.status === "BASIC"));
+
   return (
-    <div className="my-5">
+    <div className="my-5 relative">
       <div className="mb-4 break-inside p-4 md:p-6 rounded-xl bg-white flex flex-col bg-clip-border md:w-11/12 lg:w-10/12 xl:w-[75%] mx-auto border border-primary">
         <div className="flex pb-6 items-center justify-between">
           <div className="flex">
@@ -208,6 +212,7 @@ const TravelPostCardWithoutComment = ({ singlePost }: any) => {
           </div>
         </Link>
       </div>
+      {isUserNotAvailableOrBasic && <BlurOverlay />}
     </div>
   );
 };

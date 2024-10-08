@@ -19,13 +19,13 @@ export function Providers({ children }: ProvidersProps) {
   const router = useRouter();
 
   return (
-    <UserProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <UserProvider>
         <NextUIProvider navigate={router.push}>
           <Toaster />
           {children}
         </NextUIProvider>
-      </QueryClientProvider>
-    </UserProvider>
+      </UserProvider>
+    </QueryClientProvider>
   );
 }

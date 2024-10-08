@@ -87,3 +87,29 @@ export const forgotPassword = async (userEmail: { email: string }) => {
     throw error;
   }
 };
+
+export const resetPassword = async (
+  userData: {
+    email: string;
+    newPassword: string;
+  },
+  token: string
+) => {
+  try {
+    const result = await axios.post(
+      `${envConfig.baseApi}/auth/reset-password`,
+      userData,
+      {
+        headers: {
+          Authorization: `${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log("Response received:", result.data);
+    return result;
+  } catch (error: any) {
+    console.error("Error in resetPassword:", error);
+    throw error;
+  }
+};
