@@ -39,13 +39,13 @@ const Followers = () => {
               <FollowersLoadingCard key={index} />
             ))}
           </div>
-        ) : user!.following.length > 0 ? (
+        ) : user!.followers.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-            {user!.following.map((singleUser: IUser, index: number) => (
+            {user!.followers.map((singleUser: IUser, index: number) => (
               <FollowersCard
                 key={index}
                 singleUser={singleUser}
-                allFollowings={user!.following}
+                allFollowers={user!.followers}
               />
             ))}
           </div>

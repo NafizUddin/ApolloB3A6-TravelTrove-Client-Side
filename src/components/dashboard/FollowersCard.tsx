@@ -4,10 +4,10 @@ import { Avatar } from "@nextui-org/avatar";
 
 const FollowersCard = ({
   singleUser,
-  allFollowings,
+  allFollowers,
 }: {
   singleUser: IUser;
-  allFollowings: any[];
+  allFollowers: any[];
 }) => {
   const { _id, name, profilePhoto, postCount, followers, following } =
     singleUser;
@@ -67,7 +67,7 @@ const FollowersCard = ({
         <div className="py-6 border-t border-slate-200 text-center">
           <div className="flex flex-wrap justify-center">
             <div className="px-4">
-              {allFollowings?.some((following) => following._id === _id) ? (
+              {allFollowers?.some((following) => following._id === _id) ? (
                 <span
                   onClick={() => handleRemoveFollow(_id, name)}
                   className="rounded-full bg-primary px-3 py-1 text-white text-sm flex gap-2 items-center cursor-pointer hover:bg-primary-700"

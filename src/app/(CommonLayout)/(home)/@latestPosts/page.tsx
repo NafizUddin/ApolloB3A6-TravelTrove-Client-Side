@@ -16,7 +16,6 @@ import CreatePost from "../_homeSections/CreatePost/CreatePost";
 import LoadingCardWithoutComment from "@/src/app/(CommonLayout)/(home)/_components/section/LoadingCardWithoutComment";
 import TravelPostCardWithoutComment from "@/src/app/(CommonLayout)/(home)/_components/section/TravelPostCardWithoutComment";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { getAllPostsNewsFeed } from "@/src/services/PostServices";
 import { useGetAllPosts } from "@/src/hooks/post.hook";
 
 const NewsFeed = () => {
@@ -65,7 +64,7 @@ const NewsFeed = () => {
       } else {
         setPosts((prev) => [...prev, ...data.result]);
       }
-      setHasMore(data.result.length > 0);
+      setHasMore(data.result.length === 5);
     }
   }, [data, page]);
 

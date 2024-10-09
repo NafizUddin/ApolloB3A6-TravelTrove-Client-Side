@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
 import SectionTitle from "@/src/app/(CommonLayout)/(home)/_components/section/SectionTitle";
@@ -87,79 +88,83 @@ const UsersManagement = () => {
     { name: "ACTIONS", uid: "actions" },
   ];
 
-  const renderCell = useCallback((singleUser: IUser, columnKey: React.Key) => {
-    const cellValue = singleUser[columnKey as keyof IUser];
-    console.log(singleUser?.email, user?.email);
+  const renderCell = useCallback(
+    (singleUser: IUser, columnKey: React.Key) => {
+      const cellValue = singleUser[columnKey as keyof IUser];
 
-    switch (columnKey) {
-      case "name":
-        return (
-          <User
-            avatarProps={{ radius: "lg", src: singleUser.profilePhoto }}
-            name={cellValue}
-            className="font-bold text-xl"
-          >
-            <span className="text-lg">{singleUser.name}</span>
-          </User>
-        );
-      case "email":
-        return (
-          <div className="flex flex-col">
-            <p className="font-bold text-sm">{cellValue}</p>
-          </div>
-        );
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="font-bold text-sm capitalize">{cellValue}</p>
-          </div>
-        );
-      case "status":
-        return (
-          <Chip
-            className="capitalize"
-            size="sm"
-            variant="flat"
-            color={cellValue === "PREMIUM" ? "success" : "warning"}
-          >
-            <span className="font-bold">{cellValue}</span>
-          </Chip>
-        );
-      case "actions":
-        return (
-          <div className="relative flex justify-center items-center gap-2">
-            {singleUser?.email === user?.email ? (
-              <button className="bg-green-300 hover:bg-green-400 py-1 px-3 rounded-lg cursor-pointer">
-                Admin
-              </button>
-            ) : (
-              <>
-                {singleUser?.role === "ADMIN" ? (
-                  <Button
-                    size="sm"
-                    onClick={() => handleMakeUser(singleUser?._id)}
-                    className="bg-backup hover:bg-[#ad5d07] rounded-lg cursor-pointer text-white font-bold"
-                  >
-                    Set User
-                  </Button>
-                ) : (
-                  <Button
-                    size="sm"
-                    onClick={() => handleMakeAdmin(singleUser?._id)}
-                    className="bg-primary hover:bg-primary-800 rounded-lg cursor-pointer text-white font-bold"
-                  >
-                    Set Admin
-                  </Button>
-                )}
-              </>
-            )}
-          </div>
-        );
+      switch (columnKey) {
+        case "name":
+          return (
+            <User
+              avatarProps={{ radius: "lg", src: singleUser.profilePhoto }}
+              name={cellValue}
+              className="font-bold text-xl"
+            >
+              <span className="text-lg">{singleUser.name}</span>
+            </User>
+          );
+        case "email":
+          return (
+            <div className="flex flex-col">
+              <p className="font-bold text-sm">{cellValue}</p>
+            </div>
+          );
+        case "role":
+          return (
+            <div className="flex flex-col">
+              <p className="font-bold text-sm capitalize">{cellValue}</p>
+            </div>
+          );
+        case "status":
+          return (
+            <Chip
+              className="capitalize"
+              size="sm"
+              variant="flat"
+              color={cellValue === "PREMIUM" ? "success" : "warning"}
+            >
+              <span className="font-bold">{cellValue}</span>
+            </Chip>
+          );
+        case "actions":
+          return (
+            <div className="relative flex justify-center items-center gap-2">
+              {singleUser?.email &&
+              user?.email &&
+              singleUser.email === user.email ? (
+                <button className="bg-purple-600 hover:bg-purple-700 py-1 px-3 rounded-lg cursor-pointer text-white font-bold">
+                  Admin
+                </button>
+              ) : (
+                <>
+                  {singleUser?.role === "ADMIN" ? (
+                    <Button
+                      size="sm"
+                      onClick={() => handleMakeUser(singleUser?._id)}
+                      className="bg-backup hover:bg-[#ad5d07] rounded-lg cursor-pointer text-white font-bold"
+                    >
+                      Set User
+                    </Button>
+                  ) : (
+                    <Button
+                      size="sm"
+                      onClick={() => handleMakeAdmin(singleUser?._id)}
+                      className="bg-primary hover:bg-primary-800 rounded-lg cursor-pointer text-white font-bold"
+                    >
+                      Set Admin
+                    </Button>
+                  )}
+                </>
+              )}
+            </div>
+          );
 
-      default:
-        return cellValue;
-    }
-  }, []);
+        default:
+          return cellValue;
+      }
+    },
+    [user?.email]
+  );
 
   return (
     <div>

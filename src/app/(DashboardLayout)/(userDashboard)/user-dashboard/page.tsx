@@ -21,7 +21,7 @@ const UserDashboardHome = () => {
       <SectionTitle sub="TIPS & STORIES" heading="MY TRAVEL INSIGHTS" />
 
       <div className="mt-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+        <div>
           {individualAllPosts?.data?.length > 0 ? (
             postLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
@@ -30,16 +30,18 @@ const UserDashboardHome = () => {
                 ))}
               </div>
             ) : (
-              individualAllPosts?.data?.map(
-                (singlePost: IPost, index: number) => (
-                  <div key={index}>
-                    <TravelCardDashboard
-                      singlePost={singlePost}
-                      refetch={refetch}
-                    />
-                  </div>
-                )
-              )
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+                {individualAllPosts?.data?.map(
+                  (singlePost: IPost, index: number) => (
+                    <div key={index}>
+                      <TravelCardDashboard
+                        singlePost={singlePost}
+                        refetch={refetch}
+                      />
+                    </div>
+                  )
+                )}
+              </div>
             )
           ) : (
             <div className="flex justify-center items-center flex-col">
@@ -50,7 +52,7 @@ const UserDashboardHome = () => {
                   alt="profile image"
                 />
               </div>
-              <p className="max-w-lg text-center text-3xl font-bold mt-6">
+              <p className="max-w-lg text-center text-3xl font-bold mt-6 mx-auto">
                 You have not posted any post yet.
               </p>
             </div>
