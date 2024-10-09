@@ -9,7 +9,7 @@ const Followers = () => {
   const { user, isLoading } = useUser();
 
   return (
-    <div className="py-10">
+    <div className="my-10 lg:my-5">
       <div className="space-y-3 mt-12 lg:mt-0">
         <div className="border-t-4 w-[100px] border-backup" />
         <h1 className="text-3xl font-bold">

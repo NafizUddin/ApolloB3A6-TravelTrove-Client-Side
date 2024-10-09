@@ -161,7 +161,7 @@ const UsersManagement = () => {
   );
 
   return (
-    <div className="my-10 lg:my-0">
+    <div className="my-10 lg:my-5">
       <SectionTitle
         sub="Quick Insights & Management Tools"
         heading="All Users Management"

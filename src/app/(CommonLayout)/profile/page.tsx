@@ -1,8 +1,8 @@
 "use client";
 
 import { useUser } from "@/src/context/user.provider";
-import ProfileCard from "./_profileCard/ProfileCard";
 import ProfileLoadingCard from "@/src/app/(CommonLayout)/(home)/_components/section/ProfileLoadingCard";
+import ProfileCard from "../(home)/_components/section/ProfileCard";
 
 const Profile = () => {
   const { user } = useUser();
