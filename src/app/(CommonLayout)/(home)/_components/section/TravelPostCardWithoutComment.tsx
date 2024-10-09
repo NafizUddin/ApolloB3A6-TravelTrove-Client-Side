@@ -24,7 +24,9 @@ const TravelPostCardWithoutComment = ({ singlePost }: any) => {
   const { mutate: handleUnfollowUser } = useUnfollowUser();
 
   const params = new URLSearchParams();
+  const userParams = new URLSearchParams();
   params.set("id", _id);
+  userParams.set("userId", postAuthor?._id);
 
   const handleAddFollow = (id: string, name: string) => {
     handleFollowUser({ id, name });
@@ -42,15 +44,29 @@ const TravelPostCardWithoutComment = ({ singlePost }: any) => {
       <div className="mb-4 break-inside p-4 md:p-6 rounded-xl bg-white flex flex-col bg-clip-border md:w-11/12 lg:w-10/12 xl:w-[75%] mx-auto border border-primary">
         <div className="flex pb-6 items-center justify-between">
           <div className="flex">
-            <div className="inline-block mr-4">
-              <img
-                className="rounded-full max-w-none w-12 h-12 object-cover"
-                src={postAuthor?.profilePhoto}
-                alt="man image"
-              />
-            </div>
+            <Link
+              href={
+                postAuthor?._id !== user?._id
+                  ? `/user-profile?${userParams.toString()}`
+                  : "/profile"
+              }
+            >
+              <div className="inline-block mr-4">
+                <img
+                  className="rounded-full max-w-none w-12 h-12 object-cover"
+                  src={postAuthor?.profilePhoto}
+                  alt="man image"
+                />
+              </div>
+            </Link>
             <div className="flex flex-col">
-              <Link href={`/postDetails?id=${_id}`}>
+              <Link
+                href={
+                  postAuthor?._id !== user?._id
+                    ? `/user-profile?${userParams.toString()}`
+                    : "/profile"
+                }
+              >
                 <div>
                   <div className="inline-block text-lg font-bold">
                     {postAuthor?.name}

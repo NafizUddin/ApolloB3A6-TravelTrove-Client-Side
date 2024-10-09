@@ -3,6 +3,7 @@ export const protectedRoutes = [
   "/register",
   "/postDetails",
   "/profile",
+  "/user-profile",
   "/user-dashboard",
   "/admin-dashboard",
   "/user-dashboard/:page*",

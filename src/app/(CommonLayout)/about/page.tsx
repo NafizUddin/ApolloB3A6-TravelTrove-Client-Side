@@ -6,7 +6,7 @@ import AboutBanner from "./_sections/AboutBanner";
 
 const About = () => {
   return (
-    <div>
+    <div className="w-[95%] mx-auto">
       <PageSectionTitle
         title="About Us"
         description="Learn about our passion and how it all began."

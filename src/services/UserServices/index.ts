@@ -65,3 +65,14 @@ export const updateUser = async (payload: Partial<IUser>, id: string) => {
     throw new Error(errorMessage);
   }
 };
+
+export const getSingleUser = async (id: string) => {
+  try {
+    const res = await axiosInstance.get(`/users/${id}`);
+
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching post:", error);
+    throw error;
+  }
+};

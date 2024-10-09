@@ -38,7 +38,7 @@ const TravelCardDashboard = ({ singlePost, refetch }: ITravelPostCardProps) => {
 
   return (
     <div>
-      <Card className="py-4 relative">
+      <Card className="py-4 relative flex flex-col h-full">
         <CardHeader className="pb-0 pt-2 px-4">
           <div className="flex">
             <div className="flex gap-2 items-start">
@@ -148,7 +148,9 @@ const TravelCardDashboard = ({ singlePost, refetch }: ITravelPostCardProps) => {
             </div>
           </div>
         </CardHeader>
-        <h4 className="font-bold text-large flex-grow px-4">{title}</h4>
+        <h4 className="font-bold text-large flex-grow flex-shrink-0 flex-basis-0 px-4">
+          {title}
+        </h4>
         <CardBody className="overflow-visible py-2 w-full">
           <Image
             alt="Card background"

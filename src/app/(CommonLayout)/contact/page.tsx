@@ -5,7 +5,7 @@ import CallToAction from "./_sections/CallToAction";
 
 const Contact = () => {
   return (
-    <>
+    <div className="w-[95%] mx-auto">
       <PageSectionTitle
         title="Contact Us"
         description="We would love to hear from you."
@@ -13,7 +13,7 @@ const Contact = () => {
       <ContactCard />
       <Faq />
       <CallToAction />
-    </>
+    </div>
   );
 };
 

@@ -1,8 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import {
   followUser,
   getAllUsers,
+  getSingleUser,
   unFollowUser,
   updateUser,
 } from "../services/UserServices";
@@ -114,4 +115,15 @@ export const useUpdateRole = () => {
     mutationKey: ["UPDATE_USER"],
     mutationFn: async ({ userData, id }) => await updateUser(userData, id),
   });
+};
+
+export const useGetSingleUser = (id: string) => {
+  const { data, refetch, isLoading } = useQuery({
+    queryKey: ["singlePost", id],
+    queryFn: async () => await getSingleUser(id),
+    enabled: !!id,
+    refetchInterval: 1000,
+  });
+
+  return { data, refetch, isLoading };
 };

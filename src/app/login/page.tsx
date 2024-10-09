@@ -165,13 +165,9 @@ const LoginPage = () => {
 
               <TRForm
                 // defaultValues={{
-                //   email: "admin@gmail.com",
-                //   password: "admin123",
+                //   email: "nafizuddin.ctg@gmail.com",
+                //   password: "nafiz123",
                 // }}
-                defaultValues={{
-                  email: "nafizuddin.ctg@gmail.com",
-                  password: "nafiz123",
-                }}
                 onSubmit={onSubmit}
                 resolver={zodResolver(loginValidationSchema)}
               >
