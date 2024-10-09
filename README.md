@@ -6,9 +6,9 @@
 
 **Project Motive:** The **Travel Tips & Destination Guides** platform is designed to create an engaging community of travel enthusiasts, enabling users to share personal travel stories, exchange valuable tips, and interact with fellow travelers. The platform provides user authentication and registration, allowing users to personalize their profiles, follow others, and contribute their travel content. Additionally, it offers premium content access via payment integration for exclusive features. By combining informative travel content with social interactions, this project aims to empower users to make informed travel decisions, discover new destinations, and create memorable travel experiences.
 
-## [ Live Server Link](https://apollob3a6-traveltrove-guide.vercel.app/)
+## [ Live Website Link](https://apollob3a6-traveltrove-guide.vercel.app/)
 
-Click here to see the live server: [https://apollob3a6-traveltrove-guide.vercel.app/](https://apollob3a6-traveltrove-guide.vercel.app/)
+Click here to see the live website: [https://apollob3a6-traveltrove-guide.vercel.app/](https://apollob3a6-traveltrove-guide.vercel.app/)
 
 ## [ Server Side Repository](https://github.com/NafizUddin/ApolloB3A6-TravelTrove-Server-Side)
 
