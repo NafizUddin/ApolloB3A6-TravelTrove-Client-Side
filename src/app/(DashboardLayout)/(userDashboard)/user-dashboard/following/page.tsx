@@ -23,9 +23,9 @@ const FollowingPage = () => {
               <FollowersLoadingCard key={index} />
             ))}
           </div>
-        ) : user!.following.length > 0 ? (
+        ) : user && user?.following?.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-            {user!.following.map((singleUser: IUser, index: number) => (
+            {user?.following?.map((singleUser: IUser, index: number) => (
               <FollowingCard key={index} singleUser={singleUser} />
             ))}
           </div>

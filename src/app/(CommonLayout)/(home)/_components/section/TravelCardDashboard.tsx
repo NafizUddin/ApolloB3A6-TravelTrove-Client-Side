@@ -48,9 +48,33 @@ const TravelCardDashboard = ({ singlePost, refetch }: ITravelPostCardProps) => {
                 className="object-cover"
               />
               <div>
-                <p className="text-tiny uppercase font-bold">
-                  {postAuthor?.name}
-                </p>
+                <div className="flex items-center">
+                  <p className="text-tiny uppercase font-bold">
+                    {postAuthor?.name}
+                  </p>
+                  <span>
+                    {postAuthor?.isVerified && (
+                      <span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="#1773aa"
+                          stroke="white"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-badge-check"
+                        >
+                          <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                          <path d="m9 12 2 2 4-4" />
+                        </svg>
+                      </span>
+                    )}
+                  </span>
+                </div>
+
                 <small className="text-default-500">
                   {new Date(createdAt).toLocaleDateString("en-US", {
                     year: "numeric",

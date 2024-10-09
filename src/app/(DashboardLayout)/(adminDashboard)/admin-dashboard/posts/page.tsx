@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 "use client";
 
-import LoadingCard from "@/src/app/(CommonLayout)/(home)/_components/section/LoadingCard";
 import LoadingCardDashboard from "@/src/app/(CommonLayout)/(home)/_components/section/LoadingCardDashboard";
 import SectionTitle from "@/src/app/(CommonLayout)/(home)/_components/section/SectionTitle";
 import TravelCardDashboard from "@/src/app/(CommonLayout)/(home)/_components/section/TravelCardDashboard";

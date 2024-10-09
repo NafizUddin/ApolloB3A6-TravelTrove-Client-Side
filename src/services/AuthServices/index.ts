@@ -3,7 +3,6 @@ import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
 import nexiosInstance from "@/src/lib/NexiosInstance";
 import { IRegister } from "@/src/types";
-import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";

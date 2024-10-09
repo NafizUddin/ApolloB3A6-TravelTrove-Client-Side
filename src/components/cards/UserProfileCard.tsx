@@ -98,7 +98,7 @@ const UserProfileCard = ({
         </div>
         <div>
           <div className="flex justify-center items-center">
-            {user && followers?.includes(user?._id) ? (
+            {user && (followers as string[])?.includes(user?._id) ? (
               <button
                 onClick={() => handleRemoveFollow(_id, name)}
                 className="rounded-full border-2 border-primary px-4 py-2 text-primary hover:bg-primary hover:text-white  duration-300 flex justify-center items-center gap-1 font-bold"

@@ -1,6 +1,5 @@
 "use server";
 import axiosInstance from "@/src/lib/AxiosInstance";
-import { IUser } from "@/src/types";
 
 export const startPremium = async (payload: any) => {
   try {

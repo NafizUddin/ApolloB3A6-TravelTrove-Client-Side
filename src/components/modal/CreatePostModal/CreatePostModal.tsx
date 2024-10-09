@@ -175,7 +175,7 @@ export default function CreatePostModal({ refetch }: { refetch: any }) {
           <h1 className="mb-2 text-3xl font-semibold">Create Travel Post</h1>
           <div>
             {user?.isVerified && (
-              <div className="mt-7">
+              <div className="my-3">
                 <Checkbox isSelected={isSelected} onValueChange={setIsSelected}>
                   Mark as Premium
                 </Checkbox>
