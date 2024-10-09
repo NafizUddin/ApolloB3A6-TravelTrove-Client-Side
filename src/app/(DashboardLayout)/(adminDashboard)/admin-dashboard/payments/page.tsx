@@ -113,46 +113,51 @@ const PaymentManagement = () => {
   }, []);
 
   return (
-    <div>
+    <div className="my-10 lg:my-0">
       <SectionTitle
         sub="Quick Insights & Management Tools"
         heading="Payment Management"
       />
 
       <div className="mt-10">
-        {users.length > 0 ? (
-          <Table aria-label="Users table with custom cells">
-            <TableHeader columns={columns}>
-              {(column) => (
-                <TableColumn
-                  key={column.uid}
-                  align={column.uid === "actions" ? "center" : "start"}
-                >
-                  {column.name}
-                </TableColumn>
-              )}
-            </TableHeader>
-            <TableBody items={users}>
-              {(item: IUser) => (
-                <TableRow key={item._id}>
-                  {(columnKey) => (
-                    <TableCell>{renderCell(item, columnKey)}</TableCell>
-                  )}
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        ) : (
-          <Table aria-label="Example empty table">
-            <TableHeader>
-              <TableColumn>NAME</TableColumn>
-              <TableColumn>ROLE</TableColumn>
-              <TableColumn>STATUS</TableColumn>
-              <TableColumn>ACTION</TableColumn>
-            </TableHeader>
-            <TableBody emptyContent={"No rows to display."}>{[]}</TableBody>
-          </Table>
-        )}
+        <div className="overflow-x-auto">
+          {users.length > 0 ? (
+            <Table
+              aria-label="Users table with custom cells"
+              className="min-w-full"
+            >
+              <TableHeader columns={columns}>
+                {(column) => (
+                  <TableColumn
+                    key={column.uid}
+                    align={column.uid === "actions" ? "center" : "start"}
+                  >
+                    {column.name}
+                  </TableColumn>
+                )}
+              </TableHeader>
+              <TableBody items={users}>
+                {(item: IUser) => (
+                  <TableRow key={item._id}>
+                    {(columnKey) => (
+                      <TableCell>{renderCell(item, columnKey)}</TableCell>
+                    )}
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          ) : (
+            <Table aria-label="Example empty table">
+              <TableHeader>
+                <TableColumn>NAME</TableColumn>
+                <TableColumn>ROLE</TableColumn>
+                <TableColumn>STATUS</TableColumn>
+                <TableColumn>ACTION</TableColumn>
+              </TableHeader>
+              <TableBody emptyContent={"No rows to display."}>{[]}</TableBody>
+            </Table>
+          )}
+        </div>
       </div>
 
       <div>

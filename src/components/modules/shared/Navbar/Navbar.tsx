@@ -91,7 +91,9 @@ export default function Navbar() {
             <NavbarUserDropdown user={user} />
           ) : (
             <Link href="/login">
-              <Button btnText="Login" width="100px" height="45px" />
+              <div className="hidden md:block">
+                <Button btnText="Login" width="100px" height="45px" />
+              </div>
             </Link>
           )}
         </NavbarItem>
@@ -102,15 +104,10 @@ export default function Navbar() {
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item.label}-${index}`}>
               <NextUILink
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === siteConfig.navMenuItems.length - 1
-                    ? "danger"
-                    : "foreground"
-                }
+                color="primary"
                 href={item.href}
                 size="lg"
+                className="font-bold"
               >
                 {item.label}
               </NextUILink>

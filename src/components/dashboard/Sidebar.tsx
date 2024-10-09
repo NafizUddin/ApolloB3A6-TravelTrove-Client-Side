@@ -81,11 +81,11 @@ const Sidebar = ({ links, commonLinks }: SidebarProps) => {
       {/* Sidebar Drawer */}
       <div
         ref={sidebarRef}
-        className={`fixed top-0 left-0 h-full w-52 md:w-72 bg-gray-200 z-50 transform ${
+        className={`fixed top-0 left-0 h-auto w-52 md:w-72 bg-gray-200 z-50 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 lg:translate-x-0 lg:relative lg:flex p-4`}
+        } transition-transform duration-300 lg:translate-x-0 lg:relative lg:flex p-4 flex flex-col`}
       >
-        <div className="w-full space-y-3">
+        <div className="w-full space-y-3 flex-grow">
           {/* Company logo */}
           <div className="flex justify-center items-center">
             <Link href="/">
@@ -116,21 +116,7 @@ const Sidebar = ({ links, commonLinks }: SidebarProps) => {
             {user?.isVerified ? (
               <div className="flex items-center justify-center gap-1">
                 {user?.name}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="#1773aa"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-badge-check"
-                >
-                  <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
-                  <path d="m9 12 2 2 4-4" />
-                </svg>
+                {/* Verification badge SVG */}
               </div>
             ) : (
               <div>{user?.name}</div>
@@ -169,22 +155,7 @@ const Sidebar = ({ links, commonLinks }: SidebarProps) => {
 
           <div onClick={handleLogout} className="px-2 cursor-pointer">
             <div className="flex items-start md:items-center space-x-2 py-1 px-2 text-lg hover:bg-primary hover:text-white rounded font-bold">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-log-out"
-              >
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                <polyline points="16 17 21 12 16 7" />
-                <line x1="21" x2="9" y1="12" y2="12" />
-              </svg>
+              {/* Logout SVG */}
               <span>Logout</span>
             </div>
           </div>

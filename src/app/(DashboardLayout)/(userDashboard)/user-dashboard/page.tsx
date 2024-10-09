@@ -17,7 +17,7 @@ const UserDashboardHome = () => {
   } = useGetAllPostsInDashboard(`postAuthor=${user?._id}`);
 
   return (
-    <div>
+    <div className="py-10">
       <SectionTitle sub="TIPS & STORIES" heading="MY TRAVEL INSIGHTS" />
 
       <div className="mt-8">

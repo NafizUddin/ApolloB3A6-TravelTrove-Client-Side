@@ -568,13 +568,13 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
 
         <div ref={contentRef}>
           {/* title part */}
-          <h2 className="text-3xl font-extrabold">{title}</h2>
+          <h2 className="text-2xl md:text-3xl font-extrabold">{title}</h2>
 
           {/* image part */}
           <div className="py-4">
             <div className="flex justify-between gap-1">
               <div className="flex w-full">
-                <div className="overflow-hidden rounded-br-lg w-full h-[450px]">
+                <div className="overflow-hidden rounded-br-lg w-full h-[350px] md:h-[450px]">
                   <img
                     className="object-cover w-full h-full transition-transform duration-300 hover:scale-105 rounded-md"
                     src={image}

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
 import SectionTitle from "@/src/app/(CommonLayout)/(home)/_components/section/SectionTitle";
@@ -14,7 +13,6 @@ import {
   TableRow,
   TableCell,
 } from "@nextui-org/table";
-
 import { User } from "@nextui-org/user";
 import { Chip } from "@nextui-org/chip";
 import { Pagination } from "@nextui-org/pagination";
@@ -26,13 +24,11 @@ const UsersManagement = () => {
   const dataPerPage = 5;
   const { user } = useUser();
   const { mutate: handleUpdateRole } = useUpdateRole();
-
   const { data, refetch } = useGetAllUsers(
     `page=${currentPage}&limit=${dataPerPage}`
   );
 
   const users = data?.data?.result ?? []; // users Array
-
   const totalPagesArray = Array.from(
     { length: data?.data?.meta?.totalPage || 0 },
     (_, i) => i + 1
@@ -46,7 +42,6 @@ const UsersManagement = () => {
 
   const handleMakeUser = async (id: string) => {
     toast.loading("Reverting to User...");
-
     const userData: Partial<IUser> = {
       role: "USER",
     };
@@ -64,7 +59,6 @@ const UsersManagement = () => {
 
   const handleMakeAdmin = async (id: string) => {
     toast.loading("Promoting to Admin...");
-
     const userData: Partial<IUser> = {
       role: "ADMIN",
     };
@@ -167,46 +161,55 @@ const UsersManagement = () => {
   );
 
   return (
-    <div>
+    <div className="my-10 lg:my-0">
       <SectionTitle
         sub="Quick Insights & Management Tools"
         heading="All Users Management"
       />
 
       <div className="mt-10">
-        {users.length > 0 && user ? (
-          <Table aria-label="Users table with custom cells">
-            <TableHeader columns={columns}>
-              {(column) => (
-                <TableColumn
-                  key={column.uid}
-                  align={column.uid === "actions" ? "center" : "start"}
-                >
-                  {column.name}
-                </TableColumn>
-              )}
-            </TableHeader>
-            <TableBody items={users}>
-              {(item: IUser) => (
-                <TableRow key={item._id}>
-                  {(columnKey) => (
-                    <TableCell>{renderCell(item, columnKey)}</TableCell>
-                  )}
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        ) : (
-          <Table aria-label="Example empty table">
-            <TableHeader>
-              <TableColumn>NAME</TableColumn>
-              <TableColumn>ROLE</TableColumn>
-              <TableColumn>STATUS</TableColumn>
-              <TableColumn>ACTION</TableColumn>
-            </TableHeader>
-            <TableBody emptyContent={"No rows to display."}>{[]}</TableBody>
-          </Table>
-        )}
+        <div className="overflow-x-auto">
+          {users.length > 0 && user ? (
+            <Table
+              aria-label="Users table with custom cells"
+              className="min-w-full"
+            >
+              <TableHeader columns={columns}>
+                {(column) => (
+                  <TableColumn
+                    key={column.uid}
+                    align={
+                      column.uid === "name" || column.uid === "email"
+                        ? "start"
+                        : "center"
+                    }
+                  >
+                    {column.name}
+                  </TableColumn>
+                )}
+              </TableHeader>
+              <TableBody items={users}>
+                {(item: IUser) => (
+                  <TableRow key={item._id}>
+                    {(columnKey) => (
+                      <TableCell>{renderCell(item, columnKey)}</TableCell>
+                    )}
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          ) : (
+            <Table aria-label="Example empty table">
+              <TableHeader>
+                <TableColumn>NAME</TableColumn>
+                <TableColumn>ROLE</TableColumn>
+                <TableColumn>STATUS</TableColumn>
+                <TableColumn>ACTION</TableColumn>
+              </TableHeader>
+              <TableBody emptyContent={"No rows to display."}>{[]}</TableBody>
+            </Table>
+          )}
+        </div>
       </div>
 
       <div>

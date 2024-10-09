@@ -32,7 +32,7 @@ const PostManagement = () => {
   };
 
   return (
-    <div className="pb-10">
+    <div className="py-10">
       <SectionTitle
         sub="Quick Insights & Management Tools"
         heading="Travel Content Management"

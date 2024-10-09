@@ -19,7 +19,7 @@ const Team = () => {
                 height={805} // Optional (redundant with layout="fill")
                 loading="lazy"
               />
-              <div className="absolute bottom-0 inset-x-0 h-max mt-auto px-8 py-6 bg-primary translate-y-36 md:translate-y-[144px] lg:translate-y-[105px] xl:translate-y-36 transition duration-300 ease-in-out group-hover:translate-y-0">
+              <div className="absolute bottom-0 inset-x-0 h-max mt-auto px-8 py-6 bg-primary translate-y-[162px] md:translate-y-[144px] lg:translate-y-[105px] xl:translate-y-36 transition duration-300 ease-in-out group-hover:translate-y-0">
                 <div>
                   <h4 className="text-xl font-semibold text-white">
                     Alex Johnson
@@ -44,7 +44,7 @@ const Team = () => {
                 height={805}
                 loading="lazy"
               />
-              <div className="absolute bottom-0 inset-x-0 h-max mt-auto px-8 py-6 bg-primary translate-y-32 md:translate-y-[120px] lg:translate-y-[105px] xl:translate-y-[145px] transition duration-300 ease-in-out group-hover:translate-y-0">
+              <div className="absolute bottom-0 inset-x-0 h-max mt-auto px-8 py-6 bg-primary translate-y-[135px] md:translate-y-[120px] lg:translate-y-[105px] xl:translate-y-[145px] transition duration-300 ease-in-out group-hover:translate-y-0">
                 <div>
                   <h4 className="text-xl font-semibold text-white">
                     Emily Rodriguez

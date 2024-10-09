@@ -11,12 +11,12 @@ import {
 
 const DashboardActivityCard = ({ chartData }: { chartData: any }) => {
   return (
-    <div className="shadow-md rounded-lg p-5 w-[85%] mx-auto">
+    <div className="shadow-md rounded-lg w-full md:w-[90%] mx-auto overflow-x-auto">
       <h2 className="text-xl font-bold mb-4 text-center">
         User and Post Statistics
       </h2>
       <div className="flex flex-col">
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={400} minWidth={300}>
           <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="date" />

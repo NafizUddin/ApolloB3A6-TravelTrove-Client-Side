@@ -63,12 +63,12 @@ export default function AdminDashboardLayout({
   ];
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex">
       {/* Sidebar */}
       <Sidebar links={adminLinks} commonLinks={commonLinks} />
 
       {/* Dashboard Content */}
-      <main className="flex-1 bg-gray-100 p-6">{children}</main>
+      <main className="flex-1 p-2 md:p-6">{children}</main>
     </div>
   );
 }

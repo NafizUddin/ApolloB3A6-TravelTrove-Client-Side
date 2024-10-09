@@ -128,7 +128,7 @@ export default function CreatePostModal({ refetch }: { refetch: any }) {
         {user && (
           <div className="flex items-start">
             {isLoading ? (
-              <div className="animate-pulse w-10 h-10 rounded-full bg-custom mr-2" />
+              <div className="animate-pulse w-9 h-9 rounded-full bg-custom mr-2" />
             ) : (
               <img
                 src={user?.profilePhoto}
@@ -139,13 +139,12 @@ export default function CreatePostModal({ refetch }: { refetch: any }) {
           </div>
         )}
         <textarea
-          placeholder={`Tell us your story or share a tip! 🌍 ${
-            user ? user?.name : ""
-          }`}
+          readOnly
+          placeholder={`Tell us your story or share a tip! 🌍 `}
           className={`flex-grow border-2 border-primary resize-none text-sm md:text-xl h-14 rounded-full pl-2 md:pl-5 py-4 md:py-3 ${
             user
-              ? "w-[330px] md:w-[580px] lg:w-[770px] xl:w-[930px]"
-              : "w-[355px] md:w-[640px] lg:w-[830px] xl:w-[990px]"
+              ? "w-[310px] md:w-[580px] lg:w-[770px] xl:w-[930px] mx-auto"
+              : "w-[325px] md:w-[640px] lg:w-[830px] xl:w-[990px] mx-auto"
           }`}
         />
       </div>
