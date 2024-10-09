@@ -68,7 +68,7 @@ export const useGetAllPostsInDashboard = (query?: string) => {
     refetchInterval: 1000,
   });
 
-  return { data, error, refetch, isLoading };
+  return { data: data || [], error, refetch, isLoading };
 };
 
 export const useGetSinglePost = (id: string) => {

@@ -32,7 +32,7 @@ const Sidebar = ({ links, commonLinks }: SidebarProps) => {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   const router = useRouter();
-  const { setUser, setIsLoading: userLoading } = useUser();
+  const { setUser, setIsLoading: userLoading, isLoading } = useUser();
   const pathname = usePathname();
 
   const handleLogout = () => {
@@ -40,20 +40,8 @@ const Sidebar = ({ links, commonLinks }: SidebarProps) => {
     setUser(null);
     userLoading(true);
 
-    // Check if the current pathname matches any protected route
-    const isProtectedRoute = protectedRoutes.some((route) => {
-      // Normalize the route to remove dynamic segments
-      const baseRoute = route.replace(/:\w+/g, "*"); // Replace dynamic segments with '*'
-
-      // Check if the pathname matches the base route or starts with it
-      return pathname === baseRoute || pathname.startsWith(baseRoute + "/");
-    });
-
-    if (isProtectedRoute) {
-      console.log("yes mama");
+    if (protectedRoutes.some((route) => pathname.match(route))) {
       router.push("/");
-    } else {
-      console.log("Not a protected route");
     }
 
     toast.success("Logged out successfully");

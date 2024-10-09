@@ -14,6 +14,7 @@ export const useGetAllUsers = (query?: string) => {
   const { data, refetch, isLoading } = useQuery({
     queryKey: query ? ["users", query] : ["users"],
     queryFn: async () => await getAllUsers(query || ""),
+    refetchInterval: 2000,
   });
 
   return { data, refetch, isLoading };

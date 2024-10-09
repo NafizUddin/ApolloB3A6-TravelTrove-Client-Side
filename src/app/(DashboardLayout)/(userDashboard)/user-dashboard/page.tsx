@@ -8,7 +8,7 @@ import { useGetAllPostsInDashboard } from "@/src/hooks/post.hook";
 import { IPost } from "@/src/types";
 
 const UserDashboardHome = () => {
-  const { user } = useUser();
+  const { user, isLoading: userLoading } = useUser();
 
   const {
     data: individualAllPosts,
@@ -23,7 +23,7 @@ const UserDashboardHome = () => {
       <div className="mt-8">
         <div>
           {individualAllPosts?.data?.length > 0 ? (
-            postLoading ? (
+            postLoading || userLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
                 {Array.from({ length: 3 }).map((_, index) => (
                   <LoadingCardDashboard key={index} />
