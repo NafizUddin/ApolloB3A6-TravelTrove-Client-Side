@@ -284,7 +284,6 @@ const TravelPostCard = ({ singlePost, refetch }: ITravelPostCardProps) => {
     toast.loading("Deleting post...");
     try {
       const result = await deletePost(_id);
-      console.log(result);
 
       if (result.success) {
         toast.dismiss();

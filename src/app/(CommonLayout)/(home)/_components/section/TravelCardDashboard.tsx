@@ -32,7 +32,7 @@ const TravelCardDashboard = ({ singlePost, refetch }: ITravelPostCardProps) => {
   };
 
   const handleDeletePost = async () => {
-    handlePostDelete({ id: _id });
+    handlePostDelete({ id: _id, authorId: postAuthor?._id });
     refetch();
   };
 

@@ -144,17 +144,18 @@ export const useUpdatePost = () => {
 export const useDeletePost = () => {
   const { user, updateProfile } = useUser();
 
-  return useMutation<any, Error, { id: string }>({
+  return useMutation<any, Error, { id: string; authorId: string }>({
     mutationKey: ["DELETE_POST"],
-    mutationFn: async ({ id }) => {
+    mutationFn: async ({ id, authorId }) => {
+      console.log("authorId:", authorId);
       return toast.promise(deletePost(id), {
         loading: "Deleting Post...",
         success: "Post deleted successfully!",
         error: "Error when deleting comment.",
       });
     },
-    onSuccess: (_data) => {
-      if (user) {
+    onSuccess: (_data, { authorId }) => {
+      if (user && user._id === authorId) {
         const updatedUser: IUser = {
           ...user,
           postCount: user.postCount - 1,
